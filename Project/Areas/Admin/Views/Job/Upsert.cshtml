@@ -1,0 +1,50 @@
+﻿@model Project.Models.ViewModel.JobVM
+
+@{
+    ViewData["Title"] = "Upsert";
+}
+
+<h1>@(Model.job.Id != 0 ? "Update" : "Create")</h1>
+
+<h4>Job</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form class="needs-validation" novalidate asp-action="Upsert">
+            <input asp-for="job.Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="job.Name" class="control-label"></label>
+                <input asp-for="job.Name" class="form-control" required/>
+                <div class="invalid-feedback">Please enter name.</div>
+            </div>
+            <div class="form-group">
+                <label asp-for="job.Department_Id" for="Department" class="form-label"></label>
+                <select asp-for="job.Department_Id" asp-items="@Model.DepartmentList" id="Department" class="form-select" required>
+                    <option disabled selected value="">-Select Department-</option>
+                </select>
+                <div class="invalid-feedback">Please choose a department.</div>
+            </div>
+            <div class="form-group">
+                @if (Model.job.Id != 0)
+                {
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                }
+                else
+                {
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                }
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@*
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@

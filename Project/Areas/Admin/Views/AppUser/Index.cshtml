@@ -1,0 +1,73 @@
+﻿@using Project.Models;
+@model IEnumerable<AppUser>;
+
+
+<div class="pagetitle">
+    <h1>Data Tables</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item">Tables</li>
+            <li class="breadcrumb-item active">Data</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Datatables</h5>
+                <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable. Check for <a href="https://fiduswriter.github.io/simple-datatables/demos/" target="_blank">more examples</a>.</p>
+                <button type="button" class="btn btn-success rounded-pill">
+                    <a asp-controller="AppUser" asp-action="Create" class="text-white">Add New</a>
+                </button>
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Email</th>
+                            <th><b>N</b>ame</th>
+                            <th>Department</th>
+                            <th>BirthDay</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>@Html.DisplayFor(j=>item.Id)</td>
+                                <td>@Html.DisplayFor(j=>item.Email)</td>
+                                <td>@Html.DisplayFor(j=>item.Fullname)</td>
+                                <td>@Html.DisplayFor(j=>item.Department.Name)</td>
+                                <td>@Html.DisplayFor(j=>item.Birthday)</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary rounded-pill">
+                                        <a class="text-white" href="@Url.Action("Upsert", "Job", new { id = item.Id })">Edit</a>
+                                    </button>
+                                    <button type="button" class="btn btn-danger rounded-pill">
+                                        <a class="text-white" href="@Url.Action("Delete", "Job", new { id = item.Id })">Delete</a>
+                                    </button>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>
+
+
+
+
