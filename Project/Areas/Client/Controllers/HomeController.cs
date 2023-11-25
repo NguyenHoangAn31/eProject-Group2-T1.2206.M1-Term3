@@ -104,41 +104,34 @@ namespace Project.Areas.Client.Controllers
         [HttpPost]
         public async Task<IActionResult> Profile(ApplicantDto dto , IFormFile file)
         {
-            if (ModelState.IsValid)
+            string wwwRootPath = _env.WebRootPath;
+            if (file != null)
             {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                string applicantPath = Path.Combine(wwwRootPath, @"assets\client\img\img-applicant");
 
-
-                string wwwRootPath = _env.WebRootPath;
-                if (file != null)
+                if (!string.IsNullOrEmpty(dto.Image))
                 {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    string applicantPath = Path.Combine(wwwRootPath, @"assets\client\img\img-applicant");
+                    //delete the old image
+                    var oldImagePath =
+                        Path.Combine(wwwRootPath, dto.Image.TrimStart('\\'));
 
-                    if (!string.IsNullOrEmpty(dto.Image))
+                    if (System.IO.File.Exists(oldImagePath))
                     {
-                        //delete the old image
-                        var oldImagePath =
-                            Path.Combine(wwwRootPath, dto.Image.TrimStart('\\'));
-
-                        if (System.IO.File.Exists(oldImagePath))
-                        {
-                            System.IO.File.Delete(oldImagePath);
-                        }
+                        System.IO.File.Delete(oldImagePath);
                     }
-
-                    using (var fileStream = new FileStream(Path.Combine(applicantPath, fileName), FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-
-                    dto.Image = @"assets\client\img\img-applicant\" + fileName;
                 }
 
+                using (var fileStream = new FileStream(Path.Combine(applicantPath, fileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
 
-
-                _unitOfWork.Applicant.Update(_mapper.Map<Applicant>(dto));
-                await _unitOfWork.Save();
+                dto.Image = @"assets\client\img\img-applicant\" + fileName;
             }
+            _unitOfWork.Applicant.Update(_mapper.Map<Applicant>(dto));
+            await _unitOfWork.Save();
+           
             TempData["AlertMessage"] = "Saved Successfully";
             return RedirectToAction("Profile");
         }
