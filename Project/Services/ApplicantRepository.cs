@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Project.Data;
 using Project.Services.IRepository;
+using System.Security.Principal;
 
 namespace Project.Services
 {
@@ -20,6 +21,15 @@ namespace Project.Services
                 return applicant.Id;
             }
             return null;
+        }
+        public async Task<bool> CheckAccountExist(string email)
+        {
+            Applicant? applicant = await _db.Applicants.SingleOrDefaultAsync(a => a.Email == email);
+            if (applicant != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

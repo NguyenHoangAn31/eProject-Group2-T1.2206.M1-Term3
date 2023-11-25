@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\assets\client\" />
+    <Folder Include="wwwroot\assets\client\img\img-applicant\" />
   </ItemGroup>
 
 </Project>
