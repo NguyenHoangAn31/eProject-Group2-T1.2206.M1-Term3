@@ -176,11 +176,11 @@ namespace Project.Data
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<StatusApplicant> StatusApplicants { get; set; }
-        public DbSet<StatusVacancy> StatusVacancy { get; set;}
+        public DbSet<StatusVacancy> StatusVacancies { get; set;}
         public DbSet<StatusInterview> StatusInterviews { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<VacancyJob> VacanciesJobs { get; set; }
-        public DbSet<ApplicantVacancy> ApplicantsDetail { get; set; }
-        public DbSet<InterviewVacancy> ApplicantsVacnacies { get; set; }
+        public DbSet<ApplicantVacancy> ApplicantsVacancies { get; set; }
+        public DbSet<InterviewVacancy> InterviewsVacancies { get; set; }
     }
 }

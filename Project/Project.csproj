@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="mailssave\" />
     <Folder Include="wwwroot\assets\client\img\img-applicant\" />
   </ItemGroup>
 
