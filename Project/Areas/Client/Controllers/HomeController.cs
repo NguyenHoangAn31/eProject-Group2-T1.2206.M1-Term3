@@ -104,30 +104,34 @@ namespace Project.Areas.Client.Controllers
         [HttpPost]
         public async Task<IActionResult> Profile(ApplicantDto dto , IFormFile file)
         {
-            string wwwRootPath = _env.WebRootPath;
-            if (file != null)
+            if (ModelState.IsValid)
             {
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                string applicantPath = Path.Combine(wwwRootPath, @"assets\client\img\img-applicant");
-
-                if (!string.IsNullOrEmpty(dto.Image))
+                string wwwRootPath = _env.WebRootPath;
+                if (file != null)
                 {
-                    //delete the old image
-                    var oldImagePath =
-                        Path.Combine(wwwRootPath, dto.Image.TrimStart('\\'));
-
-                    if (System.IO.File.Exists(oldImagePath))
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string applicantPath = Path.Combine(wwwRootPath, @"assets\client\img\img-applicant");
+                    if (dto.Image != "assets\\client\\img\\img-applicant\\default-image-applicant.png")
                     {
-                        System.IO.File.Delete(oldImagePath);
+                        if (!string.IsNullOrEmpty(dto.Image))
+                        {
+                            //delete the old image
+                            var oldImagePath =
+                                Path.Combine(wwwRootPath, dto.Image.TrimStart('\\'));
+
+                            if (System.IO.File.Exists(oldImagePath))
+                            {
+                                System.IO.File.Delete(oldImagePath);
+                            }
+                        }
                     }
-                }
+                    using (var fileStream = new FileStream(Path.Combine(applicantPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
 
-                using (var fileStream = new FileStream(Path.Combine(applicantPath, fileName), FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
+                    dto.Image = @"assets\client\img\img-applicant\" + fileName;
                 }
-
-                dto.Image = @"assets\client\img\img-applicant\" + fileName;
             }
             _unitOfWork.Applicant.Update(_mapper.Map<Applicant>(dto));
             await _unitOfWork.Save();
