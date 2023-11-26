@@ -14,6 +14,7 @@ namespace Project.Models
         [Required]
         public string? Phone { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         public DateTime? Birthday { get; set; }
         public string? Image { get; set; }
         [Required]

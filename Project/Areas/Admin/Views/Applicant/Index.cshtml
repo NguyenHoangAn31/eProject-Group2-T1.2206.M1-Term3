@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Project.Models.ApplicantDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="pagetitle">
+    <h1>Applicants Table</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item">Tables</li>
+            <li class="breadcrumb-item active">Applicant</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Manage Applicants</h5>
+                <p>
+                    "Manage applicants effortlessly with our intuitive system. Review, organize, and track candidate progress seamlessly for streamlined recruitment."
+                </p>
+                <button type="button" class="btn btn-success rounded-pill">
+                    <a asp-controller="Applicant" asp-action="Upsert" class="text-white">Add New</a>
+                </button>
+                @if (TempData["AlertMessage"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        @TempData["AlertMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Fullname)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Birthday)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <img src="~/@item.Image" width="50" style="border-radius=50%;"/>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fullname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Birthday)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Province)
+
+                                </td>
+
+                                <td>
+                                    <button type="button" class="btn btn-primary rounded-pill">
+                                        <a class="text-white" href="@Url.Action("Upsert", "Applicant", new { id = item.Id })">Edit</a>
+                                    </button>
+                                    <button type="button" class="btn btn-danger rounded-pill">
+                                        <a class="text-white" href="@Url.Action("Delete", "Applicant", new { id = item.Id })">Delete</a>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+
+            </div>
+        </div>
+
+    </div>
+</div>

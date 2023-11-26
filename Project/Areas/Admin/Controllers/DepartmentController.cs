@@ -52,12 +52,12 @@ namespace Project.Areas.Admin.Controllers
                 if (isupdate != null)
                 {
                     _unitOfWork.Department.Update(_mapper.Map<Department>(dto));
-                    TempData["AlertMessage"] = "Update Job Successfully";
+                    TempData["AlertMessage"] = "Update Department Successfully";
                 }
                 else
                 {
                     _unitOfWork.Department.Create(_mapper.Map<Department>(dto));
-                    TempData["alertmessage"] = "create job successfully";
+                    TempData["alertmessage"] = "create Department successfully";
 
                 }
               
@@ -71,7 +71,7 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(string? id)
         {
             DepartmentDto dto = _mapper.Map<DepartmentDto>(await _unitOfWork.Department.Get(d => d.Department_Id == id));
-            TempData["AlertMessage"] = "Delete Job Successfully";
+            TempData["AlertMessage"] = "Delete Department Successfully";
             return View(dto);
         }
         [HttpPost]
