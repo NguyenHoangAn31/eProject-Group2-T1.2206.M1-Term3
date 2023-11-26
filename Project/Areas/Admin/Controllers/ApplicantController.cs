@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Project.Data;
@@ -16,11 +17,13 @@ namespace Project.Areas.Admin.Controllers
         IUnitOfWork _unitOfWork;
         IMapper _mapper;
         IWebHostEnvironment _env;
-        public ApplicantController(IUnitOfWork unitOfWork, IMapper mapper , IWebHostEnvironment env)
+        IHttpContextAccessor _contextAccessor;
+        public ApplicantController(IUnitOfWork unitOfWork, IMapper mapper , IWebHostEnvironment env , IHttpContextAccessor contextAccessor)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _env = env;
+            _contextAccessor = contextAccessor;
         }
         public async Task<IActionResult> Index()
         {
@@ -102,6 +105,20 @@ namespace Project.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(ApplicantDto dto)
         {
+            int? idUser = _contextAccessor.HttpContext!.Session.GetInt32("idUser") ?? default(int);
+            if (idUser == dto.Id)
+            {
+                _contextAccessor.HttpContext!.Session.Remove("idUser");
+            }
+            var oldImagePath =
+                           Path.Combine(_env.WebRootPath,
+                           dto.Image.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+
             _unitOfWork.Applicant.Delete(_mapper.Map<Applicant>(dto));
             await _unitOfWork.Save();
             return RedirectToAction("Index");
