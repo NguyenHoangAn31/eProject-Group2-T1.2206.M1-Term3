@@ -23,9 +23,9 @@ namespace Project.Data
                 }
             }
             builder.Entity<Department>().HasData(
-                new Department { Department_Id = "D0001", Name = "IT" , Created_at = DateTime.Now},
-                new Department { Department_Id = "D0002", Name = "DS" , Created_at = DateTime.Now },
-                new Department { Department_Id = "D0003", Name = "MKT" , Created_at = DateTime.Now }
+                new Department { Department_Id = "D0001", Name = "Information Technology" , Created_at = DateTime.Now},
+                new Department { Department_Id = "D0002", Name = "Desgin" , Created_at = DateTime.Now },
+                new Department { Department_Id = "D0003", Name = "Marketing" , Created_at = DateTime.Now }
                 );
             builder.Entity<Applicant>().HasData(
                 new Applicant { Id = 1, Email = "user1@example.com", Password = "Abc12345678", Fullname = "James Smith", Phone = "1234567890", Birthday = new DateTime(1990, 5, 10), Image = "image1.jpg", Ward = "Westminster", District = "City of Westminster", Province = "Greater London" , Created_at = DateTime.Now},

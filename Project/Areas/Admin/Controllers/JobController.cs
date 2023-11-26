@@ -59,10 +59,12 @@ namespace Project.Areas.Admin.Controllers
                 if (vm.job.Id != 0)
                 {
                     _unitOfWork.Job.Update(_mapper.Map<Job>(vm.job));
+                    TempData["AlertMessage"] = "Update Job Successfully";
                 }
                 else
                 {
                     _unitOfWork.Job.Create(_mapper.Map<Job>(vm.job));
+                    TempData["AlertMessage"] = "Create Job Successfully";
 
                 }
                 await _unitOfWork.Save();
@@ -80,11 +82,7 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             JobDto dto = _mapper.Map<JobDto>(await _unitOfWork.Job.Get(j => j.Id == id));
-            dto.DepartmentList = (await _unitOfWork.Department.GetAll()).Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Department_Id
-            });
+            TempData["AlertMessage"] = "Delete Job Successfully";
             return View(dto);
         }
         [HttpPost]
