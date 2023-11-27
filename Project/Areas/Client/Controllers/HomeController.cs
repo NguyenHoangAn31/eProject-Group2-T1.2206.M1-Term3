@@ -5,6 +5,7 @@ using Project.Data;
 using Project.Models;
 using Project.Models.ViewModel;
 using Project.Services.IRepository;
+using Project.SessionExtend;
 
 namespace Project.Areas.Client.Controllers
 {
@@ -50,11 +51,15 @@ namespace Project.Areas.Client.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM vm)
         {
-            int? id = (await _unitOfWork.Applicant.CheckLogin(vm.Email!, vm.Password!));
-            if ( id != null && id != 0)
+            Applicant? applicant = (await _unitOfWork.Applicant.CheckLogin(vm.Email!, vm.Password!));
+            if (applicant != null)
             {
-                _contextAccessor.HttpContext!.Session.SetInt32("idUser", id.Value); 
-                return RedirectToAction("Profile");
+                var userSession = new UserSession();
+                userSession.Id = applicant.Id;
+                userSession.UserName = applicant.Fullname;
+
+                _contextAccessor.HttpContext!.Session.SetObjectAsJson("userSession", userSession);
+                return RedirectToAction("Index");
             }
             else
             {
@@ -90,9 +95,10 @@ namespace Project.Areas.Client.Controllers
         }
         public async Task<IActionResult> Profile()
         {
-            if (_contextAccessor.HttpContext!.Session.GetInt32("idUser") != null)
+            var userSession = _contextAccessor.HttpContext!.Session.GetObjectFromJson<UserSession>("userSession");
+            if (userSession != null)
             {
-                int idUser = _contextAccessor.HttpContext.Session.GetInt32("idUser") ?? default(int);
+                int idUser = userSession.Id;
                 ApplicantDto applicant = _mapper.Map<ApplicantDto>(await _unitOfWork.Applicant.Get(a => a.Id == idUser));
                 return View(applicant);
             }
@@ -141,7 +147,7 @@ namespace Project.Areas.Client.Controllers
         }
         public IActionResult Logout()
         {
-            _contextAccessor.HttpContext!.Session.Remove("idUser");
+            _contextAccessor.HttpContext!.Session.Remove("userSession");
             return RedirectToAction("Index");
         }
 

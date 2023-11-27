@@ -7,6 +7,7 @@ using Project.Data;
 using Project.Models;
 using Project.Models.ViewModel;
 using Project.Services.IRepository;
+using Project.SessionExtend;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -105,14 +106,14 @@ namespace Project.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(ApplicantDto dto)
         {
-            int? idUser = _contextAccessor.HttpContext!.Session.GetInt32("idUser") ?? default(int);
-            if (idUser == dto.Id)
+            var userSesison = _contextAccessor.HttpContext!.Session.GetObjectFromJson<UserSession>("userSession");
+            if (userSesison.Id == dto.Id)
             {
-                _contextAccessor.HttpContext!.Session.Remove("idUser");
+                _contextAccessor.HttpContext!.Session.Remove("userSession");
             }
             var oldImagePath =
                            Path.Combine(_env.WebRootPath,
-                           dto.Image.TrimStart('\\'));
+                           dto.Image!.TrimStart('\\'));
 
             if (System.IO.File.Exists(oldImagePath))
             {

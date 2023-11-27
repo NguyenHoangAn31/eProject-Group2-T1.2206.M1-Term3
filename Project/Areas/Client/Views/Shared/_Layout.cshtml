@@ -1,4 +1,9 @@
 ﻿@inject IHttpContextAccessor context;
+@using SessionExtend
+@{
+    //Get object from session
+    var mySessionObject = context.HttpContext!.Session.GetObjectFromJson<UserSession>("userSession");
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,16 +99,19 @@
                     <a asp-area="Client" asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Contact</a>
                 </div>
                 <butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton>
-                @if (context.HttpContext!.Session.GetString("idUser") != null)
+                @if (mySessionObject != null)
                 {
-
-                    <a asp-area="Client" asp-controller="Home" asp-action="Profile" class="btn btn-primary py-2 px-4 ms-3">Profile</a>
-                    <a asp-area="Client" asp-controller="Home" asp-action="Logout" class="btn btn-primary py-2 px-4 ms-3">Logout</a>   
+                    <div class="btn-group">
+                        <a class="btn btn-primary py-2 px-4 ms-3 dropdown-toggle" data-bs-toggle="dropdown">@mySessionObject.UserName</a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="Client" asp-controller="Home" asp-action="Profile" class="dropdown-item">Profile</a></li>
+                            <li><a asp-area="Client" asp-controller="Home" asp-action="Logout" class="dropdown-item">Logout</a></li>
+                        </ul>
+                    </div>
                 }
                 else
                 {
                     <a asp-area="Client" asp-controller="Home" asp-action="Login" class="btn btn-primary py-2 px-4 ms-3">Login</a>
-                    <a asp-area="Client" asp-controller="Home" asp-action="Register" class="btn btn-primary py-2 px-4 ms-3">Register</a>
                 }
                 
 

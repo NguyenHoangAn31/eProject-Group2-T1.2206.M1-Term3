@@ -13,12 +13,12 @@ namespace Project.Services
             _db = db;
         }
 
-        public async Task<int?> CheckLogin(string email, string password)
+        public async Task<Applicant?> CheckLogin(string email, string password)
         {
             Applicant? applicant = await _db.Applicants.SingleOrDefaultAsync(a => a.Email == email && a.Password == password);
             if (applicant != null)
             {
-                return applicant.Id;
+                return applicant;
             }
             return null;
         }

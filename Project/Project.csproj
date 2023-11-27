@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="mailssave\**" />
+    <Content Remove="mailssave\**" />
+    <EmbeddedResource Remove="mailssave\**" />
+    <None Remove="mailssave\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="MailKit" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
@@ -23,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="mailssave\" />
     <Folder Include="wwwroot\assets\client\img\img-applicant\" />
   </ItemGroup>
 
