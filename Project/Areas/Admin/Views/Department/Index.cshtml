@@ -30,9 +30,7 @@
                 <p>
                     The "Manage Departments" section enables you to organize, edit, and oversee various departments within your organization efficiently.
                 </p>
-                <button type="button" class="btn btn-success rounded-pill">
-                    <a asp-controller="Department" asp-action="Upsert" class="text-white">Add New</a>
-                </button>
+                <a asp-controller="Department" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
                 @if (TempData["AlertMessage"] != null)
                 {
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
@@ -68,12 +66,8 @@
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary rounded-pill">
-                                        <a class="text-white" href="@Url.Action("Upsert", "Department", new { id = item.Department_Id })">Edit</a>
-                                    </button>
-                                    <button type="button" class="btn btn-danger rounded-pill">
-                                        <a class="text-white" href="@Url.Action("Delete", "Department", new { id = item.Department_Id })">Delete</a>
-                                    </button>
+                                    <a class="text-white btn btn-primary rounded-pill" href="@Url.Action("Upsert", "Department", new { id = item.Department_Id })">Edit</a>
+                                    <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("Delete", "Department", new { id = item.Department_Id })">Delete</a>
                                 </td>
                             </tr>
                         }

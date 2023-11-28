@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using NuGet.Packaging.Signing;
+using Project.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,6 +32,8 @@ namespace Project.Data
         public string? Description { get; set; }
         public string? Benefits { get; set; }
         public DateTime? EndDate { get; set; }
+        public virtual ICollection<VacancyJob>? VacanciesJobs { get; set; }
+
 
     }
 }

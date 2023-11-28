@@ -27,9 +27,7 @@
                 <p>
                     "Manage Jobs" provides a comprehensive dashboard to oversee, edit, and track job listings efficiently, ensuring seamless management of tasks and applications
                 </p>
-                <button type="button" class="btn btn-success rounded-pill">
-                <a asp-controller="Job" asp-action="Upsert" class="text-white" >Add New</a>
-                </button>
+                <a asp-controller="Job" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
                 @if (TempData["AlertMessage"] != null)
                 {
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
@@ -58,12 +56,8 @@
                         <td>@Html.DisplayFor(j=>item.Name)</td>
                         <td>@Html.DisplayFor(j=>item.Department!.Name)</td>
                         <td>
-                            <button type="button" class="btn btn-primary rounded-pill">
-                                <a class="text-white" href="@Url.Action("Upsert", "Job", new { id = item.Id })">Edit</a>
-                            </button>
-                            <button type="button" class="btn btn-danger rounded-pill">
-                                <a class="text-white" href="@Url.Action("Delete", "Job", new { id = item.Id })">Delete</a>
-                            </button>
+                            <a class="text-white btn btn-primary rounded-pill" href="@Url.Action("Upsert", "Job", new { id = item.Id })">Edit</a>
+                            <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("Delete", "Job", new { id = item.Id })">Delete</a>
                         </td>
                         </tr>
                         }

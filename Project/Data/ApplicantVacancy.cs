@@ -7,8 +7,7 @@ namespace Project.Data
 {
     public class ApplicantVacancy : BaseEntity
     {
-        [Key]
-        public string? ApplicantVacancy_Id { get; set; }
+        public int Id { get; set; }
 
         public string? Vacancy_Id { get; set; }
         [ForeignKey("Vacancy_Id")]
@@ -26,5 +25,6 @@ namespace Project.Data
         [ForeignKey("StatusApplicant_Id")]
         [ValidateNever]
         public StatusApplicant? StatusApplicant { get; set; }
+        public byte[]? Attachment { get;set; }
     }
 }

@@ -11,6 +11,7 @@ namespace Project.Models
         [ValidateNever]
         public Vacancy? Vacancy { get; set; }
         public int? Job_Id { get; set; }
+        [ValidateNever]
         public Job? Job { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Project.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Data
@@ -11,5 +12,7 @@ namespace Project.Data
         [ForeignKey("Department_Id")]
         [ValidateNever]
         public Department? Department { get; set; }
+        public virtual ICollection<VacancyJob>? VacanciesJobs { get; set; }
+
     }
 }
