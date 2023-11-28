@@ -98,26 +98,26 @@ namespace Project.Data
                 new VacancyJob { Id = 15, Vacancy_Id = "V0005", Job_Id = 6, Created_at = DateTime.Now }
                 );
             builder.Entity<ApplicantVacancy>().HasData(
-                new ApplicantVacancy { ApplicantVacancy_Id = "A0001", Vacancy_Id = "V0001", Applicant_Id = 1, StatusApplicant_Id = 1, Created_at = DateTime.Now },
-                new ApplicantVacancy { ApplicantVacancy_Id = "A0002", Vacancy_Id = "V0002", Applicant_Id = 2, StatusApplicant_Id = 1, Created_at = DateTime.Now },
-                new ApplicantVacancy { ApplicantVacancy_Id = "A0003", Vacancy_Id = "V0003", Applicant_Id = 3, StatusApplicant_Id = 1, Created_at = DateTime.Now },
-                new ApplicantVacancy { ApplicantVacancy_Id = "A0004", Vacancy_Id = "V0004", Applicant_Id = 4, StatusApplicant_Id = 1, Created_at = DateTime.Now },
-                new ApplicantVacancy { ApplicantVacancy_Id = "A0005", Vacancy_Id = "V0005", Applicant_Id = 5, StatusApplicant_Id = 1, Created_at = DateTime.Now },
-                new ApplicantVacancy { ApplicantVacancy_Id = "A0006", Vacancy_Id = "V0001", Applicant_Id = 6, StatusApplicant_Id = 1, Created_at = DateTime.Now },
-                new ApplicantVacancy { ApplicantVacancy_Id = "A0007", Vacancy_Id = "V0002", Applicant_Id = 7, StatusApplicant_Id = 1, Created_at = DateTime.Now },
-                new ApplicantVacancy { ApplicantVacancy_Id = "A0008", Vacancy_Id = "V0003", Applicant_Id = 8, StatusApplicant_Id = 1, Created_at = DateTime.Now },
-                new ApplicantVacancy { ApplicantVacancy_Id = "A0009", Vacancy_Id = "V0004", Applicant_Id = 9, StatusApplicant_Id = 1, Created_at = DateTime.Now }
+                new ApplicantVacancy { Id = 1, Vacancy_Id = "V0001", Applicant_Id = 1, StatusApplicant_Id = 1, Created_at = DateTime.Now },
+                new ApplicantVacancy { Id = 2, Vacancy_Id = "V0002", Applicant_Id = 2, StatusApplicant_Id = 1, Created_at = DateTime.Now },
+                new ApplicantVacancy { Id = 3, Vacancy_Id = "V0003", Applicant_Id = 3, StatusApplicant_Id = 1, Created_at = DateTime.Now },
+                new ApplicantVacancy { Id = 4, Vacancy_Id = "V0004", Applicant_Id = 4, StatusApplicant_Id = 1, Created_at = DateTime.Now },
+                new ApplicantVacancy { Id = 5, Vacancy_Id = "V0005", Applicant_Id = 5, StatusApplicant_Id = 1, Created_at = DateTime.Now },
+                new ApplicantVacancy { Id = 6, Vacancy_Id = "V0001", Applicant_Id = 6, StatusApplicant_Id = 1, Created_at = DateTime.Now },
+                new ApplicantVacancy { Id = 7, Vacancy_Id = "V0002", Applicant_Id = 7, StatusApplicant_Id = 1, Created_at = DateTime.Now },
+                new ApplicantVacancy { Id = 8, Vacancy_Id = "V0003", Applicant_Id = 8, StatusApplicant_Id = 1, Created_at = DateTime.Now },
+                new ApplicantVacancy { Id = 9, Vacancy_Id = "V0004", Applicant_Id = 9, StatusApplicant_Id = 1, Created_at = DateTime.Now }
                 );
             builder.Entity<InterviewVacancy>().HasData(
-                new InterviewVacancy { Id = 1, ApplicantVacancy_Id = "A0001", StatusInterview_Id = 1, Created_at = DateTime.Now },
-                new InterviewVacancy { Id = 2, ApplicantVacancy_Id = "A0002", StatusInterview_Id = 1, Created_at = DateTime.Now },
-                new InterviewVacancy { Id = 3, ApplicantVacancy_Id = "A0003", StatusInterview_Id = 1, Created_at = DateTime.Now },
-                new InterviewVacancy { Id = 4, ApplicantVacancy_Id = "A0004", StatusInterview_Id = 1, Created_at = DateTime.Now },
-                new InterviewVacancy { Id = 5, ApplicantVacancy_Id = "A0001", StatusInterview_Id = 1, Created_at = DateTime.Now },
-                new InterviewVacancy { Id = 6, ApplicantVacancy_Id = "A0002", StatusInterview_Id = 1, Created_at = DateTime.Now },
-                new InterviewVacancy { Id = 7, ApplicantVacancy_Id = "A0003", StatusInterview_Id = 1, Created_at = DateTime.Now },
-                new InterviewVacancy { Id = 8, ApplicantVacancy_Id = "A0004", StatusInterview_Id = 1, Created_at = DateTime.Now },
-                new InterviewVacancy { Id = 9, ApplicantVacancy_Id = "A0005", StatusInterview_Id = 1, Created_at = DateTime.Now }
+                new InterviewVacancy { Id = 1, ApplicantVacancy_Id = 1, StatusInterview_Id = 1, Created_at = DateTime.Now },
+                new InterviewVacancy { Id = 2, ApplicantVacancy_Id = 2, StatusInterview_Id = 1, Created_at = DateTime.Now },
+                new InterviewVacancy { Id = 3, ApplicantVacancy_Id = 3, StatusInterview_Id = 1, Created_at = DateTime.Now },
+                new InterviewVacancy { Id = 4, ApplicantVacancy_Id = 4, StatusInterview_Id = 1, Created_at = DateTime.Now },
+                new InterviewVacancy { Id = 5, ApplicantVacancy_Id = 1, StatusInterview_Id = 1, Created_at = DateTime.Now },
+                new InterviewVacancy { Id = 6, ApplicantVacancy_Id = 2, StatusInterview_Id = 1, Created_at = DateTime.Now },
+                new InterviewVacancy { Id = 7, ApplicantVacancy_Id = 3, StatusInterview_Id = 1, Created_at = DateTime.Now },
+                new InterviewVacancy { Id = 8, ApplicantVacancy_Id = 4, StatusInterview_Id = 1, Created_at = DateTime.Now },
+                new InterviewVacancy { Id = 9, ApplicantVacancy_Id = 5, StatusInterview_Id = 1, Created_at = DateTime.Now }
                 );
          
 

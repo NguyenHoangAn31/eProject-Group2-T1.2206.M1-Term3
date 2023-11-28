@@ -23,8 +23,9 @@ namespace Project.Models
         public string? Place { get; set; }
         public string? Title { get; set; }
         public string? Requirement { get; set; }
-        public string? Description { get; set; }
+        public string? Description { get; set; }    
         public string? Benefits { get; set; }
         public DateTime? EndDate { get; set; }
+
     }
 }

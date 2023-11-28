@@ -13,7 +13,7 @@ namespace Project.Models
         [ValidateNever]
         public Department? Department { get; set; }
         [ValidateNever]
-        public IEnumerable<SelectListItem> DepartmentList { get; set; }
+        public IEnumerable<SelectListItem>? DepartmentList { get; set; }
 
 
     }

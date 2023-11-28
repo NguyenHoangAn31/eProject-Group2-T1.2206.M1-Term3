@@ -1,0 +1,29 @@
+﻿@model Vacancy;
+<p>
+    @Html.DisplayFor(model => model.Vacancy_Id)
+</p>
+<p>
+    @Html.DisplayFor(model => model.Title)
+</p>
+<p>
+    @Html.DisplayFor(model => model.Benefits)
+</p>
+@if (TempData["AlertMessageSuccess"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["AlertMessageSuccess"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["AlertMessageError"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["AlertMessageError"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<form asp-controller="Home" asp-action="SubmitCV" enctype="multipart/form-data">
+    <input type="file" name="file" required/>
+    <input asp-for="Vacancy_Id" hidden name="vacancyid" />
+    <input type="submit" />
+</form>

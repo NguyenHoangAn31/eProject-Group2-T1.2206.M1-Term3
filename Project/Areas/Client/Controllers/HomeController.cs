@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Project.Data;
 using Project.Models;
 using Project.Models.ViewModel;
 using Project.Services.IRepository;
 using Project.SessionExtend;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Project.Areas.Client.Controllers
 {
@@ -36,9 +40,53 @@ namespace Project.Areas.Client.Controllers
         {
             return View();
         }
-        public IActionResult Vacancies()
+        public async Task<IActionResult> Vacancies()
         {
-            return View();
+            
+            List<Vacancy> vacancies = await _unitOfWork.Vacancy.GetAll_Vacancies();
+            return View(vacancies);
+        }
+        public async Task<IActionResult> Detail_Vacancy(string id)
+        {
+            Vacancy vacancy = await _unitOfWork.Vacancy.Vacancy_Detail(id);
+            return View(vacancy);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SubmitCV(IFormFile file , string vacancyid)
+        {
+            var userSession = _contextAccessor.HttpContext!.Session.GetObjectFromJson<UserSession>("userSession");
+            if (userSession != null)
+            {
+                if (file != null)
+                {
+                    string? status = await _unitOfWork.ApplicantVacancy.CheckExistApplicantVacancy(userSession.Id , vacancyid);
+                    if (status != null)
+                    {
+                        TempData["AlertMessageError"] = $"Your Cv {status}";
+                        return RedirectToAction("Detail_Vacancy", new { id = vacancyid });
+                    }
+                    ApplicantVacancy applicantVacancy = new ApplicantVacancy()
+                    {
+                        Vacancy_Id = vacancyid,
+                        StatusApplicant_Id = 1,
+                        Applicant_Id = userSession.Id
+                    };
+                    if (file.Length > 0 && file.Length < 30000000)
+                    {
+                        using (var target = new MemoryStream())
+                        {
+                            file.CopyTo(target);
+                            applicantVacancy.Attachment = target.ToArray();
+                        }
+                    }
+                    _unitOfWork.ApplicantVacancy.Create(applicantVacancy);
+                    await _unitOfWork.Save();
+                    TempData["AlertMessageSuccess"] = "Apply CV Successfully";
+                    return RedirectToAction("Detail_Vacancy" , new {id = vacancyid});
+                }
+            }
+            return RedirectToAction("Login");
+
         }
         public IActionResult Contact()
         {

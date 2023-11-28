@@ -14,7 +14,7 @@ namespace Project.Data
         [ValidateNever]
         public StatusInterview? StatusInterview { get; set; }
 
-        public string? ApplicantVacancy_Id { get; set; }
+        public int? ApplicantVacancy_Id { get; set; }
         [ForeignKey("ApplicantVacancy_Id")]
         [ValidateNever]
         public ApplicantVacancy? ApplicantVacancy { get; set; }
