@@ -20,7 +20,7 @@ namespace Project.Data
         public string? Hr_Id { get; set; }
         [ForeignKey("Hr_Id")]
         [ValidateNever]
-        public IdentityUser? IdentityUser { get; set; }
+        public AppUser? AppUser { get; set; }
         public int StatusApplicant_Id { get; set; }
         [ForeignKey("StatusApplicant_Id")]
         [ValidateNever]

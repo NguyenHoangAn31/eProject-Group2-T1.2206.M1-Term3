@@ -31,15 +31,15 @@
                     The "Manage Departments" section enables you to organize, edit, and oversee various departments within your organization efficiently.
                 </p>
                 <a asp-controller="Department" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
-                @if (TempData["AlertMessage"] != null)
+                @if (TempData["AlertMessageDepartment"] != null)
                 {
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                        @TempData["AlertMessage"]
+                        @TempData["AlertMessageDepartment"]
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }
                 <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table datatable table-hover table-sm">
                     <thead>
                         <tr>
                             <th></th>

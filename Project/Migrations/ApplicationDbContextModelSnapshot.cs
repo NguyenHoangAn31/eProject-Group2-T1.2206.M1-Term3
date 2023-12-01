@@ -74,77 +74,6 @@ namespace Project.Migrations
                     b.ToTable("RoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("Users", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -276,7 +205,7 @@ namespace Project.Migrations
                         {
                             Id = 1,
                             Birthday = new DateTime(1990, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8886),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6661),
                             District = "City of Westminster",
                             Email = "user1@example.com",
                             Fullname = "James Smith",
@@ -291,7 +220,7 @@ namespace Project.Migrations
                         {
                             Id = 2,
                             Birthday = new DateTime(1995, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8889),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6664),
                             District = "Manchester City",
                             Email = "user2@example.com",
                             Fullname = "Sarah Johnson",
@@ -306,7 +235,7 @@ namespace Project.Migrations
                         {
                             Id = 3,
                             Birthday = new DateTime(1985, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8892),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6668),
                             District = "Birmingham City Centre",
                             Email = "user3@example.com",
                             Fullname = "David Williams",
@@ -321,7 +250,7 @@ namespace Project.Migrations
                         {
                             Id = 4,
                             Birthday = new DateTime(1980, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8896),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6671),
                             District = "Liverpool City Centre",
                             Email = "user4@example.com",
                             Fullname = "Emma Brown",
@@ -336,7 +265,7 @@ namespace Project.Migrations
                         {
                             Id = 5,
                             Birthday = new DateTime(1992, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8899),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6674),
                             District = "Leeds City Centre",
                             Email = "user5@example.com",
                             Fullname = "John Jones",
@@ -351,7 +280,7 @@ namespace Project.Migrations
                         {
                             Id = 6,
                             Birthday = new DateTime(1978, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8902),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6677),
                             District = "Bristol City Centre",
                             Email = "user6@example.com",
                             Fullname = "Lucy Taylor",
@@ -366,7 +295,7 @@ namespace Project.Migrations
                         {
                             Id = 7,
                             Birthday = new DateTime(1988, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8905),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6680),
                             District = "Sheffield City Centre",
                             Email = "user7@example.com",
                             Fullname = "Michael Davies",
@@ -381,7 +310,7 @@ namespace Project.Migrations
                         {
                             Id = 8,
                             Birthday = new DateTime(1998, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8908),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6683),
                             District = "Newcastle City Centre",
                             Email = "user8@example.com",
                             Fullname = "Olivia Wilson",
@@ -396,7 +325,7 @@ namespace Project.Migrations
                         {
                             Id = 9,
                             Birthday = new DateTime(1983, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8911),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6686),
                             District = "Nottingham City Centre",
                             Email = "user9@example.com",
                             Fullname = "Thomas Evans",
@@ -455,7 +384,7 @@ namespace Project.Migrations
                         {
                             Id = 1,
                             Applicant_Id = 1,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9242),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7029),
                             StatusApplicant_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0001"
@@ -464,7 +393,7 @@ namespace Project.Migrations
                         {
                             Id = 2,
                             Applicant_Id = 2,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9244),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7031),
                             StatusApplicant_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0002"
@@ -473,7 +402,7 @@ namespace Project.Migrations
                         {
                             Id = 3,
                             Applicant_Id = 3,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9246),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7033),
                             StatusApplicant_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0003"
@@ -482,7 +411,7 @@ namespace Project.Migrations
                         {
                             Id = 4,
                             Applicant_Id = 4,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9248),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7035),
                             StatusApplicant_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0004"
@@ -491,7 +420,7 @@ namespace Project.Migrations
                         {
                             Id = 5,
                             Applicant_Id = 5,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9250),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7037),
                             StatusApplicant_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0005"
@@ -500,7 +429,7 @@ namespace Project.Migrations
                         {
                             Id = 6,
                             Applicant_Id = 6,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9252),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7039),
                             StatusApplicant_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0001"
@@ -509,7 +438,7 @@ namespace Project.Migrations
                         {
                             Id = 7,
                             Applicant_Id = 7,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9254),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7041),
                             StatusApplicant_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0002"
@@ -518,7 +447,7 @@ namespace Project.Migrations
                         {
                             Id = 8,
                             Applicant_Id = 8,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9256),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7043),
                             StatusApplicant_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0003"
@@ -527,11 +456,102 @@ namespace Project.Migrations
                         {
                             Id = 9,
                             Applicant_Id = 9,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9258),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7045),
                             StatusApplicant_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0004"
                         });
+                });
+
+            modelBuilder.Entity("Project.Data.AppUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Department_Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Employeecode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fullname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Ward")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Department_Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Project.Data.Department", b =>
@@ -556,21 +576,21 @@ namespace Project.Migrations
                         new
                         {
                             Department_Id = "D0001",
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8706),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6479),
                             Name = "Information Technology",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Department_Id = "D0002",
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8719),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6492),
                             Name = "Desgin",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Department_Id = "D0003",
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8720),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6493),
                             Name = "Marketing",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -620,7 +640,7 @@ namespace Project.Migrations
                         {
                             Id = 1,
                             ApplicantVacancy_Id = 1,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9282),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7135),
                             StatusInterview_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -628,7 +648,7 @@ namespace Project.Migrations
                         {
                             Id = 2,
                             ApplicantVacancy_Id = 2,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9284),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7137),
                             StatusInterview_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -636,7 +656,7 @@ namespace Project.Migrations
                         {
                             Id = 3,
                             ApplicantVacancy_Id = 3,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9286),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7139),
                             StatusInterview_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -644,7 +664,7 @@ namespace Project.Migrations
                         {
                             Id = 4,
                             ApplicantVacancy_Id = 4,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9288),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7140),
                             StatusInterview_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -652,7 +672,7 @@ namespace Project.Migrations
                         {
                             Id = 5,
                             ApplicantVacancy_Id = 1,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9290),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7142),
                             StatusInterview_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -660,7 +680,7 @@ namespace Project.Migrations
                         {
                             Id = 6,
                             ApplicantVacancy_Id = 2,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9292),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7144),
                             StatusInterview_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -668,7 +688,7 @@ namespace Project.Migrations
                         {
                             Id = 7,
                             ApplicantVacancy_Id = 3,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9294),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7146),
                             StatusInterview_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -676,7 +696,7 @@ namespace Project.Migrations
                         {
                             Id = 8,
                             ApplicantVacancy_Id = 4,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9295),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7148),
                             StatusInterview_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -684,7 +704,7 @@ namespace Project.Migrations
                         {
                             Id = 9,
                             ApplicantVacancy_Id = 5,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9297),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7149),
                             StatusInterview_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -720,7 +740,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 1,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8938),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6763),
                             Department_Id = "D0001",
                             Name = "C#",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -728,7 +748,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 2,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8940),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6765),
                             Department_Id = "D0001",
                             Name = "Java",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -736,7 +756,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 3,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8942),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6766),
                             Department_Id = "D0001",
                             Name = "PHP",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -744,7 +764,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 4,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8944),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6768),
                             Department_Id = "D0002",
                             Name = "Adobe Creative Suite",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -752,7 +772,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 5,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8945),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6770),
                             Department_Id = "D0002",
                             Name = "Sketch",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -760,7 +780,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 6,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8947),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6772),
                             Department_Id = "D0002",
                             Name = "Figma",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -768,7 +788,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 7,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8949),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6773),
                             Department_Id = "D0003",
                             Name = "Google Analytics",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -776,7 +796,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 8,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8951),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6775),
                             Department_Id = "D0003",
                             Name = "SEO",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -784,7 +804,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 9,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8952),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6777),
                             Department_Id = "D0003",
                             Name = "Google AdWords , Facebook Ads",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -816,35 +836,35 @@ namespace Project.Migrations
                         new
                         {
                             Id = 1,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8978),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6808),
                             Name = "Intern",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8980),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6810),
                             Name = "Fresher",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8982),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6811),
                             Name = "Junior",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8983),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6813),
                             Name = "Senior",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 5,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(8985),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6814),
                             Name = "Leader",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -875,28 +895,28 @@ namespace Project.Migrations
                         new
                         {
                             Id = 1,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9005),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6842),
                             Name = "Not Process",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9006),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6844),
                             Name = "In Process",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9008),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6846),
                             Name = "Hired",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9010),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6847),
                             Name = "Banned",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -927,28 +947,28 @@ namespace Project.Migrations
                         new
                         {
                             Id = 1,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9054),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6900),
                             Name = "Processing",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9056),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6901),
                             Name = "Scheduled",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9057),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6903),
                             Name = "Selected",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9059),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6905),
                             Name = "Rejected",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -979,21 +999,21 @@ namespace Project.Migrations
                         new
                         {
                             Id = 1,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9030),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6870),
                             Name = "Open",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9032),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6872),
                             Name = "Close",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9033),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6873),
                             Name = "Suspended",
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -1004,11 +1024,17 @@ namespace Project.Migrations
                     b.Property<string>("Vacancy_Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("ActualQuantity")
+                        .HasColumnType("int");
+
                     b.Property<string>("Benefits")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Created_at")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Department_Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -1045,6 +1071,8 @@ namespace Project.Migrations
 
                     b.HasKey("Vacancy_Id");
 
+                    b.HasIndex("Department_Id");
+
                     b.HasIndex("Hr_Id");
 
                     b.HasIndex("Position_Id");
@@ -1057,13 +1085,14 @@ namespace Project.Migrations
                         new
                         {
                             Vacancy_Id = "V0001",
+                            ActualQuantity = 0,
                             Benefits = "Benefits",
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9087),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6936),
                             Description = "Description",
-                            EndDate = new DateTime(2023, 12, 8, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9081),
+                            EndDate = new DateTime(2023, 12, 10, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6930),
                             Place = "America",
                             Position_Id = 1,
-                            Quantity = 5,
+                            Quantity = 13,
                             Requirement = "Requirement",
                             Salary = 2000,
                             StatusVacancy_Id = 1,
@@ -1073,13 +1102,14 @@ namespace Project.Migrations
                         new
                         {
                             Vacancy_Id = "V0002",
+                            ActualQuantity = 0,
                             Benefits = "Benefits",
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9158),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6940),
                             Description = "Description",
-                            EndDate = new DateTime(2023, 12, 8, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9156),
+                            EndDate = new DateTime(2023, 12, 10, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6939),
                             Place = "America",
                             Position_Id = 2,
-                            Quantity = 4,
+                            Quantity = 11,
                             Requirement = "Requirement",
                             Salary = 7000,
                             StatusVacancy_Id = 1,
@@ -1089,13 +1119,14 @@ namespace Project.Migrations
                         new
                         {
                             Vacancy_Id = "V0003",
+                            ActualQuantity = 0,
                             Benefits = "Benefits",
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9162),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6944),
                             Description = "Description",
-                            EndDate = new DateTime(2023, 12, 8, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9161),
+                            EndDate = new DateTime(2023, 12, 10, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6943),
                             Place = "America",
                             Position_Id = 3,
-                            Quantity = 3,
+                            Quantity = 9,
                             Requirement = "Requirement",
                             Salary = 10000,
                             StatusVacancy_Id = 1,
@@ -1105,13 +1136,14 @@ namespace Project.Migrations
                         new
                         {
                             Vacancy_Id = "V0004",
+                            ActualQuantity = 0,
                             Benefits = "Benefits",
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9166),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6948),
                             Description = "Description",
-                            EndDate = new DateTime(2023, 12, 8, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9165),
+                            EndDate = new DateTime(2023, 12, 10, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6947),
                             Place = "America",
                             Position_Id = 4,
-                            Quantity = 2,
+                            Quantity = 7,
                             Requirement = "Requirement",
                             Salary = 13000,
                             StatusVacancy_Id = 1,
@@ -1121,13 +1153,14 @@ namespace Project.Migrations
                         new
                         {
                             Vacancy_Id = "V0005",
+                            ActualQuantity = 0,
                             Benefits = "Benefits",
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9170),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6952),
                             Description = "Description",
-                            EndDate = new DateTime(2023, 12, 8, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9169),
+                            EndDate = new DateTime(2023, 12, 10, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6951),
                             Place = "America",
                             Position_Id = 5,
-                            Quantity = 1,
+                            Quantity = 5,
                             Requirement = "Requirement",
                             Salary = 15000,
                             StatusVacancy_Id = 1,
@@ -1168,7 +1201,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 1,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9192),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6976),
                             Job_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0001"
@@ -1176,7 +1209,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 2,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9194),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6978),
                             Job_Id = 2,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0001"
@@ -1184,7 +1217,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 3,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9196),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6980),
                             Job_Id = 3,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0001"
@@ -1192,7 +1225,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 4,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9198),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6981),
                             Job_Id = 4,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0002"
@@ -1200,7 +1233,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 5,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9199),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6983),
                             Job_Id = 5,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0002"
@@ -1208,7 +1241,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 6,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9201),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6985),
                             Job_Id = 6,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0002"
@@ -1216,7 +1249,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 7,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9203),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6987),
                             Job_Id = 7,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0003"
@@ -1224,7 +1257,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 8,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9205),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6988),
                             Job_Id = 8,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0003"
@@ -1232,7 +1265,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 9,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9207),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6990),
                             Job_Id = 9,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0003"
@@ -1240,7 +1273,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 10,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9209),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6992),
                             Job_Id = 1,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0004"
@@ -1248,7 +1281,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 11,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9210),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6994),
                             Job_Id = 2,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0004"
@@ -1256,7 +1289,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 12,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9212),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6995),
                             Job_Id = 3,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0004"
@@ -1264,7 +1297,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 13,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9214),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6997),
                             Job_Id = 4,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0005"
@@ -1272,7 +1305,7 @@ namespace Project.Migrations
                         new
                         {
                             Id = 14,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9216),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(6999),
                             Job_Id = 5,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0005"
@@ -1280,44 +1313,11 @@ namespace Project.Migrations
                         new
                         {
                             Id = 15,
-                            Created_at = new DateTime(2023, 11, 28, 19, 55, 12, 219, DateTimeKind.Local).AddTicks(9218),
+                            Created_at = new DateTime(2023, 11, 30, 8, 55, 55, 210, DateTimeKind.Local).AddTicks(7001),
                             Job_Id = 6,
                             Updated_at = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Vacancy_Id = "V0005"
                         });
-                });
-
-            modelBuilder.Entity("Project.Data.AppUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<DateTime?>("Birthday")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Department_Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("District")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Employeecode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Fullname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Province")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ward")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("Department_Id");
-
-                    b.HasDiscriminator().HasValue("AppUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1331,7 +1331,7 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Project.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1340,7 +1340,7 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Project.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1355,7 +1355,7 @@ namespace Project.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Project.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1364,7 +1364,7 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Project.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1377,7 +1377,7 @@ namespace Project.Migrations
                         .WithMany()
                         .HasForeignKey("Applicant_Id");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                    b.HasOne("Project.Data.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("Hr_Id");
 
@@ -1391,13 +1391,22 @@ namespace Project.Migrations
                         .WithMany()
                         .HasForeignKey("Vacancy_Id");
 
-                    b.Navigation("Applicant");
+                    b.Navigation("AppUser");
 
-                    b.Navigation("IdentityUser");
+                    b.Navigation("Applicant");
 
                     b.Navigation("StatusApplicant");
 
                     b.Navigation("Vacancy");
+                });
+
+            modelBuilder.Entity("Project.Data.AppUser", b =>
+                {
+                    b.HasOne("Project.Data.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("Department_Id");
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Project.Data.InterviewVacancy", b =>
@@ -1406,7 +1415,7 @@ namespace Project.Migrations
                         .WithMany()
                         .HasForeignKey("ApplicantVacancy_Id");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                    b.HasOne("Project.Data.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("Interview_Id");
 
@@ -1416,9 +1425,9 @@ namespace Project.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicantVacancy");
+                    b.Navigation("AppUser");
 
-                    b.Navigation("IdentityUser");
+                    b.Navigation("ApplicantVacancy");
 
                     b.Navigation("StatusInterview");
                 });
@@ -1434,7 +1443,11 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Data.Vacancy", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                    b.HasOne("Project.Data.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("Department_Id");
+
+                    b.HasOne("Project.Data.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("Hr_Id");
 
@@ -1450,7 +1463,9 @@ namespace Project.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("IdentityUser");
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Department");
 
                     b.Navigation("Position");
 
@@ -1470,15 +1485,6 @@ namespace Project.Migrations
                     b.Navigation("Job");
 
                     b.Navigation("Vacancy");
-                });
-
-            modelBuilder.Entity("Project.Data.AppUser", b =>
-                {
-                    b.HasOne("Project.Data.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("Department_Id");
-
-                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Project.Data.Job", b =>

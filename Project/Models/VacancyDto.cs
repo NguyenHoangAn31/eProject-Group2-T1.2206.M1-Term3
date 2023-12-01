@@ -11,13 +11,17 @@ namespace Project.Models
 
         public string? Hr_Id { get; set; }
         [ValidateNever]
-        public IdentityUser? IdentityUser { get; set; }
+        public AppUser? AppUser { get; set; }
+        public string? Department_Id { get; set; }
+        [ValidateNever]
+        public Department? Department { get; set; }
         public int Position_Id { get; set; }
         [ValidateNever]
         public Position? Position { get; set; }
         public int StatusVacancy_Id { get; set; }
         [ValidateNever]
         public StatusVacancy? StatusVacancy { get; set; }
+        public int ActualQuantity { get; set; }
         public int Quantity { get; set; }
         public int Salary { get; set; }
         public string? Place { get; set; }

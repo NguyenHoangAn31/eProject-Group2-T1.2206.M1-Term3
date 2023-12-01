@@ -28,15 +28,15 @@
                     "Manage Jobs" provides a comprehensive dashboard to oversee, edit, and track job listings efficiently, ensuring seamless management of tasks and applications
                 </p>
                 <a asp-controller="Job" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
-                @if (TempData["AlertMessage"] != null)
+                @if (TempData["AlertMessageJob"] != null)
                 {
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                        @TempData["AlertMessage"]
+                        @TempData["AlertMessageJob"]
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }
                 <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table datatable table-hover table-sm">
                     <thead>
                         <tr >
                             <th></th>
