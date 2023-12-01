@@ -3,7 +3,14 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+@section HeaderContent {
+     table img{
+        border-radius:50%;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+     }
+}
 <div class="pagetitle">
     <h1>Applicants Table</h1>
     <nav>
@@ -26,20 +33,20 @@
                     "Manage applicants effortlessly with our intuitive system. Review, organize, and track candidate progress seamlessly for streamlined recruitment."
                 </p>
                 <a asp-controller="Applicant" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
-                @if (TempData["AlertMessage"] != null)
+                @if (TempData["AlertMessageApplicant"] != null)
                 {
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                        @TempData["AlertMessage"]
+                        @TempData["AlertMessageApplicant"]
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }
                 <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table datatable table-hover table-sm">
                     <thead>
                         <tr>
 
                             <th>
-                                @Html.DisplayNameFor(model => model.Image)
+                                Photo
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Fullname)
@@ -65,7 +72,7 @@
                             <tr>
 
                                 <td>
-                                    <img src="~/@item.Image" width="50" style="border-radius=50%;"/>
+                                    <img src="~/@item.Image"/>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Fullname)

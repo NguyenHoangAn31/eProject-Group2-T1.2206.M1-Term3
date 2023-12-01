@@ -15,7 +15,11 @@ namespace Project.Data
         public string? Hr_Id { get; set; }
         [ForeignKey("Hr_Id")]
         [ValidateNever]
-        public IdentityUser? IdentityUser { get; set; }
+        public AppUser? AppUser { get; set; }
+        public string? Department_Id { get; set; }
+        [ForeignKey("Department_Id")]
+        [ValidateNever]
+        public Department? Department { get; set; }
         public int Position_Id { get; set; }
         [ForeignKey("Position_Id")]
         [ValidateNever]
@@ -24,6 +28,7 @@ namespace Project.Data
         [ForeignKey("StatusVacancy_Id")]
         [ValidateNever]
         public StatusVacancy? StatusVacancy { get; set; }
+        public int ActualQuantity { get; set; }
         public int Quantity { get; set; }
         public int Salary { get; set; }
         public string? Place { get; set; }

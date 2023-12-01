@@ -6,9 +6,9 @@ namespace Project.Models.ViewModel
 {
     public class JobVM
     {
-        public JobDto job { get; set; }
+        public JobDto? job { get; set; }
         [ValidateNever]
-        public IEnumerable<SelectListItem> DepartmentList { get; set; }
+        public IEnumerable<SelectListItem>? DepartmentList { get; set; }
 
     }
 }

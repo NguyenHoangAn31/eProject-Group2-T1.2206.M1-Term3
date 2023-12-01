@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Project.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Models
 {
     public class ApplicantVacancyDto
     {
-        public string? ApplicantVacancy_Id { get; set; }
+        public int Id { get; set; }
 
         public string? Vacancy_Id { get; set; }
         [ValidateNever]
@@ -13,9 +14,13 @@ namespace Project.Models
         public int? Applicant_Id { get; set; }
         [ValidateNever]
         public Applicant? Applicant { get; set; }
+        public string? Hr_Id { get; set; }
+        [ValidateNever]
+        public AppUser? AppUser { get; set; }
         public int StatusApplicant_Id { get; set; }
         [ValidateNever]
         public StatusApplicant? StatusApplicant { get; set; }
+        public byte[]? Attachment { get; set; }
 
     }
 }

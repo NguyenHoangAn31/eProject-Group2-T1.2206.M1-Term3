@@ -82,12 +82,12 @@ namespace Project.Areas.Admin.Controllers
                 if (dto.Id != 0)
                 {
                     _unitOfWork.Applicant.Update(_mapper.Map<Applicant>(dto));
-                    TempData["AlertMessage"] = "Update Applicant Successfully";
+                    TempData["AlertMessageApplicant"] = "Update Applicant Successfully";
                 }
                 else
                 {
                     _unitOfWork.Applicant.Create(_mapper.Map<Applicant>(dto));
-                    TempData["AlertMessage"] = "Create Applicant Successfully";
+                    TempData["AlertMessageApplicant"] = "Create Applicant Successfully";
 
                 }
                 await _unitOfWork.Save();
@@ -100,7 +100,6 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             ApplicantDto dto = _mapper.Map<ApplicantDto>(await _unitOfWork.Applicant.Get(a => a.Id == id));
-            TempData["AlertMessage"] = "Delete Applicant Successfully";
             return View(dto);
         }
         [HttpPost]
@@ -122,6 +121,7 @@ namespace Project.Areas.Admin.Controllers
 
             _unitOfWork.Applicant.Delete(_mapper.Map<Applicant>(dto));
             await _unitOfWork.Save();
+            TempData["AlertMessageApplicant"] = "Delete Applicant Successfully";
             return RedirectToAction("Index");
         }
     }

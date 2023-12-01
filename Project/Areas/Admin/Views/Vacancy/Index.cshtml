@@ -1,0 +1,151 @@
+﻿@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+@model IEnumerable<Project.Models.VacancyDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="pagetitle">
+    <h1>Jobs Table</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item">Tables</li>
+            <li class="breadcrumb-item active">Vacancies</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Manage Vacancies</h5>
+                <p>
+                </p>
+                @if(user.Department_Id != null){
+                    <a asp-controller="Vacancy" asp-action="Create" class="text-white btn btn-success rounded-pill">Add New</a>
+                }
+                else
+                {
+                    <a class="text-white btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#basicModal">
+                        Add New
+                    </a>
+                    <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Basic Modal</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    You need to select a department to create a new vacancy
+                                </div>
+                                <div class="modal-footer">
+                                    <button  class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <a asp-area="Admin" asp-page="/Account/Manage/Index" class="btn btn-primary">Go To Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (TempData["AlertMessageVacancy"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        @TempData["AlertMessageVacancy"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                <table class="table datatable table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Creator
+                            </th>
+                            <th>
+                                Department
+                            </th>
+                            <th>
+                                Position
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Salary
+                            </th>
+                            <th>
+                                Place
+                            </th>
+
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Vacancy_Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AppUser!.Fullname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Department!.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Position!.Name)
+                                </td>
+                                <td>
+                                    @if (item.StatusVacancy_Id == 1)
+                                    {
+                                        <span class="badge bg-primary">@Html.DisplayFor(modelItem => item.StatusVacancy!.Name)</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">@Html.DisplayFor(modelItem => item.StatusVacancy!.Name)</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActualQuantity)/@Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Salary)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Place)
+                                </td>
+                                <td>
+
+                                    @if (user != null && user.Id == item.Hr_Id)
+                                    {
+                                        <a class="btn btn btn-info" href="@Url.Action("Detail", "Vacancy", new { id = item.Vacancy_Id })">Info</a>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

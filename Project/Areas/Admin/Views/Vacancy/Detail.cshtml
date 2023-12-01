@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Project.Models.ApplicantVacancyDto>
+
+@{
+    ViewData["Title"] = "Detail";
+    Vacancy? vacancy = ViewData["Vacancy"] as Vacancy;
+}
+@section HeaderContent {
+     table img{
+        border-radius:50%;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+     }
+}
+
+<div class="pagetitle">
+    <h1>Vacancy Table</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item">Tables</li>
+            <li class="breadcrumb-item active">Vacancy</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Manage Vacancy</h5>
+                <h1>@vacancy!.Department!.Name</h1>
+                <table class="table datatable table-hover table-sm">
+                    <thead>
+                        <tr>
+                          
+                            <th>
+                                Photo
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Phone
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Curriculum Vitae
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model) {
+                            <tr>
+                                
+                                <td>
+                                    <img src="~/@item.Applicant!.Image" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Applicant!.Fullname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Applicant!.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Applicant!.Phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StatusApplicant!.Name)
+                                </td>
+                                <td>
+                                    <form asp-action="Download" method="post" asp-route-id="@item.Id">
+                                        <button class="text-white btn btn-primary">Download</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                    }
+                    </tbody>
+                </table>
+
+                <!-- End Table with stripped rows -->
+
+            </div>
+        </div>
+
+    </div>
+</div>

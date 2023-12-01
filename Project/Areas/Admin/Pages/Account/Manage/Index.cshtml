@@ -10,22 +10,98 @@
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6">
-        <form id="profile-form" method="post">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
                 <input asp-for="Username" class="form-control" disabled />
                 <label asp-for="Username" class="form-label"></label>
+            </div>
+            @if (!User.IsInRole(SD.Role_Admin))
+            {
+                @if (string.IsNullOrEmpty(Model.DisplayDepartment))
+                {
+                    <div class="form-floating">
+                        <select asp-for="Input.Department_Id" asp-items="@Model.Input.DepartmentList" class="form-select" required>
+                            <option disabled selected value="">-Select Department-</option>
+                        </select>
+                        <label asp-for="Input.Department_Id" class="form-label"></label>
+                        <span asp-validation-for="Input.Department_Id" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <input asp-for="Input.Department_Id" hidden />
+
+                    <div class="form-floating">
+                        <input asp-for="DisplayDepartment" class="form-control" disabled />
+                        <label asp-for="DisplayDepartment" class="form-label"></label>
+                    </div>
+                }
+            }
+            
+            <div class="form-floating">
+                <input asp-for="Input.Fullname" class="form-control" />
+                <label asp-for="Input.Fullname" class="form-label"></label>
+                <span asp-validation-for="Input.Fullname" class="text-danger"></span>
             </div>
             <div class="form-floating">
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
+            <div class="form-floating">
+                <input asp-for="Input.Employeecode" class="form-control" />
+                <label asp-for="Input.Employeecode" class="form-label"></label>
+                <span asp-validation-for="Input.Employeecode" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Birthday" class="form-control" />
+                <label asp-for="Input.Birthday" class="form-label"></label>
+                <span asp-validation-for="Input.Birthday" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating">
+                <input asp-for="Input.Ward" class="form-control" />
+                <label asp-for="Input.Ward" class="form-label"></label>
+                <span asp-validation-for="Input.Ward" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.District" class="form-control" />
+                <label asp-for="Input.District" class="form-label"></label>
+                <span asp-validation-for="Input.District" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Province" class="form-control" />
+                <label asp-for="Input.Province" class="form-label"></label>
+                <span asp-validation-for="Input.Province" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input type="file" name="file" class="form-control" onchange="previewImage(event)" accept="image/*" />
+                <label class="form-label">Image</label>
+            </div>
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
     </div>
-</div>
+    <div class="col-md-6">
+        <img src="~/@Model.PathImage" class="text-center" id="img_user" width="200" />
+    </div>
+</div>  
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var preview = document.getElementById('img_user');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 }

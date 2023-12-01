@@ -56,15 +56,15 @@ namespace Project.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (vm.job.Id != 0)
+                if (vm.job!.Id != 0)
                 {
                     _unitOfWork.Job.Update(_mapper.Map<Job>(vm.job));
-                    TempData["AlertMessage"] = "Update Job Successfully";
+                    TempData["AlertMessageJob"] = "Update Job Successfully";
                 }
                 else
                 {
                     _unitOfWork.Job.Create(_mapper.Map<Job>(vm.job));
-                    TempData["AlertMessage"] = "Create Job Successfully";
+                    TempData["AlertMessageJob"] = "Create Job Successfully";
 
                 }
                 await _unitOfWork.Save();
@@ -82,7 +82,6 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             JobDto dto = _mapper.Map<JobDto>(await _unitOfWork.Job.Get(j => j.Id == id));
-            TempData["AlertMessage"] = "Delete Job Successfully";
             return View(dto);
         }
         [HttpPost]
@@ -90,6 +89,7 @@ namespace Project.Areas.Admin.Controllers
         {
             _unitOfWork.Job.Delete(_mapper.Map<Job>(dto));
             await _unitOfWork.Save();
+            TempData["AlertMessageJob"] = "Delete Job Successfully";
             return RedirectToAction("Index");
         }
 

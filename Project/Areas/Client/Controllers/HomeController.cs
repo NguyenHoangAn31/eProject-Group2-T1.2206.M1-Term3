@@ -48,7 +48,7 @@ namespace Project.Areas.Client.Controllers
         }
         public async Task<IActionResult> Detail_Vacancy(string id)
         {
-            Vacancy vacancy = await _unitOfWork.Vacancy.Vacancy_Detail(id);
+            Vacancy? vacancy = await _unitOfWork.Vacancy.Vacancy_Detail(id);
             return View(vacancy);
         }
         [HttpPost]

@@ -15,7 +15,7 @@ namespace Project.Services
 
         public async Task<Applicant?> CheckLogin(string email, string password)
         {
-            Applicant? applicant = await _db.Applicants.SingleOrDefaultAsync(a => a.Email == email && a.Password == password);
+            Applicant? applicant = await _db.Applicants!.SingleOrDefaultAsync(a => a.Email == email && a.Password == password);
             if (applicant != null)
             {
                 return applicant;
@@ -24,7 +24,7 @@ namespace Project.Services
         }
         public async Task<bool> CheckAccountExist(string email)
         {
-            Applicant? applicant = await _db.Applicants.SingleOrDefaultAsync(a => a.Email == email);
+            Applicant? applicant = await _db.Applicants!.SingleOrDefaultAsync(a => a.Email == email);
             if (applicant != null)
             {
                 return true;

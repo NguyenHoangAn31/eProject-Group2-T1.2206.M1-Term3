@@ -10,6 +10,7 @@ namespace Project.Data
         public string? Password { get; set; }
         public string? Fullname { get; set; }
         public string? Phone { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Birthday { get; set; }
         public string? Image { get; set; }
         public string? Ward { get; set; }

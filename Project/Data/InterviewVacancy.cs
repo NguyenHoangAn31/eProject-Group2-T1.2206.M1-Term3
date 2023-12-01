@@ -22,7 +22,7 @@ namespace Project.Data
         public string? Interview_Id { get; set; }
         [ForeignKey("Interview_Id")]
         [ValidateNever]
-        public IdentityUser? IdentityUser { get; set; }
+        public AppUser? AppUser { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 

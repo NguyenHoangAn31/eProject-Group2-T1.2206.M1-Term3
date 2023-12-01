@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace Project.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -74,11 +76,11 @@ namespace Project.Data
                 new StatusInterview { Id = 4, Name = "Rejected" , Created_at = DateTime.Now }
                 );
             builder.Entity<Vacancy>().HasData(
-                new Vacancy { Vacancy_Id = "V0001" , Hr_Id = null , Position_Id = 1 , StatusVacancy_Id = 1 , Quantity = 5 , Salary = 2000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now},
-                new Vacancy { Vacancy_Id = "V0002" , Hr_Id = null , Position_Id = 2 , StatusVacancy_Id = 1 , Quantity = 4 , Salary = 7000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now},
-                new Vacancy { Vacancy_Id = "V0003" , Hr_Id = null , Position_Id = 3 , StatusVacancy_Id = 1 , Quantity = 3 , Salary = 10000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now},
-                new Vacancy { Vacancy_Id = "V0004" , Hr_Id = null , Position_Id = 4 , StatusVacancy_Id = 1 , Quantity = 2 , Salary = 13000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now},
-                new Vacancy { Vacancy_Id = "V0005" , Hr_Id = null , Position_Id = 5 , StatusVacancy_Id = 1 , Quantity = 1 , Salary = 15000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now}
+                new Vacancy { Vacancy_Id = "V0001" , Hr_Id = null , Department_Id = "D0001" , Position_Id = 1 , StatusVacancy_Id = 1 , ActualQuantity = 0 , Quantity = 13 , Salary = 2000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now},
+                new Vacancy { Vacancy_Id = "V0002" , Hr_Id = null , Department_Id = "D0002" , Position_Id = 2 , StatusVacancy_Id = 1 , ActualQuantity = 0 , Quantity = 11 , Salary = 7000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now},
+                new Vacancy { Vacancy_Id = "V0003" , Hr_Id = null , Department_Id = "D0003" , Position_Id = 3 , StatusVacancy_Id = 1 , ActualQuantity = 0 , Quantity = 9 , Salary = 10000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now},
+                new Vacancy { Vacancy_Id = "V0004" , Hr_Id = null , Department_Id = "D0001" , Position_Id = 4 , StatusVacancy_Id = 1 , ActualQuantity = 0 , Quantity = 7 , Salary = 13000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now},
+                new Vacancy { Vacancy_Id = "V0005" , Hr_Id = null , Department_Id = "D0002" , Position_Id = 5 , StatusVacancy_Id = 1 , ActualQuantity = 0 , Quantity = 5 , Salary = 15000 , Place = "America" , Title = "Title" , Requirement = "Requirement" , Description = "Description" , Benefits = "Benefits" , EndDate = DateTime.Now.AddDays(10) , Created_at = DateTime.Now}
                 );
             builder.Entity<VacancyJob>().HasData(
                 new VacancyJob { Id = 1, Vacancy_Id = "V0001", Job_Id = 1, Created_at = DateTime.Now },
@@ -170,17 +172,17 @@ namespace Project.Data
                 }
             }
         }
-        public DbSet<Department> Departments { get; set; }
-        public DbSet<AppUser> AppUsers { get; set; }
-        public DbSet<Applicant> Applicants { get; set; }
-        public DbSet<Job> Jobs { get; set; }
-        public DbSet<Position> Positions { get; set; }
-        public DbSet<StatusApplicant> StatusApplicants { get; set; }
-        public DbSet<StatusVacancy> StatusVacancies { get; set;}
-        public DbSet<StatusInterview> StatusInterviews { get; set; }
-        public DbSet<Vacancy> Vacancies { get; set; }
-        public DbSet<VacancyJob> VacanciesJobs { get; set; }
-        public DbSet<ApplicantVacancy> ApplicantsVacancies { get; set; }
-        public DbSet<InterviewVacancy> InterviewsVacancies { get; set; }
+        public DbSet<Department>? Departments { get; set; }
+        public DbSet<AppUser>? AppUsers { get; set; }
+        public DbSet<Applicant>? Applicants { get; set; }
+        public DbSet<Job>? Jobs { get; set; }
+        public DbSet<Position>? Positions { get; set; }
+        public DbSet<StatusApplicant>? StatusApplicants { get; set; }
+        public DbSet<StatusVacancy>? StatusVacancies { get; set;}
+        public DbSet<StatusInterview>? StatusInterviews { get; set; }
+        public DbSet<Vacancy>? Vacancies { get; set; }
+        public DbSet<VacancyJob>? VacanciesJobs { get; set; }
+        public DbSet<ApplicantVacancy>? ApplicantsVacancies { get; set; }
+        public DbSet<InterviewVacancy>? InterviewsVacancies { get; set; }
     }
 }
