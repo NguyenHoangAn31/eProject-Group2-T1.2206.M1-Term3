@@ -1,0 +1,18 @@
+﻿.listjob span {
+    background-color: #eaeaea;
+    padding: 7px;
+    border-radius: 7px;
+}
+
+.process ul li {
+    font-size: 14px;
+}
+
+.general {
+    background-color: #f6f9ff;
+    transition: .3s;
+}
+
+    .general:hover {
+        background-color: white;
+    }

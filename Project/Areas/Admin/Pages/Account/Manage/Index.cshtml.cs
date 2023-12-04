@@ -81,6 +81,7 @@ namespace Project.Areas.Identity.Pages.Account.Manage
             public string Employeecode { get; set; }
             public string Fullname { get; set; }
             public string Image { get; set; }
+            [DataType(DataType.Date)]
             public DateTime? Birthday { get; set; }
             public string Ward { get; set; }
             public string District { get; set; }

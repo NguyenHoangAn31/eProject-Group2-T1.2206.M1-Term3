@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Project.Data;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Models
 {
     public class VacancyDto
     {
+        [RegularExpression(@"^V[0-9]*$",
+         ErrorMessage = "You must enter correct format V0000")]
         public string? Vacancy_Id { get; set; }
-
         public string? Hr_Id { get; set; }
         [ValidateNever]
         public AppUser? AppUser { get; set; }

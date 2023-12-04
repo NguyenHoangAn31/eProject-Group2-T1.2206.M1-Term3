@@ -56,8 +56,19 @@ namespace Project.Areas.Admin.Controllers
                 }
                 else
                 {
-                    _unitOfWork.Department.Create(_mapper.Map<Department>(dto));
-                    TempData["AlertMessageDepartment"] = "Create Department Successfully";
+                    Department department = await _unitOfWork.Department.Get(d => d.Department_Id == dto.Department_Id);
+                    if (department != null)
+                    {
+                        TempData["AlertMessageDepartment"] = "The Department Id Already Exists";
+                        dto.Department_Id = null;
+                        return View(dto);
+                    }
+                    else
+                    {
+                        _unitOfWork.Department.Create(_mapper.Map<Department>(dto));
+                        TempData["AlertMessageDepartment"] = "Create Department Successfully";
+                    }
+                    
 
                 }
               
@@ -65,7 +76,7 @@ namespace Project.Areas.Admin.Controllers
                 await _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
-        
+            dto.Department_Id = null;
             return View(dto);
         }
         public async Task<IActionResult> Delete(string? id)

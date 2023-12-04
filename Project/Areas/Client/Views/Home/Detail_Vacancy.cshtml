@@ -1,29 +1,151 @@
-﻿@model Vacancy;
-<p>
-    @Html.DisplayFor(model => model.Vacancy_Id)
-</p>
-<p>
-    @Html.DisplayFor(model => model.Title)
-</p>
-<p>
-    @Html.DisplayFor(model => model.Benefits)
-</p>
-@if (TempData["AlertMessageSuccess"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["AlertMessageSuccess"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+﻿@inject IHttpContextAccessor context;
+@using SessionExtend
+@model Vacancy;
+@{
+    ViewData["Title"] = "Vacancy";
+    ViewData["PageName"] = "Vacancy";
+    var mySessionObject = context.HttpContext!.Session.GetObjectFromJson<UserSession>("userSession");
+
 }
-@if (TempData["AlertMessageError"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @TempData["AlertMessageError"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+
+@section HeaderContent {
+    <link href="~/assets/client/css/vacancy_detail.css" rel="stylesheet">
 }
-<form asp-controller="Home" asp-action="SubmitCV" enctype="multipart/form-data">
-    <input type="file" name="file" required/>
-    <input asp-for="Vacancy_Id" hidden name="vacancyid" />
-    <input type="submit" />
-</form>
+
+<div class=container>
+    @if (TempData["AlertMessageSuccess"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["AlertMessageSuccess"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["AlertMessageError"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["AlertMessageError"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="d-lg-flex justify-content-center gap-5">
+        <div class="col-lg-8">
+                <div class="d-flex gap-3 mb-5 p-3">
+                <div class="col-md-2">
+                    <img class="w-100 img-vacancy" src="~/assets/client/img/logo_vacancy.png" alt="">
+                </div>
+
+                <div class="col-md-10">
+
+                    <h4>@Model.Title</h4>
+                    <p class="text-danger"><i class="bi bi-cash pe-2"></i>@Model.Salary$</p>
+                    <p><i class="bi bi-geo-alt pe-2"></i>@Model.Place</p>
+                    <p><i class="bi bi-person-fill pe-2"></i>@Model.Position!.Name</p>
+                    <hr />
+                </div>
+            </div>
+            <div class="">
+                <div class="discription">
+                    <h4 class="mb-3">Work responsibility</h4>
+                    <div class="ps-4">
+                        @Html.Raw(@Model.Description)
+                    </div>
+                </div>
+                <hr />
+                <div class="required">
+                    <h4 class="mb-3">Skills & Expertise</h4>
+                    <div class="ps-4">
+                        @Html.Raw(@Model.Requirement)
+                    </div>
+                </div>
+                <hr />
+                <div class="benefit">
+                    <h4 class="mb-3">Welfare for you</h4>
+                    <div class="ps-4">
+                        @Html.Raw(@Model.Benefits)
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+            <div class="col-lg-3 h-100 sticky-top p-4 border rounded general" style="top:100px;z-index:0;">
+            <div class="">
+                @if (mySessionObject != null)
+                {
+                    <button class="btn btn-primary w-100 py-3 mb-3" data-bs-toggle="modal" data-bs-target="#formModal" type="submit">SUBMIT CV</button>
+                }
+                else
+                {
+                    <a class="btn btn-primary w-100 py-3 mb-3"  href="@Url.Action("Login", "Home")">SUBMIT CV</a>
+                }
+
+            </div>
+            <div>
+                <h3>General Information</h3>
+                <hr />
+                <div>
+                    <p class="fw-bold m-0">Rank</p>
+                    <P>@Model.Position.Name</P>
+                </div>
+                <div>
+                    <p class="fw-bold m-0">Type</p>
+                    <p>In Office</p>
+                </div>
+                <div>
+                    <p class="fw-bold m-0">Contract type</p>
+                    <p>Full time</p>
+                </div>
+                <div class="mb-3">
+                    <p class="fw-bold">The types of technology the company uses</p>
+                    <div class="listjob">
+                        @foreach (var job in Model.VacanciesJobs!)
+                        {
+                            <span>@job.Job!.Name</span>
+                        }
+                    </div>
+                </div>
+                <div class="process">
+                    <p class="fw-bold m-1">Interview process</p>
+                    <ul>
+                        <li>Round 1 : Technical Interview</li>
+                        <li>Round 2 : Interview with Manager</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="formModal" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+            <div class="modal-header border-0">
+                <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="p-5 bg-white">
+
+                    <form asp-controller="Home" asp-action="SubmitCV" enctype="multipart/form-data">
+                        <input asp-for="@Model.Vacancy_Id" name="vacancyid" hidden />
+                        <div class="form-group">
+                            <label for="UserName">Email address</label>
+                            <input asp-for="@mySessionObject!.UserName" class="form-control" id="UserName" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <input asp-for="@mySessionObject!.Email" type="email" class="form-control" id="Email" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="Phone">Phone</label>
+                            <input asp-for="@mySessionObject!.Phone" type="text" class="form-control" id="Phone" disabled>
+                        </div>
+                        <div>
+                            <label for="CV">CV</label>
+                            <input type="file" name="file" class="form-control" required/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

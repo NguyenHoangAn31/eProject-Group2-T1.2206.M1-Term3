@@ -12,6 +12,13 @@
         <hr />
 
         <div class="col-md-4">
+            @if (TempData["AlertMessageDepartment"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    @TempData["AlertMessageDepartment"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
             <form class="needs-validation" novalidate asp-action="Upsert">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @if (Model.Department_Id != null)
@@ -24,6 +31,7 @@
                     <div class="form-group">
                         <label asp-for="Department_Id" class="control-label"></label>
                         <input asp-for="Department_Id" class="form-control" required />
+                        <span asp-validation-for="Department_Id" class="text-danger"></span>
                         <div class="invalid-feedback">Please enter department_id.</div>
                     </div>
                 }

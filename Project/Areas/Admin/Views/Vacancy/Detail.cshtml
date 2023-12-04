@@ -5,21 +5,16 @@
     Vacancy? vacancy = ViewData["Vacancy"] as Vacancy;
 }
 @section HeaderContent {
-     table img{
-        border-radius:50%;
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-     }
+    <link href="~/assets/admin/css/table.css" rel="stylesheet">
 }
 
 <div class="pagetitle">
-    <h1>Vacancy Table</h1>
+    <h1>Applicants - Vacancy Table</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a></li>
             <li class="breadcrumb-item">Tables</li>
-            <li class="breadcrumb-item active">Vacancy</li>
+            <li class="breadcrumb-item active">Applicants - Vacancy</li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -28,17 +23,94 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Manage Vacancy</h5>
-                <h1>@vacancy!.Department!.Name</h1>
-                <table class="table datatable table-hover table-sm">
+                <h5 class="card-title">Manage Applicants - Vacancy</h5>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <dl class="row">
+                            <dt class="col-sm-5">
+                                Vacancy Id
+                            </dt>
+                            <dd class="col-sm-7">
+                                @vacancy!.Vacancy_Id
+                            </dd>
+                            <dt class="col-sm-5">
+                                Department
+                            </dt>
+                            <dd class="col-sm-7">
+                                @vacancy.Department!.Name
+                            </dd>
+                            <dt class="col-sm-5">
+                                Position
+                            </dt>
+                            <dd class="col-sm-7">
+                                @vacancy.Position!.Name
+                            </dd>
+                            <dt class="col-sm-5">
+                                Status
+                            </dt>
+                            <dd class="col-sm-7">
+                                @vacancy.StatusVacancy!.Name
+                            </dd>
+                            
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <dl class="row">
+                            <dt class="col-sm-5">
+                                Actual Quantity
+                            </dt>
+                            <dd class="col-sm-7">
+                                @vacancy.ActualQuantity
+                            </dd>
+                            <dt class="col-sm-5">
+                                Quantity
+                            </dt>
+                            <dd class="col-sm-7">
+                                @vacancy.Quantity
+                            </dd>
+                            <dt class="col-sm-5">
+                                Salary
+                            </dt>
+                            <dd class="col-sm-7">
+                                @vacancy.Salary
+                            </dd>
+                            <dt class="col-sm-5">
+                                Place
+                            </dt>
+                            <dd class="col-sm-7">
+                                @vacancy.Place
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <dl class="row mt-4">
+                    <dt class="col-sm-2">
+                        Requirement
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.Raw(vacancy.Requirement)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Description
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.Raw(vacancy.Description)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Benefits
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.Raw(vacancy.Benefits)
+                    </dd>
+                </dl>
+
+                <hr />
+                <p>List of all job applicants who applied for the vacancy</p>
+                <table class="table datatable table-hover table-sm table-applicant-vacancy">
                     <thead>
                         <tr>
-                          
                             <th>
-                                Photo
-                            </th>
-                            <th>
-                                Name
+                                Info
                             </th>
                             <th>
                                 Email
@@ -47,10 +119,13 @@
                                 Phone
                             </th>
                             <th>
+                                Address
+                            </th>
+                            <th>
                                 Status
                             </th>
                             <th>
-                                Curriculum Vitae
+                                CV
                             </th>
                         </tr>
                     </thead>
@@ -60,15 +135,20 @@
                                 
                                 <td>
                                     <img src="~/@item.Applicant!.Image" />
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Applicant!.Fullname)
+                                    <span>
+                                        @Html.DisplayFor(modelItem => item.Applicant!.Fullname)
+                                    </span>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Applicant!.Email)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Applicant!.Phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Applicant!.Ward),
+                                    @Html.DisplayFor(modelItem => item.Applicant!.District),
+                                    @Html.DisplayFor(modelItem => item.Applicant!.Province)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.StatusApplicant!.Name)

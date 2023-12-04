@@ -4,12 +4,7 @@
     ViewData["Title"] = "Index";
 }
 @section HeaderContent {
-     table img{
-        border-radius:50%;
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-     }
+    <link href="~/assets/admin/css/table.css" rel="stylesheet">
 }
 <div class="pagetitle">
     <h1>Applicants Table</h1>
@@ -29,9 +24,6 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Manage Applicants</h5>
-                <p>
-                    "Manage applicants effortlessly with our intuitive system. Review, organize, and track candidate progress seamlessly for streamlined recruitment."
-                </p>
                 <a asp-controller="Applicant" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
                 @if (TempData["AlertMessageApplicant"] != null)
                 {

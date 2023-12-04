@@ -30,9 +30,7 @@
 
     <!-- Template Stylesheet -->
     <link href="~/assets/client/css/style.css" rel="stylesheet">
-    <style>
-         @RenderSection("HeaderContent", required: false)
-    </style>
+    @RenderSection("HeaderContent", required: false)
 </head>
 <body>
     <!-- Spinner Start -->
@@ -101,7 +99,7 @@
                     </div>*@
                     <a asp-area="Client" asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Contact</a>
                 </div>
-                <butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton>
+                <button type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></button>
                 @if (mySessionObject != null)
                 {
                     <div class="btn-group">

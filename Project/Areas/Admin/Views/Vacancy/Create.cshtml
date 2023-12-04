@@ -1,10 +1,7 @@
 ﻿@model Project.Models.ViewModel.VacancyVM;
 
 @section HeaderContent {
-     .tox-tinymce{
-         height:200px !important;
-     }
-
+    <link href="~/assets/admin/css/table.css" rel="stylesheet">
 }
 @{
     ViewData["Title"] = "Create";
@@ -17,23 +14,29 @@
         <hr />
 
         <div>
+            @if (TempData["AlertMessageVacancy"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    @TempData["AlertMessageVacancy"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
             <form asp-action="Create" class="needs-validation row" novalidate>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="col-md-6">
                     <input asp-for="vacancyDto!.Hr_Id"  hidden />
                     <input asp-for="vacancyDto!.Department_Id" hidden />
                     <div class="form-group">
+                        <label asp-for="vacancyDto!.Vacancy_Id" class="control-label"></label>
+                        <input asp-for="vacancyDto!.Vacancy_Id" class="form-control" required />
+                        <span asp-validation-for="vacancyDto!.Vacancy_Id" class="text-danger"></span>
+                        <div class="invalid-feedback">Please enter Vacancy_Id.</div>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="vacancyDto!.Title" class="control-label"></label>
                         <input asp-for="vacancyDto!.Title" class="form-control" required />
                         <div class="invalid-feedback">Please enter Title.</div>
-
                     </div>
-                    <div class="form-group">
-                        <label asp-for="vacancyDto!.Vacancy_Id" class="control-label"></label>
-                        <input asp-for="vacancyDto!.Vacancy_Id" class="form-control" required />
-                        <div class="invalid-feedback">Please enter Vacancy_Id.</div>
-                    </div>
-                    
                     <div class="form-group">
                         <label class="control-label">Position</label>
                         <select asp-for="vacancyDto!.Position_Id" asp-items="@Model.PositionList" class="form-select" required>

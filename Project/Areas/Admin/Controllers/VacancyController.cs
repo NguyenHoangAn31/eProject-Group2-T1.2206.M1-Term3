@@ -47,14 +47,31 @@ namespace Project.Areas.Admin.Controllers
                     Value = j.Id.ToString()
                 })
             };
-            vm.vacancyDto.Department_Id = user.Department_Id;
-            vm.vacancyDto.Hr_Id = user.Id;
             return View(vm);
         }
         [HttpPost]
         public async Task<IActionResult> Create(VacancyVM vm , string[] joblist) {
+            var user = await _userManager.GetUserAsync(User);
+            vm.PositionList = (await _unitOfWork.Position.GetAll()).Select(p => new SelectListItem
+            {
+                Text = p.Name,
+                Value = p.Id.ToString()
+            });
+            vm.JobList = (await _unitOfWork.Job.GetAll()).Where(j => j.Department_Id == user.Department_Id).Select(j => new SelectListItem
+            {
+                Text = j.Name,
+                Value = j.Id.ToString()
+            });
             if (ModelState.IsValid)
             {
+                Vacancy v = await _unitOfWork.Vacancy.Get(v => v.Vacancy_Id == vm.vacancyDto!.Vacancy_Id);
+                if (v!=null)
+                {
+                    TempData["AlertMessageVacancy"] = "The Vacancy Id Already Exist";
+                    return View(vm);
+                }
+                vm.vacancyDto!.Department_Id = user.Department_Id;
+                vm.vacancyDto.Hr_Id = user.Id;
                 vm.vacancyDto!.StatusVacancy_Id = 1;
                 _unitOfWork.Vacancy.Create(_mapper.Map<Vacancy>(vm.vacancyDto));
                 foreach (var job in joblist)
@@ -67,16 +84,27 @@ namespace Project.Areas.Admin.Controllers
                     _unitOfWork.VacancyJob.Create(vj);
                 }
                 await _unitOfWork.Save();
-                TempData["AlertMessageVacancy"] = "Update Job Successfully";
+                TempData["AlertMessageVacancy"] = "Create Vacancy Successfully";
                 return RedirectToAction("Index");
             }
+            
             return View(vm);
         }
         public async Task<IActionResult> Detail(string id)
         {
-            List<ApplicantVacancyDto> avs = (await _unitOfWork.ApplicantVacancy.GetAll("Applicant,StatusApplicant")).Where(av=>av.Vacancy_Id == id).Select(av => _mapper.Map<ApplicantVacancyDto>(av)).ToList();
-            ViewData["Vacancy"] = await _unitOfWork.Vacancy.Vacancy_Detail(id);
-            return View(avs);
+            List<ApplicantVacancyDto> avs = (await _unitOfWork.ApplicantVacancy.GetAll("Applicant,StatusApplicant")).Where(av => av.Vacancy_Id == id).Select(av => _mapper.Map<ApplicantVacancyDto>(av)).ToList();
+            Vacancy? v = await _unitOfWork.Vacancy.Vacancy_Detail(id);
+            ViewData["Vacancy"] = v;
+            var user = await _userManager.GetUserAsync(User);
+            if (user.Id == v!.Hr_Id)
+            {
+                return View(avs);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+            
         }
         [HttpPost]
         public async Task<IActionResult> Download(int id)

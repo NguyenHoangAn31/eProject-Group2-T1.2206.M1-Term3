@@ -16,6 +16,7 @@ namespace Project.Services
         public async Task<List<Vacancy>> GetAll_Vacancies()
         {
             List<Vacancy> vacancies = await _db.Vacancies!
+              .Include(p => p.StatusVacancy)
               .Include(p => p.Department)
               .Include(p => p.Position)
               .Include(one => one.VacanciesJobs!)
@@ -27,6 +28,7 @@ namespace Project.Services
         public async Task<Vacancy?> Vacancy_Detail(string id)
         {
             Vacancy? vacancy = await _db.Vacancies!
+              .Include(p => p.StatusVacancy)
               .Include(p => p.Department)
               .Include(p => p.Position)
               .Include(one => one.VacanciesJobs!)

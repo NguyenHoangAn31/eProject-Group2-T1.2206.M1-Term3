@@ -1,16 +1,17 @@
 ﻿@inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@{
-    var user = await UserManager.GetUserAsync(User);
+@section HeaderContent {
+    <link href="~/assets/admin/css/table.css" rel="stylesheet">
 }
-@model IEnumerable<Project.Models.VacancyDto>
-
 @{
     ViewData["Title"] = "Index";
+    var user = await UserManager.GetUserAsync(User);
 }
+@model IEnumerable<Project.Models.VacancyDto>;
+
 
 <div class="pagetitle">
-    <h1>Jobs Table</h1>
+    <h1>Vacancies Table</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a></li>
@@ -26,8 +27,6 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Manage Vacancies</h5>
-                <p>
-                </p>
                 @if(user.Department_Id != null){
                     <a asp-controller="Vacancy" asp-action="Create" class="text-white btn btn-success rounded-pill">Add New</a>
                 }
@@ -71,10 +70,10 @@
                                 Creator
                             </th>
                             <th>
-                                Department
+                                Email
                             </th>
                             <th>
-                                Position
+                                Department
                             </th>
                             <th>
                                 Status
@@ -82,13 +81,6 @@
                             <th>
                                 Quantity
                             </th>
-                            <th>
-                                Salary
-                            </th>
-                            <th>
-                                Place
-                            </th>
-
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -100,13 +92,14 @@
                                     @Html.DisplayFor(modelItem => item.Vacancy_Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.AppUser!.Fullname)
+                                    <img src="~/@Html.DisplayFor(modelItem => item.AppUser!.Image)" width="50" />
+                                    <span>@Html.DisplayFor(modelItem => item.AppUser!.Fullname)</span>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AppUser!.Email)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Department!.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Position!.Name)
                                 </td>
                                 <td>
                                     @if (item.StatusVacancy_Id == 1)
@@ -123,16 +116,13 @@
                                     @Html.DisplayFor(modelItem => item.ActualQuantity)/@Html.DisplayFor(modelItem => item.Quantity)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Salary)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Place)
-                                </td>
-                                <td>
 
                                     @if (user != null && user.Id == item.Hr_Id)
                                     {
-                                        <a class="btn btn btn-info" href="@Url.Action("Detail", "Vacancy", new { id = item.Vacancy_Id })">Info</a>
+                                        <a class="text-primary" href="@Url.Action("Detail", "Vacancy", new { id = item.Vacancy_Id })">Access</a>
+                                    }
+                                    else{
+                                        <a class="text-danger">Not Assess</a>
                                     }
 
                                 </td>

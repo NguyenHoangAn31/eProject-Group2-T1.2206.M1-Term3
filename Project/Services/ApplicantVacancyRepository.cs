@@ -12,14 +12,14 @@ namespace Project.Services
             _db = db;
         }
 
-        public async Task<string?> CheckExistApplicantVacancy(int applicantid, string vacancyid)
+        public async Task<ApplicantVacancy?> CheckExistApplicantVacancy(int applicantid, string vacancyid)
         {
-            ApplicantVacancy? a = await _db.ApplicantsVacancies.Include("StatusApplicant").SingleOrDefaultAsync(a => a.Applicant_Id == applicantid && a.Vacancy_Id == vacancyid);
+            ApplicantVacancy? a = await _db.ApplicantsVacancies!.Include("StatusApplicant").SingleOrDefaultAsync(a => a.Applicant_Id == applicantid && a.Vacancy_Id == vacancyid);
             if (a == null)
             {
                 return null;
             }
-            return a.StatusApplicant!.Name;
+            return a;
         }
     }
 }

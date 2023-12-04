@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<Project.Models.DepartmentDto>
 
 @section HeaderContent {
-     td:nth-child(1) , td:nth-child(2) , th:nth-child(1) , th:nth-child(2) {
-     display: none;
-    }
+    <link href="~/assets/admin/css/table.css" rel="stylesheet">
 }
-
 
 
 
@@ -27,9 +24,6 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Manage Departments</h5>
-                <p>
-                    The "Manage Departments" section enables you to organize, edit, and oversee various departments within your organization efficiently.
-                </p>
                 <a asp-controller="Department" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
                 @if (TempData["AlertMessageDepartment"] != null)
                 {
@@ -39,7 +33,7 @@
                     </div>
                 }
                 <!-- Table with stripped rows -->
-                <table class="table datatable table-hover table-sm">
+                <table class="table datatable table-hover table-sm table-department">
                     <thead>
                         <tr>
                             <th></th>

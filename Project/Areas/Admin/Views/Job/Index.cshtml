@@ -2,9 +2,7 @@
 @model IEnumerable<JobDto>;
 
 @section HeaderContent {
-     td:first-child , th:first-child {
-     display: none;
-    }
+    <link href="~/assets/admin/css/table.css" rel="stylesheet">
 }
 
 <div class="pagetitle">
@@ -24,9 +22,6 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Manage Jobs</h5>
-                <p>
-                    "Manage Jobs" provides a comprehensive dashboard to oversee, edit, and track job listings efficiently, ensuring seamless management of tasks and applications
-                </p>
                 <a asp-controller="Job" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
                 @if (TempData["AlertMessageJob"] != null)
                 {
@@ -36,7 +31,7 @@
                     </div>
                 }
                 <!-- Table with stripped rows -->
-                <table class="table datatable table-hover table-sm">
+                <table class="table datatable table-hover table-sm table-job">
                     <thead>
                         <tr >
                             <th></th>

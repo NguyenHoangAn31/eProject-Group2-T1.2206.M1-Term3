@@ -43,7 +43,7 @@ namespace Project.Areas.Client.Controllers
         public async Task<IActionResult> Vacancies()
         {
             
-            List<Vacancy> vacancies = await _unitOfWork.Vacancy.GetAll_Vacancies();
+            List<Vacancy> vacancies = (await _unitOfWork.Vacancy.GetAll_Vacancies()).Where(v=>v.StatusVacancy_Id == 1).ToList();
             return View(vacancies);
         }
         public async Task<IActionResult> Detail_Vacancy(string id)
@@ -59,10 +59,10 @@ namespace Project.Areas.Client.Controllers
             {
                 if (file != null)
                 {
-                    string? status = await _unitOfWork.ApplicantVacancy.CheckExistApplicantVacancy(userSession.Id , vacancyid);
-                    if (status != null)
+                    ApplicantVacancy? a = await _unitOfWork.ApplicantVacancy.CheckExistApplicantVacancy(userSession.Id , vacancyid);
+                    if (a != null)
                     {
-                        TempData["AlertMessageError"] = $"Your Cv {status}";
+                        TempData["AlertMessageError"] = $"Your Cv is being processed";
                         return RedirectToAction("Detail_Vacancy", new { id = vacancyid });
                     }
                     ApplicantVacancy applicantVacancy = new ApplicantVacancy()
@@ -77,6 +77,7 @@ namespace Project.Areas.Client.Controllers
                         {
                             file.CopyTo(target);
                             applicantVacancy.Attachment = target.ToArray();
+                            Console.WriteLine(applicantVacancy.Attachment);
                         }
                     }
                     _unitOfWork.ApplicantVacancy.Create(applicantVacancy);
@@ -105,6 +106,8 @@ namespace Project.Areas.Client.Controllers
                 var userSession = new UserSession();
                 userSession.Id = applicant.Id;
                 userSession.UserName = applicant.Fullname;
+                userSession.Email = applicant.Email;
+                userSession.Phone = applicant.Phone;
 
                 _contextAccessor.HttpContext!.Session.SetObjectAsJson("userSession", userSession);
                 return RedirectToAction("Index");
