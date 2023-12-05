@@ -44,12 +44,12 @@ namespace Project.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upsert(DepartmentDto dto , string? isupdate = null)
+        public async Task<IActionResult> Upsert(DepartmentDto dto , int isupdate)
         {
 
             if (ModelState.IsValid)
             {
-                if (isupdate != null)
+                if (isupdate != 0)
                 {
                     _unitOfWork.Department.Update(_mapper.Map<Department>(dto));
                     TempData["AlertMessageDepartment"] = "Update Department Successfully";

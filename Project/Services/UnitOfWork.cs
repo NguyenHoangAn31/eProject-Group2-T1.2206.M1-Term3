@@ -17,6 +17,7 @@ namespace Project.Services
         public IVacancyJobRepository VacancyJob { get; private set; }
         public IVacancyRepository Vacancy { get; private set; }
         public IAppUserRepository AppUser { get; private set; }
+        public IStatusVacancyRepository StatusVacancy { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -29,7 +30,8 @@ namespace Project.Services
             Position = new PositionRepository(_db);
             VacancyJob = new VacancyJobRepository(_db);
             Vacancy = new VacancyRepository(_db);
-            AppUser = new AppUserRepository(_db);   
+            AppUser = new AppUserRepository(_db); 
+            StatusVacancy = new StatusVacancyRepository(_db);
         }
         public async Task Save()
         {

@@ -4,12 +4,12 @@
     <link href="~/assets/admin/css/table.css" rel="stylesheet">
 }
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Upsert";
 }
 
 <div class="row card">
     <div class="card-body">
-        <h1 class="mt-3">Create</h1>
+        <h1 class="mt-3">@(Model.vacancyDto!.Vacancy_Id != null ? "Update" : "Create")</h1>
         <h4>Vacancy</h4>
         <hr />
 
@@ -21,22 +21,39 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             }
-            <form asp-action="Create" class="needs-validation row" novalidate>
+            <form asp-action="Upsert" class="needs-validation row" novalidate method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="col-md-6">
                     <input asp-for="vacancyDto!.Hr_Id"  hidden />
                     <input asp-for="vacancyDto!.Department_Id" hidden />
-                    <div class="form-group">
-                        <label asp-for="vacancyDto!.Vacancy_Id" class="control-label"></label>
-                        <input asp-for="vacancyDto!.Vacancy_Id" class="form-control" required />
-                        <span asp-validation-for="vacancyDto!.Vacancy_Id" class="text-danger"></span>
-                        <div class="invalid-feedback">Please enter Vacancy_Id.</div>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="vacancyDto!.Title" class="control-label"></label>
-                        <input asp-for="vacancyDto!.Title" class="form-control" required />
-                        <div class="invalid-feedback">Please enter Title.</div>
-                    </div>
+                    @if(Model.vacancyDto!.Vacancy_Id != null){
+                        <input asp-for="vacancyDto!.Vacancy_Id" hidden />
+                        <input type="hidden" name="isupdate" value="1" />
+                        <div class="form-group">
+                            <label class="control-label">Status</label>
+                            <select asp-for="vacancyDto!.StatusVacancy_Id" asp-items="@Model.StatusList" class="form-select" required>
+                                <option disabled selected value="">-Select Status-</option>
+                            </select>
+                            <div class="invalid-feedback">Please enter Status.</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label asp-for="vacancyDto!.Vacancy_Id" class="control-label"></label>
+                            <input asp-for="vacancyDto!.Vacancy_Id" class="form-control" required />
+                            <span asp-validation-for="vacancyDto!.Vacancy_Id" class="text-danger"></span>
+                            <div class="invalid-feedback">Please enter Vacancy_Id.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Job</label>
+                            <select name="joblist" asp-items="@Model.JobList" class="form-select" multiple required>
+                                <option disabled value="">-Select Job-</option>
+                            </select>
+                            <div class="invalid-feedback">Please enter Job.</div>
+                        </div>
+                    }
+                    
                     <div class="form-group">
                         <label class="control-label">Position</label>
                         <select asp-for="vacancyDto!.Position_Id" asp-items="@Model.PositionList" class="form-select" required>
@@ -45,11 +62,9 @@
                         <div class="invalid-feedback">Please enter Position.</div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Job</label>
-                        <select name="joblist" asp-items="@Model.JobList" class="form-select" multiple required>
-                            <option disabled selected value="">-Select Job-</option>
-                        </select>
-                        <div class="invalid-feedback">Please enter Job.</div>
+                        <label asp-for="vacancyDto!.Title" class="control-label"></label>
+                        <input asp-for="vacancyDto!.Title" class="form-control" required />
+                        <div class="invalid-feedback">Please enter Title.</div>
                     </div>
                     <div class="form-group">
                         <label asp-for="vacancyDto!.Quantity" class="control-label"></label>
@@ -98,7 +113,14 @@
                 
                 
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    @if(Model.vacancyDto!.Vacancy_Id != null)
+                    {
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    }
                 </div>
             </form>
         </div>

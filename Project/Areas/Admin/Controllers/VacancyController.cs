@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace Project.Areas.Admin.Controllers
             IEnumerable<VacancyDto> vacancies = (await _unitOfWork.Vacancy.GetAll("AppUser,Position,StatusVacancy,Department")).Select(v=>_mapper.Map<VacancyDto>(v)).ToList();
             return View(vacancies);
         }
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Upsert(string? id)
         {
             var user = await _userManager.GetUserAsync(User);
             VacancyVM vm = new()
@@ -47,10 +48,25 @@ namespace Project.Areas.Admin.Controllers
                     Value = j.Id.ToString()
                 })
             };
-            return View(vm);
+            if (id == null)
+            {
+                //create
+                return View(vm);
+            }
+            else
+            {
+                //update
+                vm.StatusList = (await _unitOfWork.StatusVacancy.GetAll()).Select(s => new SelectListItem
+                {
+                    Text = s.Name,
+                    Value = s.Id.ToString()
+                });
+                vm.vacancyDto = _mapper.Map<VacancyDto>(await _unitOfWork.Vacancy.Get(v=>v.Vacancy_Id == id));
+                return View(vm);
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> Create(VacancyVM vm , string[] joblist) {
+        public async Task<IActionResult> Upsert(VacancyVM vm , string[] joblist , int isupdate) {
             var user = await _userManager.GetUserAsync(User);
             vm.PositionList = (await _unitOfWork.Position.GetAll()).Select(p => new SelectListItem
             {
@@ -62,29 +78,38 @@ namespace Project.Areas.Admin.Controllers
                 Text = j.Name,
                 Value = j.Id.ToString()
             });
+
             if (ModelState.IsValid)
             {
-                Vacancy v = await _unitOfWork.Vacancy.Get(v => v.Vacancy_Id == vm.vacancyDto!.Vacancy_Id);
-                if (v!=null)
+                if (isupdate != 0)
                 {
-                    TempData["AlertMessageVacancy"] = "The Vacancy Id Already Exist";
-                    return View(vm);
+                    _unitOfWork.Vacancy.Update(_mapper.Map<Vacancy>(vm.vacancyDto));
+                    TempData["AlertMessageVacancy"] = "Update Vacancy Successfully";
                 }
-                vm.vacancyDto!.Department_Id = user.Department_Id;
-                vm.vacancyDto.Hr_Id = user.Id;
-                vm.vacancyDto!.StatusVacancy_Id = 1;
-                _unitOfWork.Vacancy.Create(_mapper.Map<Vacancy>(vm.vacancyDto));
-                foreach (var job in joblist)
+                else
                 {
-                    VacancyJob vj = new VacancyJob()
+                    Vacancy v = await _unitOfWork.Vacancy.Get(v => v.Vacancy_Id == vm.vacancyDto!.Vacancy_Id);
+                    if (v != null)
                     {
-                        Vacancy_Id = vm.vacancyDto!.Vacancy_Id,
-                        Job_Id = int.Parse(job)
-                    };
-                    _unitOfWork.VacancyJob.Create(vj);
+                        TempData["AlertMessageVacancy"] = "The Vacancy Id Already Exist";
+                        return View(vm);
+                    }
+                    vm.vacancyDto!.Department_Id = user.Department_Id;
+                    vm.vacancyDto.Hr_Id = user.Id;
+                    vm.vacancyDto!.StatusVacancy_Id = 1;
+                    _unitOfWork.Vacancy.Create(_mapper.Map<Vacancy>(vm.vacancyDto));
+                    foreach (var job in joblist)
+                    {
+                        VacancyJob vj = new VacancyJob()
+                        {
+                            Vacancy_Id = vm.vacancyDto!.Vacancy_Id,
+                            Job_Id = int.Parse(job)
+                        };
+                        _unitOfWork.VacancyJob.Create(vj);
+                    }
+                    TempData["AlertMessageVacancy"] = "Create Vacancy Successfully";
                 }
                 await _unitOfWork.Save();
-                TempData["AlertMessageVacancy"] = "Create Vacancy Successfully";
                 return RedirectToAction("Index");
             }
             

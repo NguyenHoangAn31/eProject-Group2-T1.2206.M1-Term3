@@ -11,6 +11,7 @@
         IVacancyJobRepository VacancyJob { get; }
         IVacancyRepository Vacancy { get; }
         IAppUserRepository AppUser { get; }
+        IStatusVacancyRepository StatusVacancy { get; }
         Task Save();
     }
 }

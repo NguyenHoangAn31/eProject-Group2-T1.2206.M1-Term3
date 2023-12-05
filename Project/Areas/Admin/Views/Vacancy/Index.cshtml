@@ -28,7 +28,7 @@
             <div class="card-body">
                 <h5 class="card-title">Manage Vacancies</h5>
                 @if(user.Department_Id != null){
-                    <a asp-controller="Vacancy" asp-action="Create" class="text-white btn btn-success rounded-pill">Add New</a>
+                    <a asp-controller="Vacancy" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
                 }
                 else
                 {
@@ -106,9 +106,13 @@
                                     {
                                         <span class="badge bg-primary">@Html.DisplayFor(modelItem => item.StatusVacancy!.Name)</span>
                                     }
-                                    else
+                                    else if (item.StatusVacancy_Id == 2)
                                     {
                                         <span class="badge bg-danger">@Html.DisplayFor(modelItem => item.StatusVacancy!.Name)</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning">@Html.DisplayFor(modelItem => item.StatusVacancy!.Name)</span>
                                     }
 
                                 </td>
@@ -119,7 +123,13 @@
 
                                     @if (user != null && user.Id == item.Hr_Id)
                                     {
-                                        <a class="text-primary" href="@Url.Action("Detail", "Vacancy", new { id = item.Vacancy_Id })">Access</a>
+                                        <div class="btn-group">
+                                            <a class="text-white btn btn-warning" href="@Url.Action("Upsert", "Vacancy", new { id = item.Vacancy_Id })">Edit</a>
+                                            <a class="text-white btn btn-primary" href="@Url.Action("Detail", "Vacancy", new { id = item.Vacancy_Id })">Access</a>
+                                            <a class="text-white btn btn-danger" href="@Url.Action("Upsert", "Vacancy", new { id = item.Vacancy_Id })">Delete</a>
+                                        </div>
+                                        
+
                                     }
                                     else{
                                         <a class="text-danger">Not Assess</a>

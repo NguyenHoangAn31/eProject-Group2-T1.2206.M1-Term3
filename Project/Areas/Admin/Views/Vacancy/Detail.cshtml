@@ -50,7 +50,16 @@
                             </dt>
                             <dd class="col-sm-7">
                                 @vacancy.StatusVacancy!.Name
+                            </dd><dt class="col-sm-5">
+                                Jobs
+                            </dt>
+                            <dd class="col-sm-7">
+                                @foreach (var job in @vacancy.VacanciesJobs!)
+                                {
+                                    <span>@job.Job!.Name</span>,
+                                }
                             </dd>
+
                             
                         </dl>
                     </div>
