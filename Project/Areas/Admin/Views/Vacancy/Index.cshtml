@@ -39,7 +39,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Basic Modal</h5>
+                                    <h5 class="modal-title">Notification</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -123,11 +123,10 @@
 
                                     @if (user != null && user.Id == item.Hr_Id)
                                     {
-                                        <div class="btn-group">
-                                            <a class="text-white btn btn-warning" href="@Url.Action("Upsert", "Vacancy", new { id = item.Vacancy_Id })">Edit</a>
-                                            <a class="text-white btn btn-primary" href="@Url.Action("Detail", "Vacancy", new { id = item.Vacancy_Id })">Access</a>
-                                            <a class="text-white btn btn-danger" href="@Url.Action("Upsert", "Vacancy", new { id = item.Vacancy_Id })">Delete</a>
-                                        </div>
+                                        @if(item.StatusVacancy_Id != 2){
+                                            <a class="text-white btn btn-warning rounded-pill" href="@Url.Action("Upsert", "Vacancy", new { id = item.Vacancy_Id })">Edit</a>
+                                        }
+                                            <a class="text-white btn btn-primary rounded-pill" href="@Url.Action("Detail", "Vacancy", new { id = item.Vacancy_Id })">Access</a>
                                         
 
                                     }

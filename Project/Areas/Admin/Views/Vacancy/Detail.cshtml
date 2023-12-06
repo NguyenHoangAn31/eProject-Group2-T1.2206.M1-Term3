@@ -56,11 +56,9 @@
                             <dd class="col-sm-7">
                                 @foreach (var job in @vacancy.VacanciesJobs!)
                                 {
-                                    <span>@job.Job!.Name</span>,
+                                    <span>@job.Job!.Name</span>
                                 }
                             </dd>
-
-                            
                         </dl>
                     </div>
                     <div class="col-md-6">
@@ -92,19 +90,22 @@
                         </dl>
                     </div>
                 </div>
-                <dl class="row mt-4">
+                <hr />
+                <dl class="row my-5" style="height: 400px;overflow: auto">
                     <dt class="col-sm-2">
                         Requirement
                     </dt>
                     <dd class="col-sm-10">
                         @Html.Raw(vacancy.Requirement)
                     </dd>
+                    <hr />
                     <dt class="col-sm-2">
                         Description
                     </dt>
                     <dd class="col-sm-10">
                         @Html.Raw(vacancy.Description)
                     </dd>
+                    <hr />
                     <dt class="col-sm-2">
                         Benefits
                     </dt>
@@ -112,9 +113,8 @@
                         @Html.Raw(vacancy.Benefits)
                     </dd>
                 </dl>
-
                 <hr />
-                <p>List of all job applicants who applied for the vacancy</p>
+                <h3>List of all job applicants who applied for the vacancy</h3>
                 <table class="table datatable table-hover table-sm table-applicant-vacancy">
                     <thead>
                         <tr>
@@ -130,12 +130,11 @@
                             <th>
                                 Address
                             </th>
-                            <th>
-                                Status
-                            </th>
+                            
                             <th>
                                 CV
                             </th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -155,18 +154,20 @@
                                     @Html.DisplayFor(modelItem => item.Applicant!.Phone)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Applicant!.Ward),
-                                    @Html.DisplayFor(modelItem => item.Applicant!.District),
                                     @Html.DisplayFor(modelItem => item.Applicant!.Province)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.StatusApplicant!.Name)
                                 </td>
                                 <td>
                                     <form asp-action="Download" method="post" asp-route-id="@item.Id">
                                         <button class="text-white btn btn-primary">Download</button>
                                     </form>
-
+                                </td>
+                                <td>
+                                    @if(vacancy.StatusVacancy_Id != 2){
+                                        <a class="text-white btn btn-success rounded-pill" href="@Url.Action("AsignInterview", "Vacancy" , new { idOfApplicantVacancy = item.Id , idOfVacancy = vacancy.Vacancy_Id})">Accept</a>
+                                        //<a class="text-white btn btn-success rounded-pill" href="@Url.Action("ChangeStatus", "Vacancy", new { idOfApplicant = item.Id , idOfVacancy = vacancy.Vacancy_Id , idOfStatus = 2})">Accept</a>
+                                        <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("ChangeStatus", "Vacancy", new { idOfApplicantVacancy = item.Id , idOfVacancy = vacancy.Vacancy_Id})">Reject</a>
+                                    }
+                                    
                                 </td>
                             </tr>
                     }

@@ -13,7 +13,6 @@
         </ol>
     </nav>
 </div><!-- End Page Title -->
-
 <div class="row">
     <div class="col-lg-12">
 
@@ -25,7 +24,7 @@
                     <thead>
                         <tr>
                             <th>Photo</th>
-                            <th><b>N</b>ame Applicant</th>
+                            <th>Applicant Name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Address</th>
@@ -44,7 +43,26 @@
                                 <td>@Html.DisplayFor(j=>item.Applicant!.Email)</td>
                                 <td>@Html.DisplayFor(j=>item.Applicant!.Phone)</td>
                                 <td>@Html.DisplayFor(j=>item.Applicant!.Province)</td>
-                                <td>@Html.DisplayFor(j=>item.StatusApplicant!.Name)</td>
+                                <td>
+                                    @{
+                                        switch (item.StatusApplicant_Id.ToString())
+                                        {
+                                            case "1":
+                                                <span class="badge bg-warning">@Html.DisplayFor(modelItem => item.StatusApplicant!.Name)</span>
+                                                break;  
+                                            case "2":
+                                                <span class="badge bg-primary">@Html.DisplayFor(modelItem => item.StatusApplicant!.Name)</span>
+                                                break;
+                                            case "3":
+                                                <span class="badge bg-success">@Html.DisplayFor(modelItem => item.StatusApplicant!.Name)</span>
+                                                break;
+                                            case "4":
+                                                <span class="badge bg-danger">@Html.DisplayFor(modelItem => item.StatusApplicant!.Name)</span>
+                                                break;
+                                           
+                                        }
+                                    }
+                                </td>
                             </tr>
                         }
 

@@ -15,6 +15,8 @@ namespace Project.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            
+
             base.OnModelCreating(builder);
             // cắt chuỗi AspNet trước tên của table 
             foreach (var entityType in builder.Model.GetEntityTypes())
@@ -25,6 +27,23 @@ namespace Project.Data
                     entityType.SetTableName(tblName.Substring(6));
                 }
             }
+            //builder.Entity<VacancyJob>()
+            //    .HasOne(v => v.Vacancy)
+            //    .WithMany()
+            //    .HasForeignKey(v => v.Vacancy_Id)
+            //    .OnDelete(DeleteBehavior.Cascade);      
+
+
+            //builder.Entity<ApplicantVacancy>()
+            //    .HasOne(a => a.Vacancy)
+            //    .WithMany()
+            //    .HasForeignKey(a => a.Vacancy_Id)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            
+
+
+
             builder.Entity<Department>().HasData(
                 new Department { Department_Id = "D0001", Name = "Information Technology" , Created_at = DateTime.Now},
                 new Department { Department_Id = "D0002", Name = "Design" , Created_at = DateTime.Now },

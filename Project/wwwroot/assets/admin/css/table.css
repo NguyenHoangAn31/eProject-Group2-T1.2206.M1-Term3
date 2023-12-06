@@ -7,12 +7,14 @@
 table td {
     vertical-align: middle !important;
 }
-.table-applicant-vacancy td:nth-child(1){
+.table-applicant-vacancy td:nth-child(1),
+.table-interview td:first-child
+{
     display:flex;
     gap:10px;
     align-items:center;
 }
-.table-department td:nth-child(-n+2), .table-department th:nth-child(-n+2) {
+.table-department td:nth-child(-n+2), .table-department th:nth-child(-n+2){
     display: none;
 }
 .table-job td:first-child, .table-job th:first-child {

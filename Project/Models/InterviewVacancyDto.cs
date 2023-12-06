@@ -11,7 +11,7 @@ namespace Project.Models
         [ValidateNever]
         public StatusInterview? StatusInterview { get; set; }
 
-        public string? ApplicantVacancy_Id { get; set; }
+        public int? ApplicantVacancy_Id { get; set; }
         [ValidateNever]
         public ApplicantVacancy? ApplicantVacancy { get; set; }
 

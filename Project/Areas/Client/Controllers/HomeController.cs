@@ -62,7 +62,7 @@ namespace Project.Areas.Client.Controllers
                     ApplicantVacancy? a = await _unitOfWork.ApplicantVacancy.CheckExistApplicantVacancy(userSession.Id , vacancyid);
                     if (a != null)
                     {
-                        TempData["AlertMessageError"] = $"Your Cv is being processed";
+                        TempData["AlertMessageError"] = "You have submitted your CV for this position";
                         return RedirectToAction("Detail_Vacancy", new { id = vacancyid });
                     }
                     ApplicantVacancy applicantVacancy = new ApplicantVacancy()
