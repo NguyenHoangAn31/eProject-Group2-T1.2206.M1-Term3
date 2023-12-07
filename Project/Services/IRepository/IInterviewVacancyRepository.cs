@@ -6,6 +6,6 @@ namespace Project.Services.IRepository
     {
         Task<List<InterviewVacancy>> GetAllInterview();
 
-        Task<InterviewVacancy> GetDetail();
+        Task<InterviewVacancy?> GetDetail(int IdInterview);
     }
 }

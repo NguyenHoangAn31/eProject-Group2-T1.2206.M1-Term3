@@ -15,21 +15,31 @@ namespace Project.Services
         public async Task<List<InterviewVacancy>> GetAllInterview()
         {
             List<InterviewVacancy> ivs = await _db.InterviewsVacancies!
-              .Include(iv => iv.StatusInterview)
-              .Include(iv => iv.AppUser)
-              .ThenInclude(iv => iv!.Department)
-              .Include(iv => iv.ApplicantVacancy)
-              .ThenInclude(iv => iv!.AppUser)
-              .Include(iv => iv.ApplicantVacancy)
-              .ThenInclude(iv => iv!.Applicant)
-              
-              .ToListAsync();
+                .Include(iv => iv.StatusInterview)
+                .Include(iv => iv.AppUser)
+                .ThenInclude(iv => iv!.Department)
+                .ToListAsync();
             return ivs;
         }
 
-        public async Task<InterviewVacancy> GetDetail()
+        public async Task<InterviewVacancy?> GetDetail(int IdInterview)
         {
-            throw new NotImplementedException();
+            InterviewVacancy? iv = await _db.InterviewsVacancies!
+                .Include(iv => iv.AppUser)
+                .Include(iv => iv.ApplicantVacancy)
+                .ThenInclude(iv => iv!.Applicant)
+                .Include(iv => iv.ApplicantVacancy)
+                .ThenInclude(iv => iv!.AppUser)
+                .Include(iv => iv.ApplicantVacancy)
+                .ThenInclude(iv => iv!.Vacancy)
+                .Include(iv => iv.ApplicantVacancy)
+                .ThenInclude(iv => iv!.StatusApplicant)
+                .SingleOrDefaultAsync(iv => iv.Id == IdInterview);
+            if (iv != null)
+            {
+                return iv;
+            }
+            return null;
         }
     }
 }

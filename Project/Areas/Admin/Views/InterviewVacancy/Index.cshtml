@@ -1,0 +1,114 @@
+﻿@inject UserManager<AppUser> UserManager
+@model IEnumerable<Project.Data.InterviewVacancy>
+@section HeaderContent {
+    <link href="~/assets/admin/css/table.css" rel="stylesheet">
+}
+@{
+    ViewData["Title"] = "Index";
+    var user = await UserManager.GetUserAsync(User);
+}
+
+
+
+<div class="pagetitle">
+    <h1>Interviews Table</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item">Interview</li>
+            <li class="breadcrumb-item active">Interviews</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Manage Interviews</h5>
+                @if (TempData["AlertMessageInterview"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        @TempData["AlertMessageInterview"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                <table class="table datatable table-hover table-interview">
+                    <thead>
+                        <tr>
+                            <th>
+                                Interviewer
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Department
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                @foreach (var item in Model) 
+                {
+                    <tr>
+                        <td>
+                            <img src="~/@Html.DisplayFor(modelItem => item!.AppUser!.Image)" width="50" />
+                            <span>@Html.DisplayFor(modelItem => item!.AppUser!.Fullname)</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item!.AppUser!.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item!.AppUser!.Department!.Name)
+                        </td>
+                        <td>
+                            @switch(item.StatusInterview_Id.ToString()){
+                                    case "1":
+                                        <span class="badge bg-warning">
+                                            @Html.DisplayFor(modelItem => item.StatusInterview!.Name)
+                                        </span>
+                                        break;
+                                    case "2":
+                                        <span class="badge bg-primary">
+                                            @Html.DisplayFor(modelItem => item.StatusInterview!.Name)
+                                        </span>
+                                        break;
+                                    case "3":
+                                        <span class="badge bg-success">
+                                            @Html.DisplayFor(modelItem => item.StatusInterview!.Name)
+                                        </span>
+                                        break;
+                                    case "4":
+                                        <span class="badge bg-danger">
+                                            @Html.DisplayFor(modelItem => item.StatusInterview!.Name)
+                                        </span>
+                                        break;
+                            }       
+                        </td>
+                        <td>
+                            @if(user.Id == item.AppUser!.Id){
+                                <a class="btn btn-primary rounded-pill" href="@Url.Action("Detail", "InterviewVacancy", new {id = item.Id})">Detail</a>
+                            }
+                            else{
+                            <a class="text-danger">Not Assess</a>
+                            }
+                        </td>
+                    </tr>
+                }
+                    </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+
+            </div>
+        </div>
+
+    </div>
+</div>

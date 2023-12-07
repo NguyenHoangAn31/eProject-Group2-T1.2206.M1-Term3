@@ -6,5 +6,6 @@ namespace Project.Services.IRepository
     {
         Task<List<Vacancy>> GetAll_Vacancies();
         Task<Vacancy?> Vacancy_Detail(string id);
+        void CheckQuantity();
     }
 }

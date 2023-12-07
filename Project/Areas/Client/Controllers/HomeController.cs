@@ -27,6 +27,7 @@ namespace Project.Areas.Client.Controllers
             _contextAccessor = contextAccessor;
             _mapper = mapper;
             _env = env;
+            _unitOfWork.Vacancy.CheckQuantity();
         }
         public IActionResult Index()
         {
@@ -42,7 +43,6 @@ namespace Project.Areas.Client.Controllers
         }
         public async Task<IActionResult> Vacancies()
         {
-            
             List<Vacancy> vacancies = (await _unitOfWork.Vacancy.GetAll_Vacancies()).Where(v=>v.StatusVacancy_Id == 1).ToList();
             return View(vacancies);
         }

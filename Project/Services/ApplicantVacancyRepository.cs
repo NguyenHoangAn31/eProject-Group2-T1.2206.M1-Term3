@@ -21,5 +21,19 @@ namespace Project.Services
             }
             return a;
         }
+
+        public async Task<ApplicantVacancy?> GetWithEmail(int? id)
+        {
+            ApplicantVacancy? av = await _db.ApplicantsVacancies!.
+                Include(av => av.Applicant).
+                Include(av => av.Vacancy).
+                SingleOrDefaultAsync(av => av.Id == id);
+            if(av != null)
+            {
+                return av;
+            }
+            return null;
+        }
+       
     }
 }

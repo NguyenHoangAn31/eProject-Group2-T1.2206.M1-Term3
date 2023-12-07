@@ -1,0 +1,40 @@
+﻿@model Project.Data.InterviewVacancy
+<h3>Start Date : @Model.StartDate</h3>
+<h1>Applicant</h1>
+<p>@Model.ApplicantVacancy!.Applicant!.Fullname</p>
+<p>@Model.ApplicantVacancy!.Applicant!.Email</p>
+<h1>Human Resource</h1>
+<p>@Model.ApplicantVacancy!.AppUser!.Fullname</p>
+<h1>Vacancy</h1>
+<p>@Model.ApplicantVacancy!.Vacancy!.Title</p>
+
+@if (Model.StatusInterview_Id != 3 && Model.StatusInterview_Id != 4)
+{
+    <p>Interview Date</p>
+    <form asp-action="SetDate">
+        <input asp-for="@Model.Id" name="id" hidden/>
+        @if (Model.StartDate == null)
+        {
+            <input name="checkstatus" value="0" hidden/>
+        }
+        <input asp-for="@Model.ApplicantVacancy!.Applicant!.Email" name="email" hidden/>
+        <input asp-for="@Model.StartDate" name="startdate" required/>
+        <input type="submit" value="Set The Date"/>
+    </form>
+}
+@if (Model.StatusInterview_Id == 2)
+{
+    <a class="text-white btn btn-success rounded-pill" href="@Url.Action("ChangeStatus", "InterviewVacancy", new { Id = Model.Id , IdStatus = 3})">Hire</a>
+    <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("ChangeStatus", "InterviewVacancy", new { Id = Model.Id , IdStatus = 4})">Ban</a>
+}
+@if (Model.StatusInterview_Id == 3 || Model.StatusInterview_Id == 4)
+{
+    <hr />
+    <h1 class="text-danger">Candidate @Model.ApplicantVacancy.Applicant.Fullname has been @Model.ApplicantVacancy.StatusApplicant!.Name for this position</h1>
+    <h3>End Date : @Model.EndDate</h3>
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

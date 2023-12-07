@@ -21,7 +21,7 @@
                 @if (string.IsNullOrEmpty(Model.DisplayDepartment))
                 {
                     <div class="form-floating">
-                        <select asp-for="Input.Department_Id" asp-items="@Model.Input.DepartmentList" class="form-select" required>
+                        <select asp-for="Input.Department_Id" asp-items="@Model.Input.DepartmentList" class="form-select">
                             <option disabled selected value="">-Select Department-</option>
                         </select>
                         <label asp-for="Input.Department_Id" class="form-label"></label>

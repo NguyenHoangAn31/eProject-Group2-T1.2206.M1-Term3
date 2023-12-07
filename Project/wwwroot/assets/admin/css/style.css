@@ -1180,7 +1180,7 @@ h6 {
 }
 
 .error-404 h1 {
-  font-size: 180px;
+  font-size: 130px;
   font-weight: 700;
   color: #4154f1;
   margin-bottom: 0;
@@ -1206,7 +1206,7 @@ h6 {
 
 @media (min-width: 992px) {
   .error-404 img {
-    max-width: 50%;
+    max-width: 40%;
   }
 }
 

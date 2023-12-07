@@ -2,6 +2,7 @@
 using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Project.Data;
@@ -19,15 +20,18 @@ namespace Project.Areas.Admin.Controllers
         IUnitOfWork _unitOfWork;
         IMapper _mapper;
         private UserManager<AppUser> _userManager;
+        private readonly IEmailSender _emailSender;
 
-        public VacancyController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager)
+        public VacancyController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager , IEmailSender emailSender)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
-        }       
+            _emailSender = emailSender;
+        }
         public async Task<IActionResult> Index()
         {
+            _unitOfWork.Vacancy.CheckQuantity();
             IEnumerable<VacancyDto> vacancies = (await _unitOfWork.Vacancy.GetAll("AppUser,Position,StatusVacancy,Department")).Select(v => _mapper.Map<VacancyDto>(v)).ToList();
             return View(vacancies);
         }
@@ -103,6 +107,7 @@ namespace Project.Areas.Admin.Controllers
                     if (v != null)
                     {
                         TempData["AlertMessageVacancy"] = "The Vacancy Id Already Exist";
+                        vm.vacancyDto!.Vacancy_Id = null;
                         return View(vm);
                     }
                     vm.vacancyDto!.Department_Id = user.Department_Id;
@@ -184,15 +189,21 @@ namespace Project.Areas.Admin.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             //thay đổi trạng thái của applicanvacancy
-            ApplicantVacancy a = await _unitOfWork.ApplicantVacancy.Get(a => a.Id == vm.IdOfApplicanVacancy);
-            a.StatusApplicant_Id = 2;
+            ApplicantVacancy? a = await _unitOfWork.ApplicantVacancy.GetWithEmail(vm.IdOfApplicanVacancy);
+            a!.StatusApplicant_Id = 2;
             a.Hr_Id = user.Id;
             //thêm dữ liệu vào bảng interviewvacancy
+            vm.InterviewVacancy!.StatusInterview_Id = 1;
             if (vm.InterviewVacancy!.StartDate != null)
             {
+                AppUser appuser = await _unitOfWork.AppUser.Get(a=>a.Id==vm.InterviewVacancy.Interview_Id);
+                await _emailSender.SendEmailAsync(
+                    a.Applicant!.Email,
+                    "Date Interview",
+                    $"Subject: Confirm Interview Appointment<br>Dear {a!.Applicant!.Fullname},<br>Hello {a.Applicant.Fullname},<br>I hope you are having a good day. I am pleased to announce that we would like to confirm an interview appointment with you for the position at StartUp.<br>Details of the appointment are as follows:<br>Time: {vm.InterviewVacancy.StartDate}<br>Location: {a!.Vacancy!.Place}<br>Interviewer: {appuser!.Fullname} (if specific information is available)<br>We hope you will be able to arrive on time and be ready to participate in the interview. If there are any changes that need to be accommodated, or you cannot attend at the confirmed time, please let us know in advance.<br>If you need additional information or support before your interview, don't hesitate to contact us directly.<br>We hope that this appointment will provide an opportunity for us to learn more about each other and about the job position we propose.<br>Thank you very much and we hope to see you soon at your next appointment.<br>Best regards,<br>Interviewer : {appuser!.Fullname}<br>Vacancy : {a!.Vacancy!.Title}<br>Company Name : StartUp<br>Phone : 012345678<br>Email : jobnavigator999@gmail.com");
+
                 vm.InterviewVacancy!.StatusInterview_Id = 2;
             }
-            vm.InterviewVacancy!.StatusInterview_Id = 1;
             vm.InterviewVacancy!.ApplicantVacancy_Id = vm.IdOfApplicanVacancy;
             _unitOfWork.InterviewVacancy.Create(_mapper.Map<InterviewVacancy>(vm.InterviewVacancy));
             await _unitOfWork.Save();

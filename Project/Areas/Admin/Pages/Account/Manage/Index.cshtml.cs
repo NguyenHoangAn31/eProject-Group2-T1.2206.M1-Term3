@@ -74,17 +74,25 @@ namespace Project.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Phone]
             [Display(Name = "Phone number")]
+            [Required]
             public string PhoneNumber { get; set; }
+            [Required]
             public string Department_Id { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> DepartmentList { get; set; }
+            [Required]
             public string Employeecode { get; set; }
+            [Required]
             public string Fullname { get; set; }
             public string Image { get; set; }
             [DataType(DataType.Date)]
+            [Required]
             public DateTime? Birthday { get; set; }
+            [Required]
             public string Ward { get; set; }
+            [Required]
             public string District { get; set; }
+            [Required]
             public string Province { get; set; }
         }
 

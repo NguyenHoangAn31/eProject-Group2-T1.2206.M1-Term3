@@ -36,5 +36,18 @@ namespace Project.Services
               .SingleOrDefaultAsync(v => v.Vacancy_Id == id);
             return vacancy;
         }
+        public void CheckQuantity()
+        {
+            List<Vacancy> vacancies = _db.Vacancies!.ToList();
+            foreach (var vacancy in vacancies)
+            {
+                if(vacancy.ActualQuantity == vacancy.Quantity)
+                {
+                    vacancy.StatusVacancy_Id = 2;
+                    _db.Entry(vacancy).State = EntityState.Modified;
+                }
+            }
+            _db.SaveChanges();
+        }
     }
 }
