@@ -74,25 +74,17 @@ namespace Project.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Phone]
             [Display(Name = "Phone number")]
-            [Required]
             public string PhoneNumber { get; set; }
-            [Required]
             public string Department_Id { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> DepartmentList { get; set; }
-            [Required]
             public string Employeecode { get; set; }
-            [Required]
             public string Fullname { get; set; }
             public string Image { get; set; }
             [DataType(DataType.Date)]
-            [Required]
             public DateTime? Birthday { get; set; }
-            [Required]
             public string Ward { get; set; }
-            [Required]
             public string District { get; set; }
-            [Required]
             public string Province { get; set; }
         }
 
@@ -108,7 +100,7 @@ namespace Project.Areas.Identity.Pages.Account.Manage
              Input = new InputModel
             {
                 Department_Id = a.Department_Id,
-                PhoneNumber = phoneNumber,
+                PhoneNumber = a.PhoneNumber,
                 Employeecode = a.Employeecode,
                 Fullname = a.Fullname,
                 Birthday = a.Birthday,
@@ -147,6 +139,7 @@ namespace Project.Areas.Identity.Pages.Account.Manage
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
+                StatusMessage = "Error Unexpected error when trying to set phone number.";
                 return Page();
             }
 
@@ -164,7 +157,7 @@ namespace Project.Areas.Identity.Pages.Account.Manage
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Error Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
             }

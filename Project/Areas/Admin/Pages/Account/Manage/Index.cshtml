@@ -6,86 +6,119 @@
     Layout = "_Layout";
 }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Username" class="form-control" disabled />
-                <label asp-for="Username" class="form-label"></label>
+<h3 class="mt-3">@ViewData["Title"]</h3>
+
+
+<div>
+    <partial name="_StatusMessage" for="StatusMessage" />
+    <form class="needs-validation" novalidate method="post" enctype="multipart/form-data">
+        
+        <div class="row mb-3">
+            <label asp-for="Username" class="col-md-4 col-lg-3 col-form-label"></label>
+            <div class="col-md-8 col-lg-9">
+                <input asp-for="Username" class="form-control"  disabled>
             </div>
-            @if (!User.IsInRole(SD.Role_Admin))
+        </div>
+
+        @if (!User.IsInRole(SD.Role_Admin))
+        {
+            @if (string.IsNullOrEmpty(Model.DisplayDepartment))
             {
-                @if (string.IsNullOrEmpty(Model.DisplayDepartment))
-                {
-                    <div class="form-floating">
-                        <select asp-for="Input.Department_Id" asp-items="@Model.Input.DepartmentList" class="form-select">
+                <div class="row mb-3">
+                    <label asp-for="Input.Department_Id" class="col-md-4 col-lg-3 col-form-label"></label>
+                    <div class="col-md-8 col-lg-9">
+                        <select asp-for="Input.Department_Id" asp-items="@Model.Input.DepartmentList" class="form-select" required>
                             <option disabled selected value="">-Select Department-</option>
                         </select>
-                        <label asp-for="Input.Department_Id" class="form-label"></label>
-                        <span asp-validation-for="Input.Department_Id" class="text-danger"></span>
                     </div>
-                }
-                else
-                {
-                    <input asp-for="Input.Department_Id" hidden />
-
-                    <div class="form-floating">
-                        <input asp-for="DisplayDepartment" class="form-control" disabled />
-                        <label asp-for="DisplayDepartment" class="form-label"></label>
-                    </div>
-                }
+                    <div class="invalid-feedback">Please select Department.</div>
+                </div>
             }
-            
-            <div class="form-floating">
-                <input asp-for="Input.Fullname" class="form-control" />
-                <label asp-for="Input.Fullname" class="form-label"></label>
-                <span asp-validation-for="Input.Fullname" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.Employeecode" class="form-control" />
-                <label asp-for="Input.Employeecode" class="form-label"></label>
-                <span asp-validation-for="Input.Employeecode" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.Birthday" class="form-control" />
-                <label asp-for="Input.Birthday" class="form-label"></label>
-                <span asp-validation-for="Input.Birthday" class="text-danger"></span>
-            </div>
+            else
+            {
+                <input asp-for="Input.Department_Id" hidden />
 
-            <div class="form-floating">
-                <input asp-for="Input.Ward" class="form-control" />
-                <label asp-for="Input.Ward" class="form-label"></label>
-                <span asp-validation-for="Input.Ward" class="text-danger"></span>
+                <div class="row mb-3">
+                    <label asp-for="DisplayDepartment" class="col-md-4 col-lg-3 col-form-label"></label>
+                    <div class="col-md-8 col-lg-9">
+                        <input asp-for="DisplayDepartment" class="form-control" disabled>
+                    </div>
+                </div>
+
+            }
+        }
+
+      
+
+        <div class="row mb-3">
+            <label asp-for="Input.Fullname" class="col-md-4 col-lg-3 col-form-label"></label>
+            <div class="col-md-8 col-lg-9">
+                <input asp-for="Input.Fullname" class="form-control" required>
+                <div class="invalid-feedback">Please Enter FullName.</div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.District" class="form-control" />
-                <label asp-for="Input.District" class="form-label"></label>
-                <span asp-validation-for="Input.District" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Input.PhoneNumber" class="col-md-4 col-lg-3 col-form-label"></label>
+            <div class="col-md-8 col-lg-9">
+                <input asp-for="Input.PhoneNumber" class="form-control" required>
+                <div class="invalid-feedback">Please Enter PhoneNumber.</div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.Province" class="form-control" />
-                <label asp-for="Input.Province" class="form-label"></label>
-                <span asp-validation-for="Input.Province" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Input.Employeecode" class="col-md-4 col-lg-3 col-form-label"></label>
+            <div class="col-md-8 col-lg-9">
+                <input asp-for="Input.Employeecode" class="form-control" required>
+                <div class="invalid-feedback">Please Enter EmployeeCode.</div>
             </div>
-            <div class="form-floating">
-                <input type="file" name="file" class="form-control" onchange="previewImage(event)" accept="image/*" />
-                <label class="form-label">Image</label>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Input.Birthday" class="col-md-4 col-lg-3 col-form-label"></label>
+            <div class="col-md-8 col-lg-9">
+                <input asp-for="Input.Birthday" class="form-control" required>
+                <div class="invalid-feedback">Please Enter BirthDay.</div>
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-        </form>
-    </div>
-    <div class="col-md-6">
-        <img src="~/@Model.PathImage" class="text-center" id="img_user" width="200" />
-    </div>
-</div>  
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Input.Ward" class="col-md-4 col-lg-3 col-form-label"></label>
+            <div class="col-md-8 col-lg-9">
+                <input asp-for="Input.Ward" class="form-control" required>
+                <div class="invalid-feedback">Please Enter Ward.</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Input.District" class="col-md-4 col-lg-3 col-form-label"></label>
+            <div class="col-md-8 col-lg-9">
+                <input asp-for="Input.District" class="form-control" required>
+                <div class="invalid-feedback">Please Enter District.</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Input.Province" class="col-md-4 col-lg-3 col-form-label"></label>
+            <div class="col-md-8 col-lg-9">
+                <input asp-for="Input.Province" class="form-control" required>
+                <div class="invalid-feedback">Please Enter Province.</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-4 col-lg-3 col-form-label">Photo</label>
+            <div class="col-md-8 col-lg-9">
+                <input type="file" name="file" class="form-control" onchange="previewImage(event)" accept="image/*">
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </form>
+
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
