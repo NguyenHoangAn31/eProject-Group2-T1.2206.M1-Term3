@@ -17,7 +17,7 @@ table td {
 .table-department td:nth-child(-n+2), .table-department th:nth-child(-n+2){
     display: none;
 }
-.table-job td:first-child, .table-job th:first-child {
+.table-skill td:first-child, .table-skill th:first-child {
     display: none;
 }
 .tox-tinymce {

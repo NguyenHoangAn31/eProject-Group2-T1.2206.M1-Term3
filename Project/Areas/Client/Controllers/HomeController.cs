@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using PagedList;
 using Project.Data;
 using Project.Models;
 using Project.Models.ViewModel;
@@ -41,8 +43,9 @@ namespace Project.Areas.Client.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Vacancies()
+        public async Task<IActionResult> Vacancies(int? page)
         {
+          
             List<Vacancy> vacancies = (await _unitOfWork.Vacancy.GetAll_Vacancies()).Where(v=>v.StatusVacancy_Id == 1).ToList();
             return View(vacancies);
         }
@@ -98,9 +101,9 @@ namespace Project.Areas.Client.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM vm)
+        public IActionResult Login(LoginVM vm)
         {
-            Applicant? applicant = (await _unitOfWork.Applicant.CheckLogin(vm.Email!, vm.Password!));
+            Applicant? applicant = _unitOfWork.Applicant.VerifyPassword(vm.Email!, vm.Password!);
             if (applicant != null)
             {
                 var userSession = new UserSession();
@@ -130,14 +133,15 @@ namespace Project.Areas.Client.Controllers
             {
                 if (await _unitOfWork.Applicant.CheckAccountExist(dto.Email!))
                 {
-                    TempData["AlertMessageError"] = "Account Already Exists";
+                    TempData["AlertMessageError"] = "Email Already Exists";
                     return View(dto);
                 }
                 dto.Image = "assets\\client\\img\\img-applicant\\default-image-applicant.png";
+                dto.Password = _unitOfWork.Applicant.HashPassword(dto.Password!);    
                 _unitOfWork.Applicant.Create(_mapper.Map<Applicant>(dto));
                 await _unitOfWork.Save();
                 TempData["AlertMessageSuccess"] = "Creating Account Successfully";
-                return View();
+                return RedirectToAction("Login");
             }
             else
             {

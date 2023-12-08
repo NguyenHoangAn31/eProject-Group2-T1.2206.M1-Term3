@@ -1,17 +1,17 @@
 ﻿@using Project.Models;
-@model IEnumerable<JobDto>;
+@model IEnumerable<SkillDto>;
 
 @section HeaderContent {
     <link href="~/assets/admin/css/table.css" rel="stylesheet">
 }
 
 <div class="pagetitle">
-    <h1>Jobs Table</h1>
+    <h1>Skills Table</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a></li>
             <li class="breadcrumb-item">Admin</li>
-            <li class="breadcrumb-item active">Job</li>
+            <li class="breadcrumb-item active">Skill</li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -21,17 +21,17 @@
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Manage Jobs</h5>
-                <a asp-controller="Job" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
-                @if (TempData["AlertMessageJob"] != null)
+                <h5 class="card-title">Manage Skills</h5>
+                <a asp-controller="Skill" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
+                @if (TempData["AlertMessageSkill"] != null)
                 {
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                        @TempData["AlertMessageJob"]
+                        @TempData["AlertMessageSkill"]
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }
                 <!-- Table with stripped rows -->
-                <table class="table datatable table-hover table-sm table-job">
+                <table class="table datatable table-hover table-sm table-skill">
                     <thead>
                         <tr >
                             <th></th>
@@ -51,8 +51,8 @@
                         <td>@Html.DisplayFor(j=>item.Name)</td>
                         <td>@Html.DisplayFor(j=>item.Department!.Name)</td>
                         <td>
-                            <a class="text-white btn btn-primary rounded-pill" href="@Url.Action("Upsert", "Job", new { id = item.Id })">Edit</a>
-                            <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("Delete", "Job", new { id = item.Id })">Delete</a>
+                            <a class="text-white btn btn-primary rounded-pill" href="@Url.Action("Upsert", "Skill", new { id = item.Id })">Edit</a>
+                            <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("Delete", "Skill", new { id = item.Id })">Delete</a>
                         </td>
                         </tr>
                         }

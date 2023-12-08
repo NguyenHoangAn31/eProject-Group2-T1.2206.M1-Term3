@@ -1,20 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Project.Data;
+using Project.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Project.Models
+namespace Project.Data
 {
-    public class JobDto
+    public class Skill : BaseEntity
     {
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Department_Id { get; set; }
+        [ForeignKey("Department_Id")]
         [ValidateNever]
         public Department? Department { get; set; }
-        [ValidateNever]
-        public IEnumerable<SelectListItem>? DepartmentList { get; set; }
-
+        public virtual ICollection<VacancySkill>? VacanciesJobs { get; set; }
 
     }
 }

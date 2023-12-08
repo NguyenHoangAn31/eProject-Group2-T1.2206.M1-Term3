@@ -7,7 +7,7 @@ namespace Project.Models.ViewModel
     {
         public VacancyDto? vacancyDto { get; set; }
         public IEnumerable<SelectListItem>? PositionList { get; set; }
-        public IEnumerable<SelectListItem>? JobList { get; set; }
+        public IEnumerable<SelectListItem>? SkillList { get; set; }
         public IEnumerable<SelectListItem>? StatusList { get; set; }
 
     }

@@ -51,12 +51,12 @@
                             <dd class="col-sm-7">
                                 @vacancy.StatusVacancy!.Name
                             </dd><dt class="col-sm-5">
-                                Jobs
+                                Skills
                             </dt>
                             <dd class="col-sm-7">
-                                @foreach (var job in @vacancy.VacanciesJobs!)
+                                @foreach (var item in @vacancy.VacanciesSkills!)
                                 {
-                                    <span>@job.Job!.Name</span>
+                                    <span>@item.Skill!.Name</span>
                                 }
                             </dd>
                         </dl>
@@ -175,12 +175,12 @@
                 </table>
 
                 <!-- End Table with stripped rows -->
-
+                <div>
+                    <a asp-action="Index">Back to List</a>
+                </div>
             </div>
         </div>
-
+        
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>

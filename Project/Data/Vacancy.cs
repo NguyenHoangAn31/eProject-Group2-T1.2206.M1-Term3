@@ -37,7 +37,7 @@ namespace Project.Data
         public string? Description { get; set; }
         public string? Benefits { get; set; }
         public DateTime? EndDate { get; set; }
-        public virtual ICollection<VacancyJob>? VacanciesJobs { get; set; }
+        public virtual ICollection<VacancySkill>? VacanciesSkills { get; set; }
 
 
     }

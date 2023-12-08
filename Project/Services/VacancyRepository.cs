@@ -19,8 +19,8 @@ namespace Project.Services
               .Include(p => p.StatusVacancy)
               .Include(p => p.Department)
               .Include(p => p.Position)
-              .Include(one => one.VacanciesJobs!)
-              .ThenInclude(job => job.Job)
+              .Include(one => one.VacanciesSkills!)
+              .ThenInclude(skill => skill.Skill)
               .ToListAsync();
             return vacancies;   
         }
@@ -31,8 +31,8 @@ namespace Project.Services
               .Include(p => p.StatusVacancy)
               .Include(p => p.Department)
               .Include(p => p.Position)
-              .Include(one => one.VacanciesJobs!)
-              .ThenInclude(job => job.Job)
+              .Include(one => one.VacanciesSkills!)
+              .ThenInclude(skill => skill.Skill)
               .SingleOrDefaultAsync(v => v.Vacancy_Id == id);
             return vacancy;
         }

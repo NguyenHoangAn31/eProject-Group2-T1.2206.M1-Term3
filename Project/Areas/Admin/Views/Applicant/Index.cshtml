@@ -25,6 +25,13 @@
             <div class="card-body">
                 <h5 class="card-title">Manage Applicants</h5>
                 <a asp-controller="Applicant" asp-action="Upsert" class="text-white btn btn-success rounded-pill">Add New</a>
+                @if (TempData["AlertMessageApplicant"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        @TempData["AlertMessageApplicant"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
                 <!-- Table with stripped rows -->
                 <table class="table datatable table-hover table-sm">
                     <thead>

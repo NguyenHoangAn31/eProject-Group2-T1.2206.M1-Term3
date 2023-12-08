@@ -12,30 +12,30 @@ namespace Project.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]
-    public class JobController : Controller
+    public class SkillController : Controller
     {
         IUnitOfWork _unitOfWork;
         IMapper _mapper;
-        public JobController(IUnitOfWork unitOfWork, IMapper mapper)
+        public SkillController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
-            IEnumerable<JobDto> result = (await _unitOfWork.Job.GetAll("Department")).Select(c => _mapper.Map<JobDto>(c)).ToList();
+            IEnumerable<SkillDto> result = (await _unitOfWork.Skill.GetAll("Department")).Select(s => _mapper.Map<SkillDto>(s)).ToList();
             return View(result);
         }
 
         public async Task<IActionResult> Upsert(int? id)
         {
-            JobVM vm = new()
+            SkillVM vm = new()
             {
-                job = new JobDto(),
-                DepartmentList = (await _unitOfWork.Department.GetAll()).Select(u => new SelectListItem
+                skill = new SkillDto(),
+                DepartmentList = (await _unitOfWork.Department.GetAll()).Select(d => new SelectListItem
                 {
-                    Text = u.Name,
-                    Value = u.Department_Id
+                    Text = d.Name,
+                    Value = d.Department_Id
                 })
             };
             if (id == null || id == 0)
@@ -46,34 +46,34 @@ namespace Project.Areas.Admin.Controllers
             else
             {
                 //update
-                vm.job = _mapper.Map<JobDto>(await _unitOfWork.Job.Get(u => u.Id == id));
+                vm.skill = _mapper.Map<SkillDto>(await _unitOfWork.Skill.Get(s => s.Id == id));
                 return View(vm);
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upsert(JobVM vm)
+        public async Task<IActionResult> Upsert(SkillVM vm)
         {
             if (ModelState.IsValid)
             {
-                if (vm.job!.Id != 0)
+                if (vm.skill!.Id != 0)
                 {
-                    _unitOfWork.Job.Update(_mapper.Map<Job>(vm.job));
-                    TempData["AlertMessageJob"] = "Update Job Successfully";
+                    _unitOfWork.Skill.Update(_mapper.Map<Skill>(vm.skill));
+                    TempData["AlertMessageSkill"] = "Update Skill Successfully";
                 }
                 else
                 {
-                    _unitOfWork.Job.Create(_mapper.Map<Job>(vm.job));
-                    TempData["AlertMessageJob"] = "Create Job Successfully";
+                    _unitOfWork.Skill.Create(_mapper.Map<Skill>(vm.skill));
+                    TempData["AlertMessageSkill"] = "Create Skill Successfully";
 
                 }
                 await _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
-            vm.DepartmentList = (await _unitOfWork.Department.GetAll()).Select(u => new SelectListItem
+            vm.DepartmentList = (await _unitOfWork.Department.GetAll()).Select(d => new SelectListItem
             {
-                Text = u.Name,
-                Value = u.Department_Id
+                Text = d.Name,
+                Value = d.Department_Id
             });
             return View(vm);
             
@@ -81,15 +81,15 @@ namespace Project.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            JobDto dto = _mapper.Map<JobDto>(await _unitOfWork.Job.Get(j => j.Id == id));
+            SkillDto dto = _mapper.Map<SkillDto>(await _unitOfWork.Skill.Get(s => s.Id == id));
             return View(dto);
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(JobDto dto)
+        public async Task<IActionResult> Delete(SkillDto dto)
         {
-            _unitOfWork.Job.Delete(_mapper.Map<Job>(dto));
+            _unitOfWork.Skill.Delete(_mapper.Map<Skill>(dto));
             await _unitOfWork.Save();
-            TempData["AlertMessageJob"] = "Delete Job Successfully";
+            TempData["AlertMessageSkill"] = "Delete Skill Successfully";
             return RedirectToAction("Index");
         }
 

@@ -34,7 +34,15 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Detail(int id)
         {
             InterviewVacancy? iv = await _unitOfWork.InterviewVacancy.GetDetail(id);
-            return View(iv);
+            var user = await _userManager.GetUserAsync(User);
+            if (user.Id == iv.Interview_Id)
+            {
+                return View(iv);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
         public async Task<IActionResult> ChangeStatus(int id, int IdStatus)
         {

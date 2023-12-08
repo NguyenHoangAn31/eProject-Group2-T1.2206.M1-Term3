@@ -4,9 +4,9 @@ using Project.Data;
 
 namespace Project.Models.ViewModel
 {
-    public class JobVM
+    public class SkillVM
     {
-        public JobDto? job { get; set; }
+        public SkillDto? skill { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem>? DepartmentList { get; set; }
 

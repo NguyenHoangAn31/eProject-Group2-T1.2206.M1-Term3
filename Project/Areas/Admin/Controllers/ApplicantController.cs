@@ -69,9 +69,7 @@ namespace Project.Areas.Admin.Controllers
                                 System.IO.File.Delete(oldImagePath);
                             }   
                         }
-
                     }
-
                     using (var fileStream = new FileStream(Path.Combine(applicantPath, fileName), FileMode.Create))
                     {
                         file.CopyTo(fileStream);
@@ -81,11 +79,24 @@ namespace Project.Areas.Admin.Controllers
                 }
                 if (dto.Id != 0)
                 {
+                    dto.Password = _unitOfWork.Applicant.HashPassword(dto.Password!);
                     _unitOfWork.Applicant.Update(_mapper.Map<Applicant>(dto));
                     TempData["AlertMessageApplicant"] = "Update Applicant Successfully";
                 }
                 else
                 {
+                    Applicant a = await _unitOfWork.Applicant.Get(a => a.Email == dto.Email);
+                    if (a != null)
+                    {
+                        dto.Id = 0;
+                        TempData["AlertMessageApplicant"] = "The Email Already Exists";
+                        return View(dto);
+                    }
+                    if (dto.Image == null)
+                    {
+                        dto.Image = "assets\\client\\img\\img-applicant\\default-image-applicant.png";
+                    }
+                    dto.Password = _unitOfWork.Applicant.HashPassword(dto.Password!);
                     _unitOfWork.Applicant.Create(_mapper.Map<Applicant>(dto));
                     TempData["AlertMessageApplicant"] = "Create Applicant Successfully";
 
@@ -106,18 +117,25 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(ApplicantDto dto)
         {
             var userSesison = _contextAccessor.HttpContext!.Session.GetObjectFromJson<UserSession>("userSession");
-            if (userSesison.Id == dto.Id)
+            if (userSesison != null)
             {
-                _contextAccessor.HttpContext!.Session.Remove("userSession");
+                if (userSesison.Id == dto.Id)
+                {
+                    _contextAccessor.HttpContext!.Session.Remove("userSession");
+                }
             }
-            var oldImagePath =
-                           Path.Combine(_env.WebRootPath,
-                           dto.Image!.TrimStart('\\'));
 
-            if (System.IO.File.Exists(oldImagePath))
-            {
-                System.IO.File.Delete(oldImagePath);
+            if (dto.Image != null && dto.Image != "assets\\client\\img\\img-applicant\\default-image-applicant.png") {
+                var oldImagePath =
+                               Path.Combine(_env.WebRootPath,
+                               dto.Image!.TrimStart('\\'));
+
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
             }
+            
 
             _unitOfWork.Applicant.Delete(_mapper.Map<Applicant>(dto));
             await _unitOfWork.Save();

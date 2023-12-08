@@ -46,10 +46,10 @@ namespace Project.Areas.Admin.Controllers
                     Text = p.Name,
                     Value = p.Id.ToString()
                 }),
-                JobList = (await _unitOfWork.Job.GetAll()).Where(j => j.Department_Id == user.Department_Id).Select(j => new SelectListItem
+                SkillList = (await _unitOfWork.Skill.GetAll()).Where(s => s.Department_Id == user.Department_Id).Select(s => new SelectListItem
                 {
-                    Text = j.Name,
-                    Value = j.Id.ToString()
+                    Text = s.Name,
+                    Value = s.Id.ToString()
                 })
             };
             if (id == null)
@@ -74,7 +74,7 @@ namespace Project.Areas.Admin.Controllers
             }
         }
         [HttpPost]
-        public async Task<  IActionResult> Upsert(VacancyVM vm, string[] joblist, int isupdate)
+        public async Task<  IActionResult> Upsert(VacancyVM vm, string[] skilllist, int isupdate)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -83,10 +83,10 @@ namespace Project.Areas.Admin.Controllers
                 Text = p.Name,
                 Value = p.Id.ToString()
             });
-            vm.JobList = (await _unitOfWork.Job.GetAll()).Where(j => j.Department_Id == user.Department_Id).Select(j => new SelectListItem
+            vm.SkillList = (await _unitOfWork.Skill.GetAll()).Where(s => s.Department_Id == user.Department_Id).Select(s => new SelectListItem
             {
-                Text = j.Name,
-                Value = j.Id.ToString()
+                Text = s.Name,
+                Value = s.Id.ToString()
             });
 
             if (ModelState.IsValid)
@@ -114,14 +114,14 @@ namespace Project.Areas.Admin.Controllers
                     vm.vacancyDto.Hr_Id = user.Id;
                     vm.vacancyDto!.StatusVacancy_Id = 1;
                     _unitOfWork.Vacancy.Create(_mapper.Map<Vacancy>(vm.vacancyDto));
-                    foreach (var job in joblist)
+                    foreach (var skill in skilllist)
                     {
-                        VacancyJob vj = new VacancyJob()
+                        VacancySkill vs = new VacancySkill()
                         {
                             Vacancy_Id = vm.vacancyDto!.Vacancy_Id,
-                            Job_Id = int.Parse(job)
+                            Skill_Id = int.Parse(skill)
                         };
-                        _unitOfWork.VacancyJob.Create(vj);
+                        _unitOfWork.VacancyJob.Create(vs);
                     }
                     TempData["AlertMessageVacancy"] = "Create Vacancy Successfully";
                 }

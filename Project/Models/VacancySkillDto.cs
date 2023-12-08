@@ -1,21 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System.ComponentModel.DataAnnotations;
+using Project.Data;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Project.Data
+namespace Project.Models
 {
-    public class VacancyJob : BaseEntity
+    public class VacancySkillDto
     {
-        [Key]
         public int Id { get; set; }
         public string? Vacancy_Id { get; set; }
-        [ForeignKey("Vacancy_Id")]
         [ValidateNever]
         public Vacancy? Vacancy { get; set; }
-
-        public int? Job_Id { get; set; }
-        [ForeignKey("Job_Id")]
+        public int? Skill_Id { get; set; }
         [ValidateNever]
-        public Job? Job { get; set; }
+        public Skill? Skill { get; set; }
     }
 }

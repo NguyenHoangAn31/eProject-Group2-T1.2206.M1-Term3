@@ -11,20 +11,20 @@ namespace Project.Mapper
             CreateMap<ApplicantVacancy, ApplicantVacancyDto>();
             CreateMap<Department, DepartmentDto>();
             CreateMap<InterviewVacancy, InterviewVacancyDto>();
-            CreateMap<Job, JobDto>();
+            CreateMap<Skill, SkillDto>();
             CreateMap<Position, PositionDto>();
             CreateMap<Vacancy, VacancyDto>();
-            CreateMap<VacancyJob, VacancyJobDto>();
+            CreateMap<VacancySkill, VacancySkillDto>();
 
 
             CreateMap<ApplicantDto, Applicant>();
             CreateMap<ApplicantVacancyDto, ApplicantVacancy>();
             CreateMap<DepartmentDto, Department>();
             CreateMap<InterviewVacancyDto, InterviewVacancy>();
-            CreateMap<JobDto, Job>();
+            CreateMap<SkillDto, Skill>();
             CreateMap<PositionDto, Position>();
             CreateMap<VacancyDto, Vacancy>();
-            CreateMap<VacancyJobDto, VacancyJob>();
+            CreateMap<VacancySkillDto, VacancySkill>();
 
         }
     }

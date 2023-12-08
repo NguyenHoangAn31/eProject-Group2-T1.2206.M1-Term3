@@ -95,9 +95,9 @@
                         <hr>
                         <div class="listjob">
                             <span>Today</span> | 
-                        @foreach(var job in item.VacanciesJobs!)
+                        @foreach(var i in item.VacanciesSkills!)
                         {
-                            <span>@job.Job!.Name</span>
+                            <span>@i.Skill!.Name</span>
                         }
                         </div>
                     </div>
@@ -172,3 +172,4 @@
     </div>
     </div>
 </div>
+

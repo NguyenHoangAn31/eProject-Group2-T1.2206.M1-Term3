@@ -2,7 +2,7 @@
 
 namespace Project.Services.IRepository
 {
-    public interface IJobRepository : IRepository<Job>
+    public interface IVacancySkillRepository : IRepository<VacancySkill>
     {
     }
 }

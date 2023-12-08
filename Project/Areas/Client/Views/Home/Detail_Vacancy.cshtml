@@ -96,10 +96,10 @@
                 </div>
                 <div class="mb-3">
                     <p class="fw-bold">The types of technology the company uses</p>
-                    <div class="listjob">
-                        @foreach (var job in Model.VacanciesJobs!)
+                    <div class="listskill">
+                        @foreach (var item in Model.VacanciesSkills!)
                         {
-                            <span>@job.Job!.Name</span>
+                            <span>@item.Skill!.Name</span>
                         }
                     </div>
                 </div>
