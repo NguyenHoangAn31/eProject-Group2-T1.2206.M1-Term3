@@ -78,6 +78,8 @@ namespace Project.Areas.Identity.Pages.Account.Manage
             public string Department_Id { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> DepartmentList { get; set; }
+            [RegularExpression(@"^E[0-9]*$",
+            ErrorMessage = "You must enter correct format E0000")]
             public string Employeecode { get; set; }
             public string Fullname { get; set; }
             public string Image { get; set; }

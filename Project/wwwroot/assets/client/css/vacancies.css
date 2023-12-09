@@ -53,13 +53,13 @@
     font-size: 20px;
 }
 
-.vacancy p, .vacancy .listjob span {
+.vacancy p, .vacancy .listskill span {
     margin-bottom: 0px;
     color: black;
     font-size: 13px;
 }
 
-.vacancy .listjob span:not(:first-of-type) {
+.vacancy .listskill span:not(:first-of-type) {
     background: #eaeaea;
     padding: 7px;
     border-radius: 7px;
@@ -68,4 +68,11 @@
 
 .img-vacancy {
     border-radius: 10px;
+}
+
+option{
+    background-color:white !important;
+}
+option:hover{
+    
 }

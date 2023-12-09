@@ -1,40 +1,277 @@
 ﻿@model Project.Data.InterviewVacancy
-<h3>Start Date : @Model.StartDate</h3>
-<h1>Applicant</h1>
-<p>@Model.ApplicantVacancy!.Applicant!.Fullname</p>
-<p>@Model.ApplicantVacancy!.Applicant!.Email</p>
-<h1>Human Resource</h1>
-<p>@Model.ApplicantVacancy!.AppUser!.Fullname</p>
-<h1>Vacancy</h1>
-<p>@Model.ApplicantVacancy!.Vacancy!.Title</p>
-
-@if (Model.StatusInterview_Id != 3 && Model.StatusInterview_Id != 4)
-{
-    <p>Interview Date</p>
-    <form asp-action="SetDate">
-        <input asp-for="@Model.Id" name="id" hidden/>
-        @if (Model.StartDate == null)
+<div class="card">
+    <div class="card-body pt-3">
+    @if (Model.StatusInterview_Id != 3 && Model.StatusInterview_Id != 4)
+    {
+        @if (TempData["AlertMessageInterview"] != null)
         {
-            <input name="checkstatus" value="0" hidden/>
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    @TempData["AlertMessageInterview"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         }
-        <input asp-for="@Model.ApplicantVacancy!.Applicant!.Email" name="email" hidden/>
-        <input asp-for="@Model.StartDate" name="startdate" required/>
-        <input type="submit" value="Set The Date"/>
-    </form>
-}
-@if (Model.StatusInterview_Id == 2)
-{
-    <a class="text-white btn btn-success rounded-pill" href="@Url.Action("ChangeStatus", "InterviewVacancy", new { Id = Model.Id , IdStatus = 3})">Hire</a>
-    <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("ChangeStatus", "InterviewVacancy", new { Id = Model.Id , IdStatus = 4})">Ban</a>
-}
-@if (Model.StatusInterview_Id == 3 || Model.StatusInterview_Id == 4)
-{
-    <hr />
-    <h1 class="text-danger">Candidate @Model.ApplicantVacancy.Applicant.Fullname has been @Model.ApplicantVacancy.StatusApplicant!.Name for this position</h1>
-    <h3>End Date : @Model.EndDate</h3>
-}
+        <form asp-action="SetDate">
+            <input asp-for="@Model.Id" name="id" hidden />
+            @if (Model.StartDate == null)
+            {
+                <input name="checkstatus" value="0" hidden />
+            }
+            <input asp-for="@Model.ApplicantVacancy!.Applicant!.Email" name="email" hidden />
+            <input asp-for="@Model.StartDate" name="startdate" class="form-control w-50 d-inline"  required />
+            <input class="btn btn-primary" type="submit" value="Set The Date" />
+        </form>
+    }
+    
+    <div class="d-flex justify-content-between">
+            <h2 class="my-3">Start Date : @Model.StartDate</h2>
+            @if (Model.StatusInterview_Id == 2)
+            {
+                <div class="mt-3">
+                    <a class="text-white btn btn-success" href="@Url.Action("ChangeStatus", "InterviewVacancy", new { Id = Model.Id , IdStatus = 3})">Hire</a>
+                    <a class="text-white btn btn-danger" href="@Url.Action("ChangeStatus", "InterviewVacancy", new { Id = Model.Id , IdStatus = 4})">Ban</a>
+                </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+            }
+    </div>
+    @if (Model.StatusInterview_Id == 3 || Model.StatusInterview_Id == 4)
+    {
+        <hr />
+        <h1 class="text-danger">Candidate @Model.ApplicantVacancy!.Applicant!.Fullname has been @Model.ApplicantVacancy.StatusApplicant!.Name for this position</h1>
+        <h3>End Date : @Model.EndDate</h3>
+    }
+        <hr />
+        <section class="section profile">
+            <p>HR representatives are professionals with expertise in recruitment, human resource management and labor law.</p>
+            <div class="row">
+                <div class="col-xl-4">
+
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                            <img src="~/@Model.ApplicantVacancy!.AppUser!.Image" >
+                            <h2>@Model.ApplicantVacancy!.AppUser!.Fullname </h2>
+                            <h3>@Model.ApplicantVacancy!.AppUser!.Department_Id</h3>
+                            <div class="social-links mt-2">
+                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-8">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <h2 class="text-center">
+                                Human Resource
+                            </h2>
+                            <div class="tab-content pt-2">
+                                <div class="tab-pane fade show active profile-overview">
+
+                                    <h5 class="card-title">Profile Details</h5>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.AppUser!.Fullname</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Department</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.AppUser!.Department_Id</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">BirthDay</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.AppUser!.Birthday</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Address</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.AppUser!.Ward,@Model.ApplicantVacancy!.AppUser!.District,@Model.ApplicantVacancy!.AppUser!.Province</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Phone</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.AppUser!.PhoneNumber</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.AppUser!.UserName</div>
+                                    </div>
+
+                                </div>
+
+                    
+
+                            </div><!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <hr />
+        <section class="section profile">
+            <p>The applicant is an individual seeking employment opportunities within a company. They actively apply for job openings based on their skills, qualifications, and career aspirations.</p>
+            <div class="row">
+                <div class="col-xl-4">
+
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                            <img src="~/@Model.ApplicantVacancy!.Applicant!.Image">
+                            <h2>@Model.ApplicantVacancy!.Applicant!.Fullname </h2>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-8">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <h2 class="text-center">
+                                Applicant
+                            </h2>
+                            <div class="tab-content pt-2">
+                                <div class="tab-pane fade show active profile-overview">
+
+                                    <h5 class="card-title">Profile Details</h5>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Applicant!.Fullname</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">BirthDay</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Applicant!.Birthday</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Address</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Applicant!.Ward,@Model.ApplicantVacancy!.Applicant!.District,@Model.ApplicantVacancy!.Applicant!.Province</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Phone</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Applicant!.Phone</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Applicant!.Fullname</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">CV</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            <form asp-controller="Vacancy" asp-action="Download" method="post" asp-route-id="@Model.ApplicantVacancy.Id">
+                                                <button class="text-white btn btn-primary">Download</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div><!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <session class="section profile">
+            <div class="col-xl-12">
+
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <h2 class="text-center">
+                            Vacancy
+                        </h2>
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active profile-overview">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label ">Title</div>
+                                    <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Vacancy!.Title</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Place</div>
+                                    <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Vacancy!.Place</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Salary</div>
+                                    <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Vacancy!.Salary</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Quantity</div>
+                                    <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Vacancy!.ActualQuantity/@Model.ApplicantVacancy!.Vacancy!.Quantity</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Skills</div>
+                                        <div class="col-lg-9 col-md-8">
+                                        @foreach (var item in @Model.ApplicantVacancy.Vacancy.VacanciesSkills!)
+                                        {
+                                            <span style="background: #eaeaea;padding: 7px;border-radius: 7px;">@item.Skill!.Name</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Description</div>
+                                    <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Vacancy!.Description</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Requirement</div>
+                                    <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Vacancy!.Requirement</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Benefits</div>
+                                    <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.Vacancy!.Benefits</div>
+                                </div>
+                            </div>
+
+
+
+                        </div><!-- End Bordered Tabs -->
+
+                    </div>
+                </div>
+
+            </div>
+        </session>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
 </div>
-

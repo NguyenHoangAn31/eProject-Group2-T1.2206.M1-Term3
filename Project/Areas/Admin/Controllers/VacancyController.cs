@@ -121,7 +121,7 @@ namespace Project.Areas.Admin.Controllers
                             Vacancy_Id = vm.vacancyDto!.Vacancy_Id,
                             Skill_Id = int.Parse(skill)
                         };
-                        _unitOfWork.VacancyJob.Create(vs);
+                        _unitOfWork.VacancySkill.Create(vs);
                     }
                     TempData["AlertMessageVacancy"] = "Create Vacancy Successfully";
                 }
@@ -156,6 +156,7 @@ namespace Project.Areas.Admin.Controllers
             await _unitOfWork.Save();
             return RedirectToAction("Detail", new { id = idOfVacancy });
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Download(int id)
         {
@@ -189,7 +190,7 @@ namespace Project.Areas.Admin.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             //thay đổi trạng thái của applicanvacancy
-            ApplicantVacancy? a = await _unitOfWork.ApplicantVacancy.GetWithEmail(vm.IdOfApplicanVacancy);
+            ApplicantVacancy? a = await _unitOfWork.ApplicantVacancy.GetDetail(vm.IdOfApplicanVacancy);
             a!.StatusApplicant_Id = 2;
             a.Hr_Id = user.Id;
             //thêm dữ liệu vào bảng interviewvacancy

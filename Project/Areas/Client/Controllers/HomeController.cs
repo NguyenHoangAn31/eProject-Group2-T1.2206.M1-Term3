@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Humanizer;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using PagedList;
 using Project.Data;
 using Project.Models;
 using Project.Models.ViewModel;
@@ -12,6 +14,7 @@ using Project.Services.IRepository;
 using Project.SessionExtend;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Project.Areas.Client.Controllers
 {
@@ -22,13 +25,16 @@ namespace Project.Areas.Client.Controllers
         IHttpContextAccessor _contextAccessor;
         IMapper _mapper;
         IWebHostEnvironment _env;
+        private readonly IEmailSender _emailSender;
 
-        public HomeController(IUnitOfWork unitOfWork , IHttpContextAccessor contextAccessor, IMapper mapper , IWebHostEnvironment env)
+
+        public HomeController(IUnitOfWork unitOfWork , IHttpContextAccessor contextAccessor, IMapper mapper , IWebHostEnvironment env , IEmailSender emailSender)
         {
             _unitOfWork = unitOfWork;
             _contextAccessor = contextAccessor;
             _mapper = mapper;
             _env = env;
+            _emailSender = emailSender;
             _unitOfWork.Vacancy.CheckQuantity();
         }
         public IActionResult Index()
@@ -43,10 +49,51 @@ namespace Project.Areas.Client.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Vacancies(int? page)
+        public async Task<IActionResult> Vacancies(int page = 0 , string? skill = null , string? Department_Id = null , string? Place = null , int? Position_Id = null)
         {
-          
-            List<Vacancy> vacancies = (await _unitOfWork.Vacancy.GetAll_Vacancies()).Where(v=>v.StatusVacancy_Id == 1).ToList();
+            ViewData["ListFiled"] = (await _unitOfWork.Department.GetAll()).Select(d => new SelectListItem
+            {
+                Text = d.Name,
+                Value = d.Department_Id
+            });
+            ViewData["ListCountry"] = (await _unitOfWork.Vacancy.GetAll()).Select(v => new SelectListItem
+            {
+                Text = v.Place,
+                Value = v.Place
+            });
+            ViewData["ListPosition"] = (await _unitOfWork.Position.GetAll()).Select(p => new SelectListItem
+            {
+                Text = p.Name,
+                Value = p.Id.ToString()
+            });
+
+            int PageSize = 5;
+            var x = (await _unitOfWork.Vacancy.GetAll_Vacancies()).Where(v => v.StatusVacancy_Id == 1);
+            int count = x.Count();
+            List<Vacancy> vacancies = x.Skip(page * PageSize).Take(PageSize).ToList();
+
+            if (skill != null || Department_Id != null || Place != null || Position_Id != null)
+            {
+                ViewBag.Skill = skill;
+                ViewBag.Department_Id = Department_Id;
+                ViewBag.Place = Place;
+                ViewBag.Position_Id = Position_Id;  
+                List<VacancySkill> vs = (await _unitOfWork.VacancySkill.GetAll("Skill")).Where(vs => vs.Skill!.Name!.ToLower() == skill!.ToLower()).ToList();
+                List<string> idList = vs.Select(v => v.Vacancy_Id!).ToList();
+
+                x = x.Where(v =>
+                    (Department_Id == null || v.Department_Id == Department_Id) &&
+                    (Place == null || v.Place == Place) &&
+                    (Position_Id == null || v.Position_Id == Position_Id)&&
+                    (skill == null || idList.Contains(v.Vacancy_Id!))
+                    );
+
+                count = x.Count();
+                ViewData["count"] = count;
+                vacancies = x.Skip(page * PageSize).Take(PageSize).ToList();
+            }
+            ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+            ViewBag.Page = page;
             return View(vacancies);
         }
         public async Task<IActionResult> Detail_Vacancy(string id)
@@ -117,7 +164,7 @@ namespace Project.Areas.Client.Controllers
             }
             else
             {
-                TempData["AlertMessage"] = "Email Or Password Is Incorrect";
+                TempData["LoginErrorAlertMessage"] = "Email Or Password Is Incorrect";
                 return View();
             }
         }
@@ -133,14 +180,14 @@ namespace Project.Areas.Client.Controllers
             {
                 if (await _unitOfWork.Applicant.CheckAccountExist(dto.Email!))
                 {
-                    TempData["AlertMessageError"] = "Email Already Exists";
+                    TempData["RegisterErrorAlertMessage"] = "Email Already Exists";
                     return View(dto);
                 }
                 dto.Image = "assets\\client\\img\\img-applicant\\default-image-applicant.png";
                 dto.Password = _unitOfWork.Applicant.HashPassword(dto.Password!);    
                 _unitOfWork.Applicant.Create(_mapper.Map<Applicant>(dto));
                 await _unitOfWork.Save();
-                TempData["AlertMessageSuccess"] = "Creating Account Successfully";
+                TempData["LoginSuccessAlertMessage"] = "Creating Account Successfully";
                 return RedirectToAction("Login");
             }
             else
@@ -194,11 +241,65 @@ namespace Project.Areas.Client.Controllers
                     dto.Image = @"assets\client\img\img-applicant\" + fileName;
                 }
             }
+            dto.Password = _unitOfWork.Applicant.HashPassword(dto.Password!);
             _unitOfWork.Applicant.Update(_mapper.Map<Applicant>(dto));
             await _unitOfWork.Save();
            
-            TempData["AlertMessage"] = "Saved Successfully";
+            TempData["ProfileSuccessAlertMessage"] = "Saved Successfully";
             return RedirectToAction("Profile");
+        }
+        public async Task<IActionResult> ChangePassword(string email , string oldpassword , string newpassword , string confirmpassword)
+        {
+            Applicant a = await _unitOfWork.Applicant.Get(a => a.Email == email);
+            if (a.Password != _unitOfWork.Applicant.HashPassword(oldpassword))
+            {
+                TempData["ProfileErrorAlertMessage"] = "Old Password Is Not Correct";
+                return RedirectToAction("Profile");
+            }
+            if(newpassword == confirmpassword) {
+                var regex = @"^(?=.*\d)(?=.*[\W_])[^\s*]{7,}$";
+                var match = Regex.Match(confirmpassword, regex, RegexOptions.IgnoreCase);
+                if (match.Success)
+                {
+                    a.Password = _unitOfWork.Applicant.HashPassword(confirmpassword);
+                    _unitOfWork.Applicant.Update(a);
+                    await _unitOfWork.Save();
+                    TempData["ProfileSuccessAlertMessage"] = "Changed Password Successfully";
+                    return RedirectToAction("Profile");
+                }
+                TempData["ProfileErrorAlertMessage"] = "New Password has at least 7 characters, 1 number and 1 special character";
+                return RedirectToAction("Profile");
+            }
+            TempData["ProfileErrorAlertMessage"] = "New Password And Confirm Password Not Math";
+            return RedirectToAction("Profile");
+        }
+        public async Task<IActionResult> ForgotPassword(string? email)
+        {
+            Applicant a = await _unitOfWork.Applicant.Get(a => a.Email == email);
+            if (a != null)
+            {
+                var r = new Random();
+                string randompass = new string(Enumerable.Range(0, 10)
+                .Select(n =>
+                {
+                    int randomNumber = r.Next(0, 36);
+                    char character = (char)(randomNumber < 10 ? randomNumber + '0' : randomNumber - 10 + 'A');
+                    return character;
+                })
+                .ToArray());
+                await _emailSender.SendEmailAsync(
+                    email,
+                    "Recover Password",
+                    $"Your New Password Is : {randompass}");
+
+                a.Password = _unitOfWork.Applicant.HashPassword(randompass);
+                _unitOfWork.Applicant.Update(a);
+                await _unitOfWork.Save();   
+                TempData["LoginSuccessAlertMessage"] = "Please Check Email";
+                return RedirectToAction("Login");
+            }
+            TempData["LoginErrorAlertMessage"] = "Email Not Exist";
+            return RedirectToAction("Login");
         }
         public IActionResult Logout()
         {

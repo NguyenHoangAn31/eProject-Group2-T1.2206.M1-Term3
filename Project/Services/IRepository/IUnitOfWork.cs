@@ -8,7 +8,7 @@
         IInterviewVacancyRepository InterviewVacancy { get; }
         ISkillRepository Skill { get; }
         IPositionRepository Position { get; }
-        IVacancySkillRepository VacancyJob { get; }
+        IVacancySkillRepository VacancySkill { get; }
         IVacancyRepository Vacancy { get; }
         IAppUserRepository AppUser { get; }
         IStatusVacancyRepository StatusVacancy { get; }

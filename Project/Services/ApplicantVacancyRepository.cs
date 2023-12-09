@@ -22,11 +22,14 @@ namespace Project.Services
             return a;
         }
 
-        public async Task<ApplicantVacancy?> GetWithEmail(int? id)
+        public async Task<ApplicantVacancy?> GetDetail(int? id)
         {
             ApplicantVacancy? av = await _db.ApplicantsVacancies!.
                 Include(av => av.Applicant).
+                Include(av => av.StatusApplicant).
                 Include(av => av.Vacancy).
+                ThenInclude(v => v!.VacanciesSkills!).
+                ThenInclude(skill => skill.Skill).
                 SingleOrDefaultAsync(av => av.Id == id);
             if(av != null)
             {

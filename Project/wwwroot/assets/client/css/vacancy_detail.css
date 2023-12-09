@@ -1,7 +1,9 @@
-﻿.listjob span {
+﻿.listskill span {
     background-color: #eaeaea;
     padding: 7px;
     border-radius: 7px;
+    display:inline-block;
+    margin-top:10px;
 }
 
 .process ul li {

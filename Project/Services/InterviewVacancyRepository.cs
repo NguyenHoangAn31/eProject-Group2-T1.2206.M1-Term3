@@ -32,6 +32,8 @@ namespace Project.Services
                 .ThenInclude(iv => iv!.AppUser)
                 .Include(iv => iv.ApplicantVacancy)
                 .ThenInclude(iv => iv!.Vacancy)
+                .ThenInclude(iv => iv!.VacanciesSkills!)
+                .ThenInclude(x => x.Skill)
                 .Include(iv => iv.ApplicantVacancy)
                 .ThenInclude(iv => iv!.StatusApplicant)
                 .SingleOrDefaultAsync(iv => iv.Id == IdInterview);

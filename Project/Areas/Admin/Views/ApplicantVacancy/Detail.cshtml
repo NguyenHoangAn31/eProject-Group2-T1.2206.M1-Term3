@@ -1,0 +1,164 @@
+﻿@model Models.ApplicantVacancyDto;
+
+
+<div class="card">
+    <div class="card-body pt-3">
+        <section class="section profile">
+            <h1 class="my-5">
+                Status : @{
+                    switch (Model.StatusApplicant_Id.ToString())
+                    {
+                        case "1":
+                            <span class="badge bg-warning">@Html.DisplayFor(modelItem => Model.StatusApplicant!.Name)</span>
+                            break;
+                        case "2":
+                            <span class="badge bg-primary">@Html.DisplayFor(modelItem => Model.StatusApplicant!.Name)</span>
+                            break;
+                        case "3":
+                            <span class="badge bg-success">@Html.DisplayFor(modelItem => Model.StatusApplicant!.Name)</span>
+                            break;
+                        case "4":
+                            <span class="badge bg-danger">@Html.DisplayFor(modelItem => Model.StatusApplicant!.Name)</span>
+                            break;
+
+                    }
+                }
+            </h1>
+            <p>The applicant is an individual seeking employment opportunities within a company. They actively apply for job openings based on their skills, qualifications, and career aspirations.</p>
+            <div class="row">
+                <div class="col-xl-4">
+
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                            <img src="~/@Model.Applicant!.Image">
+                            <h2>@Model.Applicant!.Fullname </h2>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-8">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <h2 class="text-center">
+                                Applicant
+                            </h2>
+                            <div class="tab-content pt-2">
+                                <div class="tab-pane fade show active profile-overview">
+
+                                    <h5 class="card-title">Profile Details</h5>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                        <div class="col-lg-9 col-md-8">@Model.Applicant!.Fullname</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">BirthDay</div>
+                                        <div class="col-lg-9 col-md-8">@Model.Applicant!.Birthday</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Address</div>
+                                        <div class="col-lg-9 col-md-8">@Model.Applicant!.Ward,@Model.Applicant!.District,@Model.Applicant!.Province</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Phone</div>
+                                        <div class="col-lg-9 col-md-8">@Model.Applicant!.Phone</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8">@Model.Applicant!.Fullname</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">CV</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            <form asp-controller="Vacancy" asp-action="Download" method="post" asp-route-id="@Model.Id">
+                                                <button class="text-white btn btn-primary">Download</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div><!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <session class="section profile">
+            <div class="col-xl-12">
+
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <h2 class="text-center">
+                            Vacancy
+                        </h2>
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active profile-overview">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label ">Title</div>
+                                    <div class="col-lg-9 col-md-8">@Model.Vacancy!.Title</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Place</div>
+                                    <div class="col-lg-9 col-md-8">@Model.Vacancy!.Place</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Salary</div>
+                                    <div class="col-lg-9 col-md-8">@Model.Vacancy!.Salary</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Quantity</div>
+                                    <div class="col-lg-9 col-md-8">@Model.Vacancy!.ActualQuantity/@Model.Vacancy!.Quantity</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Skills</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        @foreach (var item in @Model.Vacancy.VacanciesSkills!)
+                                        {
+                                            <span style="background: #eaeaea;padding: 7px;border-radius: 7px;">@item.Skill!.Name</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="mt-5">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Description</div>
+                                        <div class="col-lg-9 col-md-8">@Html.Raw(Model.Vacancy!.Description)</div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Requirement</div>
+                                        <div class="col-lg-9 col-md-8">@Html.Raw(Model.Vacancy!.Requirement)</div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Benefits</div>
+                                        <div class="col-lg-9 col-md-8">@Html.Raw(Model.Vacancy!.Benefits)</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+
+
+                        </div><!-- End Bordered Tabs -->
+
+                    </div>
+                </div>
+
+            </div>
+        </session>
+    </div>
+</div>

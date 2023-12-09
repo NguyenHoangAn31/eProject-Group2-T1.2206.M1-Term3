@@ -94,8 +94,8 @@
                     <p class="fw-bold m-0">Contract type</p>
                     <p>Full time</p>
                 </div>
-                <div class="mb-3">
-                    <p class="fw-bold">The types of technology the company uses</p>
+                <div>
+                    <p class="fw-bold mb-0">The types of technology the company uses</p>
                     <div class="listskill">
                         @foreach (var item in Model.VacanciesSkills!)
                         {
@@ -122,27 +122,29 @@
                 <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex align-items-center justify-content-center">
-                <div class="p-5 bg-white">
-
+                <div class="p-5 bg-white" style="max-width:700px;align-self: baseline;">
+                    <h3>You are applying for [@Model.Place] (@Model.Position.Name) @Model.Department!.Name at StartUp</h3>
                     <form asp-controller="Home" asp-action="SubmitCV" enctype="multipart/form-data">
                         <input asp-for="@Model.Vacancy_Id" name="vacancyid" hidden />
-                        <div class="form-group">
+                        <div class="form-group my-2">
                             <label for="UserName">Email address</label>
                             <input asp-for="@mySessionObject!.UserName" class="form-control" id="UserName" disabled>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group my-2">
                             <label for="Email">Email</label>
                             <input asp-for="@mySessionObject!.Email" type="email" class="form-control" id="Email" disabled>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group my-2">
                             <label for="Phone">Phone</label>
                             <input asp-for="@mySessionObject!.Phone" type="text" class="form-control" id="Phone" disabled>
                         </div>
-                        <div>
+                        <div class="my-2">
                             <label for="CV">CV</label>
                             <input type="file" name="file" class="form-control" required/>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class=text-end>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>

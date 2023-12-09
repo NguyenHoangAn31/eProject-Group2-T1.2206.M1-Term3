@@ -24,5 +24,10 @@ namespace Project.Areas.Admin.Controllers
             IEnumerable<ApplicantVacancyDto> result = (await _unitOfWork.ApplicantVacancy.GetAll("Applicant,Vacancy,StatusApplicant")).Select(c => _mapper.Map<ApplicantVacancyDto>(c)).ToList();
             return View(result);
         }
+        public async Task<IActionResult> Detail(int id)
+        {
+            ApplicantVacancyDto? av = _mapper.Map<ApplicantVacancyDto>(await _unitOfWork.ApplicantVacancy.GetDetail(id));
+            return View(av);
+        }
     }
 }

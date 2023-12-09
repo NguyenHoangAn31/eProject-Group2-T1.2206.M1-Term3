@@ -5,6 +5,6 @@ namespace Project.Services.IRepository
     public interface IApplicantVacancyRepository : IRepository<ApplicantVacancy>
     {
         Task<ApplicantVacancy?> CheckExistApplicantVacancy(int applicantid , string vacancyid);
-        Task<ApplicantVacancy?> GetWithEmail(int? id);
+        Task<ApplicantVacancy?> GetDetail(int? id);
     }
 }

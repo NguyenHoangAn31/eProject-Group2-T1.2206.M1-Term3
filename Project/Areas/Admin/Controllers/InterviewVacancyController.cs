@@ -35,7 +35,7 @@ namespace Project.Areas.Admin.Controllers
         {
             InterviewVacancy? iv = await _unitOfWork.InterviewVacancy.GetDetail(id);
             var user = await _userManager.GetUserAsync(User);
-            if (user.Id == iv.Interview_Id)
+            if (user.Id == iv!.Interview_Id)
             {
                 return View(iv);
             }
@@ -69,21 +69,27 @@ namespace Project.Areas.Admin.Controllers
                     "Interview Result",
                     $"Subject: Information about Interview Results<br>Dear {iv.ApplicantVacancy.Applicant.Fullname},<br>Hello {iv.ApplicantVacancy.Applicant.Fullname},<br>I hope you are well and in a good mood. I would like to share information about the results of the interview process you participated in at StartUp.<br>First, I want to thank you for taking the time and effort to participate in this interview with us. This process always values the commitment and knowledge of each candidate, and we regret to announce that we have selected another candidate who is a better fit for the position.<br>This was not an easy decision and we appreciate everything you brought to the interview process. Your knowledge and skills are impressive, and we hope you will continue to maintain your passion and drive in your career.<br>We sincerely thank you for your interest and for your challenging time with us. If you want specific feedback or have any questions, don't hesitate to contact us.<br>Wishing you success in your future opportunities and sincerely hope you find growth in your career.<br>Best regards,<br>interviewer : {iv.AppUser!.Fullname}<br>Vacancy : {iv.ApplicantVacancy!.Vacancy!.Title}<br>Company Name : StartUp<br>Phone : 012345678<br>Email : jobnavigator999@gmail.com");
             }
+            TempData["AlertMessageInterview"] = "Notification of interview results has been sent to candidates";
             return RedirectToAction("Detail", new { id = id });
         }
         public async Task<IActionResult> SetDate(int id , string email , DateTime startdate , int? checkstatus)
         {
             InterviewVacancy? iv = await _unitOfWork.InterviewVacancy.GetDetail(id);
-            iv!.StartDate = startdate;
             if (checkstatus == 0)
             {
                 iv!.StatusInterview_Id = 2;
             }
             await _unitOfWork.Save();
-            await _emailSender.SendEmailAsync(
+            if (iv!.StartDate != startdate)
+            {
+                TempData["AlertMessageInterview"] = "The interview date has been updated and sent to candidates";
+                iv!.StartDate = startdate;
+                await _emailSender.SendEmailAsync(
                     email,
                     "Date Interview",
                     $"Subject: Confirm Interview Appointment<br>Dear {iv.ApplicantVacancy!.Applicant!.Fullname},<br>Hello {iv.ApplicantVacancy.Applicant.Fullname},<br>I hope you are having a good day. I am pleased to announce that we would like to confirm an interview appointment with you for the position at StartUp.<br>Details of the appointment are as follows:<br>Time: {startdate}<br>Location: {iv.ApplicantVacancy!.Vacancy!.Place}<br>Interviewer: {iv.AppUser!.Fullname} (if specific information is available)<br>We hope you will be able to arrive on time and be ready to participate in the interview. If there are any changes that need to be accommodated, or you cannot attend at the confirmed time, please let us know in advance.<br>If you need additional information or support before your interview, don't hesitate to contact us directly.<br>We hope that this appointment will provide an opportunity for us to learn more about each other and about the job position we propose.<br>Thank you very much and we hope to see you soon at your next appointment.<br>Best regards,<br>Interviewer : {iv.AppUser!.Fullname}<br>Vacancy : {iv.ApplicantVacancy!.Vacancy!.Title}<br>Company Name : StartUp<br>Phone : 012345678<br>Email : jobnavigator999@gmail.com");
+            }
+            
             return RedirectToAction("Detail" , new { id  = id});
         }
     }

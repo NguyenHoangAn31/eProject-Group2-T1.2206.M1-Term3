@@ -17,10 +17,17 @@
                 <div class="section-title position-relative pb-3 mb-5">
                     <h1 class="mb-0">@Model.Fullname</h1>
                 </div>
-                @if (TempData["AlertMessage"] != null)
+                @if (TempData["ProfileSuccessAlertMessage"] != null)
                 {
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        @TempData["AlertMessage"]
+                        @TempData["ProfileSuccessAlertMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                @if (TempData["ProfileErrorAlertMessage"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @TempData["ProfileErrorAlertMessage"]
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }
@@ -84,7 +91,27 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <form asp-action="ChangePassword" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="email" value="@Model.Email">
+                            <h1>Password</h1>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <input type="password" class="form-control border-0 bg-light px-4 mb-1" placeholder="Old Password" style="height: 55px;" name="oldpassword" required>
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" class="form-control border-0 bg-light px-4 mb-1" placeholder="New Password" style="height: 55px;" name="newpassword" required>
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" class="form-control border-0 bg-light px-4 mb-1" placeholder="Confirm Password" style="height: 55px;" name="confirmpassword" required>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
                 </div>
                 

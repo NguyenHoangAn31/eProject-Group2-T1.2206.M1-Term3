@@ -14,7 +14,7 @@ namespace Project.Services
         public IInterviewVacancyRepository InterviewVacancy { get; private set; }
         public ISkillRepository Skill { get; private set; }
         public IPositionRepository Position { get; private set; }
-        public IVacancySkillRepository VacancyJob { get; private set; }
+        public IVacancySkillRepository VacancySkill { get; private set; }
         public IVacancyRepository Vacancy { get; private set; }
         public IAppUserRepository AppUser { get; private set; }
         public IStatusVacancyRepository StatusVacancy { get; private set; }
@@ -28,7 +28,7 @@ namespace Project.Services
             InterviewVacancy = new InterviewVacancyRepository(_db);
             Skill = new SkillRepository(_db);
             Position = new PositionRepository(_db);
-            VacancyJob = new VacancySkillRepository(_db);
+            VacancySkill = new VacancySkillRepository(_db);
             Vacancy = new VacancyRepository(_db);
             AppUser = new AppUserRepository(_db); 
             StatusVacancy = new StatusVacancyRepository(_db);

@@ -8,6 +8,8 @@ namespace Project.Models
         [Required]
         public string? Email { get; set; }
         [Required]
+        [RegularExpression(@"^(?=.*\d)(?=.*[\W_])[^\s*]{7,}$",
+        ErrorMessage = "At least 7 characters, 1 number and 1 special character")]
         public string? Password { get; set; }
         [Required]
         public string? Fullname { get; set; }
