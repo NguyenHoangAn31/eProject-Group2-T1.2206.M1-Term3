@@ -77,17 +77,18 @@ namespace Project.Areas.Client.Controllers
                 ViewBag.Skill = skill;
                 ViewBag.Department_Id = Department_Id;
                 ViewBag.Place = Place;
-                ViewBag.Position_Id = Position_Id;  
-                List<VacancySkill> vs = (await _unitOfWork.VacancySkill.GetAll("Skill")).Where(vs => vs.Skill!.Name!.ToLower() == skill!.ToLower()).ToList();
-                List<string> idList = vs.Select(v => v.Vacancy_Id!).ToList();
+                ViewBag.Position_Id = Position_Id;
 
                 x = x.Where(v =>
                     (Department_Id == null || v.Department_Id == Department_Id) &&
                     (Place == null || v.Place == Place) &&
-                    (Position_Id == null || v.Position_Id == Position_Id)&&
-                    (skill == null || idList.Contains(v.Vacancy_Id!))
-                    );
-
+                    (Position_Id == null || v.Position_Id == Position_Id));
+                if (skill != null)
+                {
+                    List<VacancySkill> vs = (await _unitOfWork.VacancySkill.GetAll("Skill")).Where(vs => vs.Skill!.Name!.ToLower() == skill!.ToLower()).ToList();
+                    List<string> idList = vs.Select(v => v.Vacancy_Id!).ToList();
+                    x = x.Where(v => (skill == null || idList.Contains(v.Vacancy_Id!)));
+                }
                 count = x.Count();
                 ViewData["count"] = count;
                 vacancies = x.Skip(page * PageSize).Take(PageSize).ToList();
