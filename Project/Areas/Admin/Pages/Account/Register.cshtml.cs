@@ -119,14 +119,12 @@ namespace Project.Areas.Identity.Pages.Account
         public async Task OnGetAsync(string returnUrl = null)
         {
 
-            //if (!_roleManager.RoleExistsAsync(SD.Role_Hr).GetAwaiter().GetResult())
-            //{
-            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_Hr)).GetAwaiter().GetResult();
-            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_Interview)).GetAwaiter().GetResult();
-            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
-            //}
-
-
+            if (!_roleManager.RoleExistsAsync(SD.Role_Hr).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Hr)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Interview)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
+            }
             Input = new()
             {
                 RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
