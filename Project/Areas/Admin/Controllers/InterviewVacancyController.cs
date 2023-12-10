@@ -78,8 +78,8 @@ namespace Project.Areas.Admin.Controllers
             if (checkstatus == 0)
             {
                 iv!.StatusInterview_Id = 2;
+                _unitOfWork.InterviewVacancy.Update(iv);
             }
-            await _unitOfWork.Save();
             if (iv!.StartDate != startdate)
             {
                 TempData["AlertMessageInterview"] = "The interview date has been updated and sent to candidates";
@@ -89,7 +89,8 @@ namespace Project.Areas.Admin.Controllers
                     "Date Interview",
                     $"Subject: Confirm Interview Appointment<br>Dear {iv.ApplicantVacancy!.Applicant!.Fullname},<br>Hello {iv.ApplicantVacancy.Applicant.Fullname},<br>I hope you are having a good day. I am pleased to announce that we would like to confirm an interview appointment with you for the position at StartUp.<br>Details of the appointment are as follows:<br>Time: {startdate}<br>Location: {iv.ApplicantVacancy!.Vacancy!.Place}<br>Interviewer: {iv.AppUser!.Fullname} (if specific information is available)<br>We hope you will be able to arrive on time and be ready to participate in the interview. If there are any changes that need to be accommodated, or you cannot attend at the confirmed time, please let us know in advance.<br>If you need additional information or support before your interview, don't hesitate to contact us directly.<br>We hope that this appointment will provide an opportunity for us to learn more about each other and about the job position we propose.<br>Thank you very much and we hope to see you soon at your next appointment.<br>Best regards,<br>Interviewer : {iv.AppUser!.Fullname}<br>Vacancy : {iv.ApplicantVacancy!.Vacancy!.Title}<br>Company Name : StartUp<br>Phone : 012345678<br>Email : jobnavigator999@gmail.com");
             }
-            
+            await _unitOfWork.Save();
+
             return RedirectToAction("Detail" , new { id  = id});
         }
     }

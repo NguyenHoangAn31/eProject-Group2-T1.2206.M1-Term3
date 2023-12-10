@@ -35,7 +35,7 @@ namespace Project.Areas.Client.Controllers
             _mapper = mapper;
             _env = env;
             _emailSender = emailSender;
-            _unitOfWork.Vacancy.CheckQuantity();
+            _unitOfWork.Vacancy.Check();
         }
         public IActionResult Index()
         {
@@ -56,10 +56,14 @@ namespace Project.Areas.Client.Controllers
                 Text = d.Name,
                 Value = d.Department_Id
             });
-            ViewData["ListCountry"] = (await _unitOfWork.Vacancy.GetAll()).Select(v => new SelectListItem
+            var places = await _unitOfWork.Vacancy.GetAll();
+
+            var uniqueProvinces = places.Select(v => v.Place.Split(',').Last().Trim()).Distinct();
+
+            ViewData["ListCountry"] = uniqueProvinces.Select(province => new SelectListItem
             {
-                Text = v.Place,
-                Value = v.Place
+                Text = province,
+                Value = province
             });
             ViewData["ListPosition"] = (await _unitOfWork.Position.GetAll()).Select(p => new SelectListItem
             {
@@ -81,7 +85,7 @@ namespace Project.Areas.Client.Controllers
 
                 x = x.Where(v =>
                     (Department_Id == null || v.Department_Id == Department_Id) &&
-                    (Place == null || v.Place == Place) &&
+                    (Place == null || v.Place!.Contains(Place)) &&
                     (Position_Id == null || v.Position_Id == Position_Id));
                 if (skill != null)
                 {
@@ -211,38 +215,35 @@ namespace Project.Areas.Client.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Profile(ApplicantDto dto , IFormFile file)
+        public async Task<IActionResult> Profile(ApplicantDto dto , IFormFile? file)
         {
-            if (ModelState.IsValid)
+           
+            string wwwRootPath = _env.WebRootPath;
+            if (file != null)
             {
-                string wwwRootPath = _env.WebRootPath;
-                if (file != null)
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                string applicantPath = Path.Combine(wwwRootPath, @"assets\client\img\img-applicant");
+                if (dto.Image != "assets\\client\\img\\img-applicant\\default-image-applicant.png")
                 {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    string applicantPath = Path.Combine(wwwRootPath, @"assets\client\img\img-applicant");
-                    if (dto.Image != "assets\\client\\img\\img-applicant\\default-image-applicant.png")
+                    if (!string.IsNullOrEmpty(dto.Image))
                     {
-                        if (!string.IsNullOrEmpty(dto.Image))
-                        {
-                            //delete the old image
-                            var oldImagePath =
-                                Path.Combine(wwwRootPath, dto.Image.TrimStart('\\'));
+                        //delete the old image
+                        var oldImagePath =
+                            Path.Combine(wwwRootPath, dto.Image.TrimStart('\\'));
 
-                            if (System.IO.File.Exists(oldImagePath))
-                            {
-                                System.IO.File.Delete(oldImagePath);
-                            }
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
                         }
                     }
-                    using (var fileStream = new FileStream(Path.Combine(applicantPath, fileName), FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-
-                    dto.Image = @"assets\client\img\img-applicant\" + fileName;
                 }
+                using (var fileStream = new FileStream(Path.Combine(applicantPath, fileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                dto.Image = @"assets\client\img\img-applicant\" + fileName;
             }
-            dto.Password = _unitOfWork.Applicant.HashPassword(dto.Password!);
             _unitOfWork.Applicant.Update(_mapper.Map<Applicant>(dto));
             await _unitOfWork.Save();
            

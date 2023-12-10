@@ -36,7 +36,7 @@ namespace Project.Services
               .SingleOrDefaultAsync(v => v.Vacancy_Id == id);
             return vacancy;
         }
-        public void CheckQuantity()
+        public void Check()
         {
             List<Vacancy> vacancies = _db.Vacancies!.ToList();
             foreach (var vacancy in vacancies)
@@ -45,6 +45,10 @@ namespace Project.Services
                 {
                     vacancy.StatusVacancy_Id = 2;
                     _db.Entry(vacancy).State = EntityState.Modified;
+                }
+                if (vacancy.EndDate == DateTime.Now)
+                {
+                    _db.Entry(vacancy).State |= EntityState.Deleted;   
                 }
             }
             _db.SaveChanges();

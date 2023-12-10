@@ -31,7 +31,7 @@ namespace Project.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            _unitOfWork.Vacancy.CheckQuantity();
+            _unitOfWork.Vacancy.Check();
             IEnumerable<VacancyDto> vacancies = (await _unitOfWork.Vacancy.GetAll("AppUser,Position,StatusVacancy,Department")).Select(v => _mapper.Map<VacancyDto>(v)).ToList();
             return View(vacancies);
         }
@@ -208,6 +208,8 @@ namespace Project.Areas.Admin.Controllers
             vm.InterviewVacancy!.ApplicantVacancy_Id = vm.IdOfApplicanVacancy;
             _unitOfWork.InterviewVacancy.Create(_mapper.Map<InterviewVacancy>(vm.InterviewVacancy));
             await _unitOfWork.Save();
+
+            TempData["AlertMessageVacancy"] = "Successfully";
             return RedirectToAction("Detail", new { id = vm.IdOfVacancy });
         }
     }
