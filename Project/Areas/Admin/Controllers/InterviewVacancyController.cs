@@ -28,8 +28,8 @@ namespace Project.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<InterviewVacancy> interviewVacancies = (await _unitOfWork.InterviewVacancy.GetAllInterview()).Select(iv => iv).ToList();  
-            return View(interviewVacancies);
+            IEnumerable<InterviewVacancy> interviewVacancies = (await _unitOfWork.InterviewVacancy.GetAllInterview());  
+            return View(interviewVacancies.Reverse());
         }
         public async Task<IActionResult> Detail(int id)
         {

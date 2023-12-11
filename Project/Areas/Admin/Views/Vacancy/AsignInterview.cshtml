@@ -10,7 +10,7 @@
         <h4>Interview</h4>
         <hr />
 
-        <div class="col-md-4">
+        <div class="col-md-5">
             <form class="needs-validation" novalidate asp-action="AsignInterview">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="@Model.IdOfVacancy" hidden/>
@@ -27,7 +27,7 @@
                     <div class="invalid-feedback">Please choose a department.</div>
                 </div>
                 <div class="form-group mt-2">
-                    <input type="submit" value="Update" class="btn btn-primary" />
+                    <input type="submit" value="Select" class="btn btn-primary" />
                 </div>
             </form>
         </div>

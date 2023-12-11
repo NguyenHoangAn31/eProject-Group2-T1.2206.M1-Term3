@@ -24,7 +24,7 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<SkillDto> result = (await _unitOfWork.Skill.GetAll("Department")).Select(s => _mapper.Map<SkillDto>(s)).ToList();
-            return View(result);
+            return View(result.Reverse());
         }
 
         public async Task<IActionResult> Upsert(int? id)

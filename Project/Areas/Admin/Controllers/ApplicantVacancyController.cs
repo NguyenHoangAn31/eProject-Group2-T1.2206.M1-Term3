@@ -22,7 +22,7 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<ApplicantVacancyDto> result = (await _unitOfWork.ApplicantVacancy.GetAll("Applicant,Vacancy,StatusApplicant")).Select(c => _mapper.Map<ApplicantVacancyDto>(c)).ToList();
-            return View(result);
+            return View(result.Reverse());
         }
         public async Task<IActionResult> Detail(int id)
         {

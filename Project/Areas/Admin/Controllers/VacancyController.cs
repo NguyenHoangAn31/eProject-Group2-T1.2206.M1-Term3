@@ -128,7 +128,7 @@ namespace Project.Areas.Admin.Controllers
                 await _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
-
+            vm.vacancyDto!.Vacancy_Id = null;
             return View(vm);
         }
         public async Task<IActionResult> Detail(string id)
@@ -154,6 +154,7 @@ namespace Project.Areas.Admin.Controllers
             a.Hr_Id = user.Id;
             _unitOfWork.ApplicantVacancy.Update(a);
             await _unitOfWork.Save();
+            TempData["AlertMessageVacancy"] = "Reject Applicant Successfully";
             return RedirectToAction("Detail", new { id = idOfVacancy });
         }
         [AllowAnonymous]
@@ -179,7 +180,7 @@ namespace Project.Areas.Admin.Controllers
                 InterviewVacancy = new InterviewVacancyDto(),
                 InterviewList = interviews.Where(u => u.Department_Id == user.Department_Id).Select(u => new SelectListItem
                 {
-                    Text = u.Fullname + $" ({u.Employeecode})",
+                    Text = u.Fullname + $" ({u.Employeecode} - {u.Email})",
                     Value = u.Id
                 })
             };
@@ -209,7 +210,7 @@ namespace Project.Areas.Admin.Controllers
             _unitOfWork.InterviewVacancy.Create(_mapper.Map<InterviewVacancy>(vm.InterviewVacancy));
             await _unitOfWork.Save();
 
-            TempData["AlertMessageVacancy"] = "Successfully";
+            TempData["AlertMessageVacancy"] = "Select Interview Successfully";
             return RedirectToAction("Detail", new { id = vm.IdOfVacancy });
         }
     }

@@ -1,15 +1,16 @@
 ﻿@model Project.Data.InterviewVacancy
 <div class="card">
     <div class="card-body pt-3">
+    @if (TempData["AlertMessageInterview"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            @TempData["AlertMessageInterview"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     @if (Model.StatusInterview_Id != 3 && Model.StatusInterview_Id != 4)
     {
-        @if (TempData["AlertMessageInterview"] != null)
-        {
-            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                    @TempData["AlertMessageInterview"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        }
+        
         <form asp-action="SetDate">
             <input asp-for="@Model.Id" name="id" hidden />
             @if (Model.StartDate == null)
@@ -101,7 +102,7 @@
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Email</div>
-                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.AppUser!.UserName</div>
+                                        <div class="col-lg-9 col-md-8">@Model.ApplicantVacancy!.AppUser!.Email</div>
                                     </div>
 
                                 </div>

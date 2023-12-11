@@ -24,7 +24,7 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<DepartmentDto> result = (await _unitOfWork.Department.GetAll()).Select(c => _mapper.Map<DepartmentDto>(c)).ToList();
-            return View(result);
+            return View(result.Reverse());
         }
 
         public async Task<IActionResult> Upsert(string? id)

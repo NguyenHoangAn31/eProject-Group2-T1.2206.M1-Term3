@@ -72,7 +72,7 @@ namespace Project.Areas.Client.Controllers
             });
 
             int PageSize = 5;
-            var x = (await _unitOfWork.Vacancy.GetAll_Vacancies()).Where(v => v.StatusVacancy_Id == 1);
+            var x = (await _unitOfWork.Vacancy.GetAll_Vacancies()).Where(v => v.StatusVacancy_Id == 1).Reverse();
             int count = x.Count();
             ViewData["countall"] = count;
             List<Vacancy> vacancies = x.Skip(page * PageSize).Take(PageSize).ToList();

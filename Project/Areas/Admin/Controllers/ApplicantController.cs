@@ -29,7 +29,7 @@ namespace Project.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<ApplicantDto> result = (await _unitOfWork.Applicant.GetAll()).Select(c => _mapper.Map<ApplicantDto>(c)).ToList();
-            return View(result);
+            return View(result.Reverse());
         }
         public async Task<IActionResult> Upsert(int? id)
         {

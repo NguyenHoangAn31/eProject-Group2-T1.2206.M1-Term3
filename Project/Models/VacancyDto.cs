@@ -8,8 +8,8 @@ namespace Project.Models
 {
     public class VacancyDto
     {
-        [RegularExpression(@"^V[0-9]*$",
-         ErrorMessage = "You must enter correct format V0000")]
+        [RegularExpression(@"^V[0-9]{4}$",
+         ErrorMessage = "You must enter correct format V[0-9]")]
         public string? Vacancy_Id { get; set; }
         public string? Hr_Id { get; set; }
         [ValidateNever]
