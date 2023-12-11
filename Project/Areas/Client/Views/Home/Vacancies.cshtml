@@ -57,9 +57,9 @@
 
 <div class="container my-5 d-flex justify-content-center">
     <div class="col-md-10">
-    <h1>Outstanding Jobs</h1>
-    @if(ViewData["count"] != null){
-        <h3 class="text-danger">Result : @ViewData["count"] Jobs</h3>
+    <h1>Outstanding Jobs (@ViewData["countall"])</h1>
+    @if(ViewData["countsearch"] != null){
+        <h3 class="text-danger">Result : @ViewData["countsearch"] Jobs</h3>
     }
     <div class=" d-flex mt-5 gap-3">
         <div class="col-md-9 d-flex flex-column gap-3">

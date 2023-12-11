@@ -74,6 +74,7 @@ namespace Project.Areas.Client.Controllers
             int PageSize = 5;
             var x = (await _unitOfWork.Vacancy.GetAll_Vacancies()).Where(v => v.StatusVacancy_Id == 1);
             int count = x.Count();
+            ViewData["countall"] = count;
             List<Vacancy> vacancies = x.Skip(page * PageSize).Take(PageSize).ToList();
 
             if (skill != null || Department_Id != null || Place != null || Position_Id != null)
@@ -94,7 +95,7 @@ namespace Project.Areas.Client.Controllers
                     x = x.Where(v => (skill == null || idList.Contains(v.Vacancy_Id!)));
                 }
                 count = x.Count();
-                ViewData["count"] = count;
+                ViewData["countsearch"] = count;
                 vacancies = x.Skip(page * PageSize).Take(PageSize).ToList();
             }
             ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
