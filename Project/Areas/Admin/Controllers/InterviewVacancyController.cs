@@ -63,7 +63,7 @@ namespace Project.Areas.Admin.Controllers
             }
             else
             {
-                //sebd mail baned
+                //send mail baned
                 await _emailSender.SendEmailAsync(
                     iv.ApplicantVacancy.Applicant!.Email,
                     "Interview Result",

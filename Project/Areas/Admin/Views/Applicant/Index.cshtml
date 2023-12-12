@@ -44,17 +44,15 @@
                                 @Html.DisplayNameFor(model => model.Fullname)
                             </th>
                             <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Phone)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Birthday)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Email)
-                            </th>
-                            <th>
-                                Address
-                            </th>
+                            
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -70,21 +68,16 @@
                                     @Html.DisplayFor(modelItem => item.Fullname)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Phone)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Birthday)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ward),
-                                    @Html.DisplayFor(modelItem => item.District)
-                                    @Html.DisplayFor(modelItem => item.Province)
-
-                                </td>
-
+                                
                                 <td>
                                      <a class="text-white btn btn-primary rounded-pill" href="@Url.Action("Upsert", "Applicant", new { id = item.Id })">Edit</a>
                                      <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("Delete", "Applicant", new { id = item.Id })">Delete</a>

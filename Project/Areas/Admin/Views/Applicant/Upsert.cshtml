@@ -52,6 +52,7 @@
                     <label asp-for="Birthday" class="control-label"></label>
                     <input asp-for="Birthday" class="form-control" required />
                     <div class="invalid-feedback">Please enter birthday.</div>
+                    <span class="text-danger" asp-validation-for="Birthday"></span>
                 </div>
                 <div class="form-group mb-3">
                     <label asp-for="Ward" class="control-label"></label>
