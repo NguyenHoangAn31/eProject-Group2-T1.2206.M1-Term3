@@ -172,7 +172,7 @@
                                     @if(vacancy.StatusVacancy_Id != 2){
                                         <a class="text-white btn btn-success rounded-pill" href="@Url.Action("AsignInterview", "Vacancy" , new { idOfApplicantVacancy = item.Id , idOfVacancy = vacancy.Vacancy_Id})">Accept</a>
                                         //<a class="text-white btn btn-success rounded-pill" href="@Url.Action("ChangeStatus", "Vacancy", new { idOfApplicant = item.Id , idOfVacancy = vacancy.Vacancy_Id , idOfStatus = 2})">Accept</a>
-                                        <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("ChangeStatus", "Vacancy", new { idOfApplicantVacancy = item.Id , idOfVacancy = vacancy.Vacancy_Id})">Reject</a>
+                                        <a class="text-white btn btn-danger rounded-pill" href="@Url.Action("ChangeStatus", "Vacancy", new { idOfApplicantVacancy = item.Id , idOfVacancy = vacancy.Vacancy_Id})">Ban</a>
                                     }
                                     
                                 </td>

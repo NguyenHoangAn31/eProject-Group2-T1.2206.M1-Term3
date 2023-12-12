@@ -87,10 +87,19 @@ namespace Project.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(DepartmentDto dto)
         {
-            _unitOfWork.Department.Delete(_mapper.Map<Department>(dto));
-            await _unitOfWork.Save();
-            TempData["AlertMessageDepartment"] = "Delete Department Successfully";
-            return RedirectToAction("Index");
+            try
+            {
+                _unitOfWork.Department.Delete(_mapper.Map<Department>(dto));
+                await _unitOfWork.Save();
+                TempData["AlertMessageDepartment"] = "Delete Department Successfully";
+                return RedirectToAction("Index");
+            }
+            catch(Exception e) {
+                TempData["AlertMessageDepartmentError"] = "Department Is Active";
+                return RedirectToAction("Delete" , new {id = dto.Department_Id});
+
+            }
+
         }
     }
 }

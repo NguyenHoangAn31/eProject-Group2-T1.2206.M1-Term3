@@ -21,10 +21,10 @@ builder.Services.ConfigureApplicationCookie(options => {
     options.LogoutPath = $"/Admin/Account/Logout";
     options.AccessDeniedPath = $"/Admin/Account/AccessDenied";
 });
-builder.Services.Configure<IdentityOptions>(opts =>
-{
-    opts.SignIn.RequireConfirmedEmail = true;
-});
+//builder.Services.Configure<IdentityOptions>(opts =>
+//{
+//    opts.SignIn.RequireConfirmedEmail = true;
+//});
 // Add Mapper Service
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 // Add Mail Service 
