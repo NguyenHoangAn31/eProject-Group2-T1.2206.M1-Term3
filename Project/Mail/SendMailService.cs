@@ -24,11 +24,15 @@ namespace Project.Mail
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var message = new MimeMessage();
-            message.Sender = new MailboxAddress(mailsettings!.DisplayName, mailsettings.Mail);
-            message.From.Add(new MailboxAddress(mailsettings.DisplayName,mailsettings.Mail));
+            var message = new MimeMessage
+            {
+                Sender = new MailboxAddress(mailsettings!.DisplayName, mailsettings.Mail),
+                Subject = subject,
+            };
+            message.From.Add(new MailboxAddress(mailsettings.DisplayName, mailsettings.Mail));
             message.To.Add(MailboxAddress.Parse(email));
-            message.Subject = subject;
+            message.Body = new TextPart("plain") { Text = htmlMessage };
+
 
             //body
             var bodyBuilder = new BodyBuilder();
@@ -57,5 +61,6 @@ namespace Project.Mail
             smtp.Disconnect(true);
 
         }
+
     }
 }
