@@ -146,14 +146,18 @@ namespace Project.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
         }
-        public async Task<IActionResult> ChangeStatus(int idOfApplicantVacancy, string idOfVacancy)
+        public async Task<IActionResult> Reject(int idOfApplicantVacancy, string idOfVacancy)
         {
             var user = await _userManager.GetUserAsync(User);
-            ApplicantVacancy a = await _unitOfWork.ApplicantVacancy.Get(a => a.Id == idOfApplicantVacancy);
+            ApplicantVacancy? a = await _unitOfWork.ApplicantVacancy.GetDetail(idOfApplicantVacancy);
             a.StatusApplicant_Id = 4;
             a.Hr_Id = user.Id;
             _unitOfWork.ApplicantVacancy.Update(a);
             await _unitOfWork.Save();
+            await _emailSender.SendEmailAsync(
+                   a.Applicant!.Email,
+                   "Interview Result",
+                   $"Subject: Information about Interview Results<br>Dear {a.Applicant.Fullname},<br>Hello {a.Applicant.Fullname},<br>I hope you are well and in a good mood. I would like to share information about the results of the interview process you participated in at StartUp.<br>First, I want to thank you for taking the time and effort to participate in this interview with us. This process always values the commitment and knowledge of each candidate, and we regret to announce that we have selected another candidate who is a better fit for the position.<br>This was not an easy decision and we appreciate everything you brought to the interview process. Your knowledge and skills are impressive, and we hope you will continue to maintain your passion and drive in your career.<br>We sincerely thank you for your interest and for your challenging time with us. If you want specific feedback or have any questions, don't hesitate to contact us.<br>Wishing you success in your future opportunities and sincerely hope you find growth in your career.<br>Best regards,<br>Human Resource : {a.AppUser!.Fullname}<br>Vacancy : {a.Vacancy!.Title}<br>Company Name : StartUp<br>Phone : 012345678<br>Email : jobnavigator999@gmail.com");
             TempData["AlertMessageVacancy"] = "Reject Applicant Successfully";
             return RedirectToAction("Detail", new { id = idOfVacancy });
         }
